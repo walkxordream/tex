@@ -1,0 +1,5 @@
+*.aux text eol=lf
+*.fls text eol=lf
+*.log text eol=lf
+*.out text eol=lf
+*.toc text eol=lf
