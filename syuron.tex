@@ -1,30 +1,11 @@
-\documentclass{jarticle}
-\usepackage{listings}
-\usepackage{color}
+% !TEX program = xelatex
+\documentclass[a4paper,12pt]{report}
 \usepackage[utf8]{inputenc}
-\usepackage{hyperref} % 追加
-\usepackage{pxjahyper}
-
-\definecolor{dkgreen}{rgb}{0,0.6,0}
-\definecolor{gray}{rgb}{0.5,0.5,0.5}
-\definecolor{mauve}{rgb}{0.58,0,0.82}
-
-\lstset{frame=tb,
-  language=Java,
-  aboveskip=3mm,
-  belowskip=3mm,
-  showstringspaces=false,
-  columns=flexible,
-  basicstyle={\small\ttfamily},
-  numbers=none,
-  numberstyle=\tiny\color{gray},
-  keywordstyle=\color{blue},
-  commentstyle=\color{dkgreen},
-  stringstyle=\color{mauve},
-  breaklines=true,
-  breakatwhitespace=true,
-  tabsize=2
-}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xeCJK} % 追加
+\setCJKmainfont{MS Mincho} % フォントの設定
 
 \begin{document}
 
@@ -36,11 +17,13 @@
         \vspace{160pt}
 
         {\Huge バードストライク検出に向けた}\\
-        {\Huge コンピュータビジョンとUAVの活用} 
+        {\Huge コンピュータビジョンと}\\
+        {\Huge UAVの活用}  
 
         \vspace{160pt}
 
-        {\LARGE 山形大学大学院理工学研究科数理科学分野}
+        {\LARGE 山形大学大学院}\\
+        {\LARGE 理工学研究科数理科学分野}
 
         \vspace{10pt}
 
@@ -53,9 +36,34 @@
     \end{center}
 \end{titlepage}
 
+\newpage
+
+\begin{abstract}
+    ここに概要を書きます。
+\end{abstract}
+
+\newpage
+
 \tableofcontents
 
+\newpage
 \section{はじめに}
-ここに本文を書きます。
+
+\subsection{背景と目的}
+近年、再生可能エネルギーの1つである風力発電の導入が注目されているが、発電機の建設には問題点も多い。バードストライクはその問題点の1つであり、回転する風車のブレードに鳥類が衝突する現象である。山形県企業局では、当局が管理している風力発電機に対してバードストライク調査を行っているが、仕事量の多さや正確性に幅があることが懸念されている。この懸念を解消するために、ドローンを用いて発電機周辺の土地を撮影し、自動的に鳥の死骸を発見できるプログラムを作成することが本研究の目的である。
+\\詳しい内容は昨年度の論文で詳細に説明しているので、そちらを参照して欲しい。
+
+\subsection{先行研究の概要}
+昨年度、山形大学の先輩である梅津魁秀氏は、深層学習を用いたバードストライク調査プログラムの基礎的な研究を行った。彼の研究では、AutoEncoderを用いて物体検出モデルを作成し、ドローン画像から鳥の死骸を検出する手法を提案した。具体的には、ドローン画像を「物体が存在する画像」と「物体が存在しない画像」に分類し、さらに「物体が存在する画像」を「鳥の死骸の画像」と「鳥の死骸ではない画像」に分類する手法を開発した。また、物体と鳥の区別を手動で行うためのGUIも開発した。彼の研究により、物体画像に関してF2-scoreが0.83という高い精度で物体の有無を判定することができた。
+
+\subsection{引き継ぎの理由}
+梅津氏の研究は有望な結果を示したが、実用化にはさらなる改良が必要である。特に、検出精度の向上とリアルタイム処理の実現が課題として残されている。これらの課題を解決するために、本研究では梅津氏の研究を引き継ぎ、さらなる改良を行う。
+
+\subsection{本研究の目的}
+本研究の目的は、梅津氏の研究を基にして、バードストライク検出システムの精度向上とリアルタイム処理の実現を目指すことである。具体的には、UAVを用いたデータ収集と、機械学習アルゴリズムの適用による検出精度の向上を図る。また、調査担当者が確認する画像枚数を削減し、省力化や時間削減を実現することを目指す。
+
+\newpage
+\section{方法とアルゴリズム}
+ここからはバードストライク調査プログラムの作成に使用する方法やアルゴリズムを紹介する.なお,今年度は引継ぎのため、重複する部分は省略し、新規の内容や変更した内容のみ説明する。
 
 \end{document}
