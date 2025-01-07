@@ -67,7 +67,32 @@
 
 \newpage
 \section{方法とアルゴリズム}
-ここからはバードストライク調査プログラムの作成に使用する方法やアルゴリズムを紹介する.なお,今年度は引継ぎのため、重複する部分は省略し、新規の内容や変更した内容のみ説明する。
+ここからはバードストライク調査プログラムの作成に使用する方法やアルゴリズムを紹介する。なお、今年度は引継ぎのため、重複する部分は省略し、新規の内容や変更した内容のみ説明する。
+
+\subsection{科学用語の説明}
+本研究では、風力発電所におけるバードストライク調査を自動化するために、さまざまな技術を使用している。以下に、研究の中で使用される主要な科学用語を説明する。
+
+\subsubsection{AutoEncoder（オートエンコーダ）}
+AutoEncoderは、入力データを圧縮し、その圧縮されたデータから元のデータを再構築することを目的としたニューラルネットワークの一種である。主にデータの次元削減や特徴抽出に使用される。AutoEncoderはエンコーダとデコーダの2つの部分から構成され、エンコーダは入力データを低次元の潜在空間にマッピングし、デコーダはその潜在空間から元のデータを再構築する。
+
+\subsubsection{CLIP（Contrastive Language-Image Pre-Training）}
+CLIPは、OpenAIによって開発されたモデルで、画像とテキストのペアを用いて学習することで、画像とテキストの間の関連性を高精度で捉えることができる。CLIPは、画像エンコーダとテキストエンコーダを用いて、それぞれの入力を高次元のベクトルに変換し、これらのベクトル間のコサイン類似度を最大化するように学習する。これにより、画像とテキストの間の関連性を高精度で捉えることができる。
+
+\subsubsection{ResNet（Residual Networks）}
+ResNetは、深層ニューラルネットワークの一種であり、深いネットワークにおける勾配消失問題を解決するために開発された。ResNetは、残差ブロックを導入することで、非常に深いネットワークでも効果的に学習を行うことができる。これにより、画像認識の精度が大幅に向上することが示されている\cite{he2016deep}。
+
+\subsubsection{RN50およびRN50x64}
+RN50は、ResNet-50をベースとしたモデルであり、50層の深層ニューラルネットワークを用いて画像をエンコードする。RN50x64は、ResNet-50を64倍に拡張したモデルであり、より高精度な画像特徴量を抽出することができる。これらのモデルは、CLIPの画像エンコーダとして機能し、テキストエンコーダと組み合わせることで、画像とテキストの関連性を高精度で捉えることができる。
+
+\subsubsection{主成分分析（Principal Component Analysis, PCA）}
+主成分分析は、高次元データを低次元に変換するための統計手法である。データの分散を最大化する方向に新しい軸（主成分）を見つけ、その軸にデータを投影することで次元削減を行う。これにより、データの重要な特徴を保持しつつ、次元を削減することができる。
+
+\subsubsection{K-meansクラスタリング}
+K-meansクラスタリングは、データをK個のクラスタに分割するための非階層型クラスタリング手法である。各クラスタは、クラスタの中心（重心）からの距離が最小になるようにデータポイントを割り当てることで形成される。K-meansクラスタリングは、データのパターンを見つけるために広く使用される。
+
+\subsubsection{コサイン類似度}
+コサイン類似度は、2つのベクトル間の類似度を測るための指標である。ベクトル間の角度のコサイン値を計算することで、ベクトルの方向がどれだけ似ているかを評価する。コサイン類似度は、0から1の範囲で値を取り、1に近いほどベクトルが類似していることを示す。
+
 
 \subsection{AutoEncoderの改良}
 本研究では、以前のAutoEncoderモデルと比較して、構造をシンプルにすることで性能向上を図った。以下に、以前のモデルと現在のモデルの違い、およびその違いによる良い変化について説明する。
@@ -315,109 +340,6 @@
     \end{center}
 \end{figure}
 
-\begin{figure}[h]
-    \centering
-    \begin{tikzpicture}[
-        node distance=0.3cm and 1cm, % 距離を広げる
-        encoder/.style={rectangle, draw, fill=blue!20, minimum height=1cm, minimum width=2cm},
-        decoder/.style={rectangle, draw, fill=red!20, minimum height=1cm, minimum width=2cm},
-        relu/.style={rectangle, draw, fill=yellow!20, minimum height=1cm, minimum width=2cm},
-        arrow/.style={-Stealth, thick}
-    ]
-        % Encoder
-        \node[encoder, xshift=-20.0cm] (input) {入力画像};
-        \node[encoder, right=0.75cm of input] (conv1) {Conv2d (3, 16)};
-        \node[relu, right=0.75cm of conv1] (relu1) {ReLU};
-        \node[encoder, right=0.75cm of relu1] (pool1) {MaxPool2d};
-        \node[encoder, right=0.75cm of pool1] (conv2) {Conv2d (16, 32)};
-        \node[relu, right=0.75cm of conv2] (relu2) {ReLU};
-
-        \node[encoder, below=of input, yshift=-1cm] (pool2) {MaxPool2d};
-        \node[encoder, right=0.75cm of pool2] (conv3) {Conv2d (32, 64)};
-        \node[relu, right=0.75cm of conv3] (relu3) {ReLU};
-        \node[encoder, right=0.75cm of relu3] (pool3) {MaxPool2d};
-        \node[encoder, right=0.75cm of pool3] (conv4) {Conv2d (64, 128)};
-        \node[relu, right=0.75cm of conv4] (relu4) {ReLU};
-
-        \node[encoder, below=of pool2, yshift=-1cm] (pool4) {MaxPool2d};
-        \node[encoder, right=0.75cm of pool4] (conv5) {Conv2d (128, 256)};
-        \node[relu, right=0.75cm of conv5] (relu5) {ReLU};
-
-        % Decoder
-        \node[decoder, below=of pool4, yshift=-1cm] (deconv1) {ConvTranspose2d (256, 128)};
-        \node[relu, right=0.75cm of deconv1] (relu6) {ReLU};
-        \node[decoder, right=0.75cm of relu6] (conv6) {Conv2d (128, 128)};
-        \node[relu, right=0.75cm of conv6] (relu7) {ReLU};
-
-        \node[decoder, below=of deconv1, yshift=-1cm] (deconv2) {ConvTranspose2d (128, 64)};
-        \node[relu, right=0.75cm of deconv2] (relu8) {ReLU};
-        \node[decoder, right=0.75cm of relu8] (conv7) {Conv2d (64, 64)};
-        \node[relu, right=0.75cm of conv7] (relu9) {ReLU};
-
-        \node[decoder, below=of deconv2, yshift=-1cm] (deconv3) {ConvTranspose2d (64, 32)};
-        \node[relu, right=0.75cm of deconv3] (relu10) {ReLU};
-        \node[decoder, right=0.75cm of relu10] (conv8) {Conv2d (32, 32)};
-        \node[relu, right=0.75cm of conv8] (relu11) {ReLU};
-
-        \node[decoder, below=of deconv3, xshift=-4cm, yshift=-1cm] (deconv4) {ConvTranspose2d (32, 16)};
-        \node[relu, right=0.75cm of deconv4] (relu12) {ReLU};
-        \node[decoder, right=0.75cm of relu12] (conv9) {Conv2d (16, 16)};
-        \node[relu, right=0.75cm of conv9] (relu13) {ReLU};
-
-        \node[decoder, below=of deconv4, xshift=-1cm, yshift=-1cm] (deconv5) {ConvTranspose2d (16, 3)};
-        \node[relu, right=0.75cm of deconv5] (relu14) {ReLU};
-        \node[decoder, below=of deconv5, yshift=-1cm] (output) {出力画像};
-
-        % Arrows
-        \draw[arrow] (input) -- (conv1);
-        \draw[arrow] (conv1) -- (relu1);
-        \draw[arrow] (relu1) -- (pool1);
-        \draw[arrow] (pool1) -- (conv2);
-        \draw[arrow] (conv2) -- (relu2);
-
-        \draw[arrow] (relu2) -- (pool2);
-        \draw[arrow] (pool2) -- (conv3);
-        \draw[arrow] (conv3) -- (relu3);
-        \draw[arrow] (relu3) -- (pool3);
-        \draw[arrow] (pool3) -- (conv4);
-        \draw[arrow] (conv4) -- (relu4);
-
-        \draw[arrow] (relu4) -- (pool4);
-        \draw[arrow] (pool4) -- (conv5);
-        \draw[arrow] (conv5) -- (relu5);
-
-        \draw[arrow] (conv5) -- (deconv1); % conv5とdeconv1をつなぐ矢印
-        \draw[arrow] (deconv1) -- (relu6);
-        \draw[arrow] (relu6) -- (conv6);
-        \draw[arrow] (conv6) -- (relu7);
-
-        \draw[arrow] (relu7) -- (deconv2);
-        \draw[arrow] (deconv2) -- (relu8);
-        \draw[arrow] (relu8) -- (conv7);
-        \draw[arrow] (conv7) -- (relu9);
-
-        \draw[arrow] (relu9) -- (deconv3);
-        \draw[arrow] (deconv3) -- (relu10);
-        \draw[arrow] (relu10) -- (conv8);
-        \draw[arrow] (conv8) -- (relu11);
-
-        \draw[arrow] (relu11) -- (deconv4);
-        \draw[arrow] (deconv4) -- (relu12);
-        \draw[arrow] (relu12) -- (conv9);
-        \draw[arrow] (conv9) -- (relu13);
-
-        \draw[arrow] (relu13) -- (deconv5);
-        \draw[arrow] (deconv5) -- (relu14);
-        \draw[arrow] (relu14) -- (output);
-    \end{tikzpicture}
-    
-    \caption{現在のAutoEncoderの構造}
-    \label{fig:autoencoder}
-    \begin{center}
-        \small (入力チャネル, 出力チャネル)
-    \end{center}
-\end{figure}
-
 \begin{itemize}
     \item 畳み込み層と逆畳み込み層の数を減らし、モデルの深さを浅くした。
     \item バッチ正規化層を削除し、計算コストを削減した。
@@ -433,5 +355,30 @@
 \end{itemize}
 
 以上のように、現在のAutoEncoderモデルは、以前のモデルと比較して構造がシンプルになり、計算コストの削減、過学習の防止、モデルの解釈性の向上といった良い変化が見られた。
+
+\subsubsection{AutoEncoderモデルのアップデートの重要性}
+AutoEncoderモデルをアップデートすることは、モデルの性能向上や新しいデータへの適応において非常に重要だ。以下に、モデルをアップデートしないで使い続けることと、アップデートして使うことの差について説明する。
+
+\paragraph{モデルをアップデートしない場合}
+モデルをアップデートしないで使い続けると、以下のような問題が発生する可能性がある。
+
+\begin{itemize}
+    \item \textbf{性能の劣化}: 新しいデータや環境に適応できず、モデルの性能が徐々に劣化する可能性がある。例えば、\cite{goodfellow2016deep}では、モデルの性能がデータの変化に対して敏感であることが示されている。
+    \item \textbf{過学習}: 古いデータに対して過学習してしまい、新しいデータに対して一般化能力が低下する可能性がある。過学習は、モデルの汎化性能を低下させる主要な要因の一つだ\cite{bishop2006pattern}。
+\end{itemize}
+
+\paragraph{モデルをアップデートする場合}
+一方、モデルを定期的にアップデートすることで、以下のような利点がある。
+
+\begin{itemize}
+    \item \textbf{性能向上}: 新しいデータや技術を取り入れることで、モデルの性能を向上させることができる。例えば、\cite{he2016deep}では、ResNetのような新しいアーキテクチャを導入することで、画像認識の精度が大幅に向上したことが示されている。
+    \item \textbf{適応能力の向上}: モデルが新しいデータや環境に適応できるようになり、汎化性能が向上する。これは、モデルがより広範なデータセットに対して有効であることを意味する\cite{lecun2015deep}。
+\end{itemize}
+
+\paragraph{結論}
+以上のように、AutoEncoderモデルをアップデートすることは、性能向上、適応能力の向上など、多くの利点がある。したがって、モデルを定期的にアップデートすることは、長期的な視点で見ても非常に重要だ。
+
+\bibliographystyle{plain}
+\bibliography{references}
 
 \end{document}
