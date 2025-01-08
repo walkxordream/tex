@@ -5,11 +5,20 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{xeCJK}
-\setCJKmainfont{MS Mincho}
+\usepackage{float}
 \usepackage{tikz}
+\usepackage[a4paper, left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\setCJKmainfont{MS Mincho}
 \usetikzlibrary{positioning, shapes.geometric, arrows.meta}
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=orange!30]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
 
 \begin{document}
+
+\setcounter{chapter}{1}
 
 \begin{titlepage}
     \begin{center}
@@ -57,20 +66,17 @@
 \\詳しい内容は昨年度の論文で詳細に説明しているので、そちらを参照して欲しい。
 
 \subsection{先行研究の概要}
-昨年度、山形大学の先輩である梅津魁秀氏は、深層学習を用いたバードストライク調査プログラムの基礎的な研究を行った。彼の研究では、AutoEncoderを用いて物体検出モデルを作成し、ドローン画像から鳥の死骸を検出する手法を提案した。具体的には、ドローン画像を「物体が存在する画像」と「物体が存在しない画像」に分類し、さらに「物体が存在する画像」を「鳥の死骸の画像」と「鳥の死骸ではない画像」に分類する手法を開発した。また、物体と鳥の区別を手動で行うためのGUIも開発した。彼の研究により、物体画像に関してF2-scoreが0.83という高い精度で物体の有無を判定することができた。
+昨年度、山形大学の先輩である梅津魁秀氏は、深層学習を用いたバードストライク調査プログラムの基礎的な研究を行った。彼の研究では、AutoEncoderを用いて物体検出モデルを作成し、ドローン画像から鳥の死骸を検出する手法を提案した。具体的には、ドローン画像を「物体が存在する画像」と「物体が存在しない画像」に分類し、「物体が存在する画像」とGUIを組み合わせることで手動で鳥の死骸を検出する方法を開発した。彼の研究により、物体画像に関してF2-scoreが0.83という高い精度で物体の有無を判定することができた。
 
-\subsection{引き継ぎの理由}
-梅津氏の研究は有望な結果を示したが、実用化にはさらなる改良が必要である。特に、検出精度の向上とリアルタイム処理の実現が課題として残されている。これらの課題を解決するために、本研究では梅津氏の研究を引き継ぎ、さらなる改良を行う。
-
-\subsection{本研究の目的}
-本研究の目的は、梅津氏の研究を基にして、バードストライク検出システムの精度向上とリアルタイム処理の実現を目指すことである。具体的には、UAVを用いたデータ収集と、機械学習アルゴリズムの適用による検出精度の向上を図る。また、調査担当者が確認する画像枚数を削減し、省力化や時間削減を実現することを目指す。
+\subsection{引き継ぎの理由と目標}
+梅津氏の研究は有望な結果を示したが、実用化にはさらなる改良が必要である。特に、写りゆく四季に適応した汎用的なモデルを構築することと、物体画像から鳥の死骸の画像を自動で検出できるようにすることが挙げられる。本研究では、これらの課題に対処し、より実用的なバードストライク検出システムの開発を目指す。
 
 \newpage
 \section{方法とアルゴリズム}
 ここからはバードストライク調査プログラムの作成に使用する方法やアルゴリズムを紹介する。なお、今年度は引継ぎのため、重複する部分は省略し、新規の内容や変更した内容のみ説明する。
 
 \subsection{科学用語の説明}
-本研究では、風力発電所におけるバードストライク調査を自動化するために、さまざまな技術を使用している。以下に、研究の中で使用される主要な科学用語を説明する。
+本研究では、目標達成のために、さまざまな技術を使用している。以下に、研究の中で使用される主要な科学用語を説明する。
 
 \subsubsection{AutoEncoder（オートエンコーダ）}
 AutoEncoderは、入力データを圧縮し、その圧縮されたデータから元のデータを再構築することを目的としたニューラルネットワークの一種である。主にデータの次元削減や特徴抽出に使用される。AutoEncoderはエンコーダとデコーダの2つの部分から構成され、エンコーダは入力データを低次元の潜在空間にマッピングし、デコーダはその潜在空間から元のデータを再構築する。
@@ -82,10 +88,11 @@ CLIPは、OpenAIによって開発されたモデルで、画像とテキスト�
 ResNetは、深層ニューラルネットワークの一種であり、深いネットワークにおける勾配消失問題を解決するために開発された。ResNetは、残差ブロックを導入することで、非常に深いネットワークでも効果的に学習を行うことができる。これにより、画像認識の精度が大幅に向上することが示されている\cite{he2016deep}。
 
 \subsubsection{RN50およびRN50x64}
-RN50は、ResNet-50をベースとしたモデルであり、50層の深層ニューラルネットワークを用いて画像をエンコードする。RN50x64は、ResNet-50を64倍に拡張したモデルであり、より高精度な画像特徴量を抽出することができる。これらのモデルは、CLIPの画像エンコーダとして機能し、テキストエンコーダと組み合わせることで、画像とテキストの関連性を高精度で捉えることができる。
+RN50は、ResNet-50をベースとしたモデルであり、50層の深層ニューラルネットワークを用いて画像をエンコードする。RN50x64は、ResNet-50を64倍に拡張したモデルであり、より高精度な画像特徴量を抽出することができる。RN50x64はRN50の各層のフィルタ数を64倍に増やすことで、より多くの特徴を捉えることができる。これにより、より高精度な画像認識が可能となる。これらのモデルは、CLIPの画像エンコーダとして機能し、テキストエンコーダと組み合わせることで、画像とテキストの関連性を高精度で捉えることができる。
 
 \subsubsection{主成分分析（Principal Component Analysis, PCA）}
 主成分分析は、高次元データを低次元に変換するための統計手法である。データの分散を最大化する方向に新しい軸（主成分）を見つけ、その軸にデータを投影することで次元削減を行う。これにより、データの重要な特徴を保持しつつ、次元を削減することができる。
+各主成分の寄与度は、その主成分がデータの分散をどれだけ説明しているかを示す指標である。寄与度が高い主成分ほど、データの重要な情報を多く含んでいることを意味する。通常、最初の数個の主成分がデータの大部分の分散を説明するため、次元削減後のデータ解析において重要な役割を果たす。
 
 \subsubsection{K-meansクラスタリング}
 K-meansクラスタリングは、データをK個のクラスタに分割するための非階層型クラスタリング手法である。各クラスタは、クラスタの中心（重心）からの距離が最小になるようにデータポイントを割り当てることで形成される。K-meansクラスタリングは、データのパターンを見つけるために広く使用される。
@@ -93,82 +100,136 @@ K-meansクラスタリングは、データをK個のクラスタに分割する
 \subsubsection{コサイン類似度}
 コサイン類似度は、2つのベクトル間の類似度を測るための指標である。ベクトル間の角度のコサイン値を計算することで、ベクトルの方向がどれだけ似ているかを評価する。コサイン類似度は、0から1の範囲で値を取り、1に近いほどベクトルが類似していることを示す。
 
+\subsubsection{シード（Seed）}
+シードは、乱数生成の初期値を設定するための値である。シードを固定することで、実験の再現性を確保することができる。
+
+\subsubsection{ゼロショット学習（Zero-Shot Learning）}
+ゼロショット学習は、トレーニング時に見たことのないクラスのデータを分類する能力を持つ機械学習手法である。ゼロショット学習では、事前に学習した知識を利用して、新しいクラスのデータを認識する。これにより、少ないデータで新しいクラスを分類することが可能となる。
+
+\subsection{検出方法}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance=1.5cm, auto]
+        % Nodes
+        \node (start) [startstop] {ドローンで画像撮影};
+        \node (prepare) [process, below of=start] {画像を224×224ピクセルに分割};
+        \node (model) [process, below of=prepare] {複数のモデルに入力して出力画像を生成};
+        \node (diff) [process, below of=model] {入力画像と出力画像の差分画像を取得};
+        \node (select) [process, below of=diff] {入力画像と出力画像のMSEが最も小さい出力画像を選択};
+        \node (binarize) [process, below of=select] {差分画像を2値化};
+        \node (area) [process, below of=binarize] {面積を算出し閾値と比較し物体の有無を判断};
+        \node (clip) [process, below of=area] {CLIPでゼロショット分類};
+        \node (end) [startstop, below of=clip] {結果出力};
+
+        % Arrows
+        \draw [arrow] (start) -- (prepare);
+        \draw [arrow] (prepare) -- (model);
+        \draw [arrow] (model) -- (diff);
+        \draw [arrow] (diff) -- (select);
+        \draw [arrow] (select) -- (binarize);
+        \draw [arrow] (binarize) -- (area);
+        \draw [arrow] (area) -- (clip);
+        \draw [arrow] (clip) -- (end);
+    \end{tikzpicture}
+    \caption{バードストライク検出システムの流れ}
+    \label{fig:birdstrike_detection}
+\end{figure}
+
+本研究では、ドローン画像からコンピュータビジョンを用いてバードストライク検出システムを製作した。具体的な流れは以下の通りである。
+
+始めに、ドローンで探索範囲意を撮影し、画像（3000×4000ピクセルが複数枚）を準備する。次に、それらの画像を224×224ピクセルに分割し、背景の種類が複数あるため、複数のモデルに入力する。
+
+出力画像と入力画像の差分画像を取ることで、物体部分だけが浮き彫りになった画像を得る。複数のモデルを使用しているため、モデル分の差分画像が生成される。最も適したモデルによる差分画像を選択するために、入力画像と出力画像の平均二乗誤差（MSE）の値が最も小さい画像を採用する。
+
+採用した差分画像に関して、2値化し、面積を算出して閾値と比較することで物体の有無を判断する。抽出できた物体画像に関しては、その画像が鳥の画像なのかを判定する必要があるが、現状では鳥の死骸の画像が少ないため、教師あり学習は困難である。そこで、ゼロショットで分類できるCLIPの導入を検討している。
+
+ここまでは内部的な処理の話であり、実務での使用のためにさくらのVPSの導入やDjangoでのアプリケーション開発を学部生二人が行った。これについては巻末に付録として記載する。
 
 \subsection{AutoEncoderの改良}
-本研究では、以前のAutoEncoderモデルと比較して、構造をシンプルにすることで性能向上を図った。以下に、以前のモデルと現在のモデルの違い、およびその違いによる良い変化について説明する。
+本研究では、以前のAutoEncoderモデルと比較して、構造をシンプルにすることで性能向上を図った。以下に、以前のモデルと現在のモデルの違い、およびその違いによる改善点について説明する。
+
+\subsubsection{モデル用語の説明}
+
+\begin{itemize}
+    \item \textbf{Conv2d (入力, 出力)}: 2次元畳み込み層。入力チャネル数と出力チャネル数を指定し、画像の特徴を抽出するために使用される。例えば、Conv2d (3, 16)は3チャネルの入力画像を16チャネルの出力に変換する。
+    \item \textbf{BatchNorm2d}: バッチ正規化層。ミニバッチごとにデータを正規化し、学習の安定性と速度を向上させる。内部共変量シフトを減少させる効果がある。
+    \item \textbf{ReLU}: Rectified Linear Unit（ReLU）活性化関数。入力が0以下の場合は0を出力し、0より大きい場合はそのまま出力する。非線形性を導入し、モデルの表現力を高める。
+    \item \textbf{MaxPool2d}: 最大プーリング層。指定されたウィンドウサイズ内で最大値を抽出し、空間的なサイズを縮小する。特徴マップのダウンサンプリングに使用される。
+    \item \textbf{ConvTranspose2d}: 2次元逆畳み込み層。畳み込み層の逆操作を行い、特徴マップの空間的なサイズを拡大する。アップサンプリングに使用される。
+\end{itemize}
 
 \subsubsection{以前のAutoEncoderモデル}
 以前のAutoEncoderモデルは、以下のような構造を持っていた。
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}[
-        node distance=0.3cm and 1cm, % 距離を広げる
-        encoder/.style={rectangle, draw, fill=blue!20, minimum height=1cm, minimum width=2cm},
-        decoder/.style={rectangle, draw, fill=red!20, minimum height=1cm, minimum width=2cm},
-        norm/.style={rectangle, draw, fill=green!20, minimum height=1cm, minimum width=2cm},
-        relu/.style={rectangle, draw, fill=yellow!20, minimum height=1cm, minimum width=2cm},
+        encoder/.style={rectangle, draw, fill=blue!20, minimum height=0.5cm, minimum width=1.5cm},
+        decoder/.style={rectangle, draw, fill=red!20, minimum height=0.5cm, minimum width=1.5cm},
+        norm/.style={rectangle, draw, fill=green!20, minimum height=0.5cm, minimum width=1.5cm},
+        relu/.style={rectangle, draw, fill=yellow!20, minimum height=0.5cm, minimum width=1.5cm},
         arrow/.style={-Stealth, thick}
     ]
         % Encoder
-        \node[encoder,xshift=-15.0cm] (input) {入力画像};
-        \node[encoder, right=0.75cm of input] (conv1) {Conv2d (3, 16)};
+        \node[encoder] (input) {入力画像};
+        \node[encoder, below=1.0cm of input] (conv1) {Conv2d (3, 16)};
         \node[norm, right=0.75cm of conv1] (norm1) {BatchNorm2d};
         \node[relu, right=0.75cm of norm1] (relu1) {ReLU};
         \node[encoder, right=0.75cm of relu1] (pool1) {MaxPool2d};
         \node[encoder, right=0.75cm of pool1] (conv2) {Conv2d (16, 32)};
-        \node[norm, right=0.75cm of conv2] (norm2) {BatchNorm2d};
+        \node[norm, below=0.8cm of norm1] (norm2) {BatchNorm2d};
         \node[relu, right=0.75cm of norm2] (relu2) {ReLU};
-        \node[encoder, below=of input, yshift=-1cm] (pool2) {MaxPool2d};
+        \node[encoder, right=0.75cm of relu2] (pool2) {MaxPool2d};
         \node[encoder, right=0.75cm of pool2] (conv3) {Conv2d (32, 64)};
-        \node[norm, right=0.75cm of conv3] (norm3) {BatchNorm2d};
+        \node[norm, below=0.8cm of norm2] (norm3) {BatchNorm2d};
         \node[relu, right=0.75cm of norm3] (relu3) {ReLU};
         \node[encoder, right=0.75cm of relu3] (pool3) {MaxPool2d};
         \node[encoder, right=0.75cm of pool3] (conv4) {Conv2d (64, 128)};
-        \node[norm, right=0.75cm of conv4] (norm4) {BatchNorm2d};
+        \node[norm, below=0.8cm of norm3] (norm4) {BatchNorm2d};
         \node[relu, right=0.75cm of norm4] (relu4) {ReLU};
-        \node[encoder, below=of pool2, yshift=-1cm] (pool4) {MaxPool2d};
+        \node[encoder, right=0.75cm of relu4] (pool4) {MaxPool2d};
         \node[encoder, right=0.75cm of pool4] (conv5) {Conv2d (128, 256)};
-        \node[norm, right=0.75cm of conv5] (norm5) {BatchNorm2d};
+        \node[norm, below=0.8cm of norm4] (norm5) {BatchNorm2d};
         \node[relu, right=0.75cm of norm5] (relu5) {ReLU};
         \node[encoder, right=0.75cm of relu5] (pool5) {MaxPool2d};
         \node[encoder, right=0.75cm of pool5] (conv6) {Conv2d (256, 512)};
-        \node[norm, right=0.75cm of conv6] (norm6) {BatchNorm2d};
+        \node[norm, below=0.8cm of norm5] (norm6) {BatchNorm2d};
         \node[relu, right=0.75cm of norm6] (relu6) {ReLU};
 
         % Decoder
-        \node[decoder, below=of pool5, yshift=-1cm] (deconv1) {ConvTranspose2d (512, 256)};
+        \node[decoder, below=7.7cm of conv1] (deconv1) {ConvTranspose2d (512, 256)};
         \node[norm, right=0.75cm of deconv1] (norm7) {BatchNorm2d};
         \node[relu, right=0.75cm of norm7] (relu7) {ReLU};
         \node[decoder, right=0.75cm of relu7] (conv7) {Conv2d (256, 256)};
-        \node[norm, right=0.75cm of conv7] (norm8) {BatchNorm2d};
+        \node[norm, below=0.8cm of norm7] (norm8) {BatchNorm2d};
         \node[relu, right=0.75cm of norm8] (relu8) {ReLU};
         \node[decoder, right=0.75cm of relu8] (deconv2) {ConvTranspose2d (256, 128)};
-        \node[norm, right=0.75cm of deconv2] (norm9) {BatchNorm2d};
+        \node[norm, below=0.8cm of norm8] (norm9) {BatchNorm2d};
         \node[relu, right=0.75cm of norm9] (relu9) {ReLU};
-        \node[decoder, below=of deconv1, yshift=-1cm] (conv8) {Conv2d (128, 128)};
-        \node[norm, right=0.75cm of conv8] (norm10) {BatchNorm2d};
+        \node[decoder, right=0.75cm of relu9] (conv8) {Conv2d (128, 128)};
+        \node[norm, below=0.8cm of norm9] (norm10) {BatchNorm2d};
         \node[relu, right=0.75cm of norm10] (relu10) {ReLU};
         \node[decoder, right=0.75cm of relu10] (deconv3) {ConvTranspose2d (128, 64)};
-        \node[norm, right=0.75cm of deconv3] (norm11) {BatchNorm2d};
+        \node[norm, below=0.8cm of norm10] (norm11) {BatchNorm2d};
         \node[relu, right=0.75cm of norm11] (relu11) {ReLU};
         \node[decoder, right=0.75cm of relu11] (conv9) {Conv2d (64, 64)};
-        \node[norm, right=0.75cm of conv9] (norm12) {BatchNorm2d};
+        \node[norm, below=0.8cm of norm11] (norm12) {BatchNorm2d};
         \node[relu, right=0.75cm of norm12] (relu12) {ReLU};
-        \node[decoder, below=of deconv3, yshift=-1cm] (deconv4) {ConvTranspose2d (64, 32)};
-        \node[norm, right=0.75cm of deconv4] (norm13) {BatchNorm2d};
+        \node[decoder, right=0.75cm of relu12] (deconv4) {ConvTranspose2d (64, 32)};
+        \node[norm, below=0.8cm of norm12] (norm13) {BatchNorm2d};
         \node[relu, right=0.75cm of norm13] (relu13) {ReLU};
         \node[decoder, right=0.75cm of relu13] (conv10) {Conv2d (32, 32)};
-        \node[norm, right=0.75cm of conv10] (norm14) {BatchNorm2d};
+        \node[norm, below=0.8cm of norm13] (norm14) {BatchNorm2d};
         \node[relu, right=0.75cm of norm14] (relu14) {ReLU};
         \node[decoder, right=0.75cm of relu14] (deconv5) {ConvTranspose2d (32, 16)};
-        \node[norm, right=0.75cm of deconv5] (norm15) {BatchNorm2d};
+        \node[norm, below=0.8cm of norm14] (norm15) {BatchNorm2d};
         \node[relu, right=0.75cm of norm15] (relu15) {ReLU};
-        \node[decoder, below=of deconv4, yshift=-1cm] (conv11) {Conv2d (16, 16)};
-        \node[norm, right=0.75cm of conv11] (norm16) {BatchNorm2d};
+        \node[decoder, right=0.75cm of relu15] (conv11) {Conv2d (16, 16)};
+        \node[norm, below=0.8cm of norm15] (norm16) {BatchNorm2d};
         \node[relu, right=0.75cm of norm16] (relu16) {ReLU};
         \node[decoder, right=0.75cm of relu16] (deconv6) {ConvTranspose2d (16, 3)};
-        \node[decoder, below=of deconv5, yshift=-1cm] (output) {出力画像};
+        \node[decoder, below=of deconv6] (output) {出力画像};
 
         % Arrows
         \draw[arrow] (input) -- (conv1);
@@ -195,7 +256,7 @@ K-meansクラスタリングは、データをK個のクラスタに分割する
         \draw[arrow] (conv6) -- (norm6);
         \draw[arrow] (norm6) -- (relu6);
 
-        \draw[arrow] (conv6) -- (deconv1); % conv6とdeconv1をつなぐ矢印
+        \draw[arrow] (relu6) -- (deconv1);
         \draw[arrow] (deconv1) -- (norm7);
         \draw[arrow] (norm7) -- (relu7);
         \draw[arrow] (relu7) -- (conv7);
@@ -228,68 +289,65 @@ K-meansクラスタリングは、データをK個のクラスタに分割する
         \draw[arrow] (relu16) -- (deconv6);
         \draw[arrow] (deconv6) -- (output);
     \end{tikzpicture}
-    \caption{以前のAutoEncoderの構造}
-    \label{fig:old_autoencoder}
-    \begin{center}
-        \small (入力チャネル, 出力チャネル)
-    \end{center}
+    \caption{AutoEncoderの構造}
+    \label{fig:autoencoder_structure}
 \end{figure}
 
-\subsubsection{現在のAutoEncoderモデル}
-現在のAutoEncoderモデルは、以前のモデルと比較して構造がシンプルになっている。具体的には、以下のような変更が加えられた。
 
-\begin{figure}[h]
+\subsubsection{現在のAutoEncoderモデル}
+現在のAutoEncoderモデルは、以前のモデルと比較して構造がシンプルになっている。以下に、現在のモデルの構造を示す。
+
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}[
-        node distance=0.3cm and 1cm, % 距離を広げる
-        encoder/.style={rectangle, draw, fill=blue!20, minimum height=1cm, minimum width=2cm},
-        decoder/.style={rectangle, draw, fill=red!20, minimum height=1cm, minimum width=2cm},
-        relu/.style={rectangle, draw, fill=yellow!20, minimum height=1cm, minimum width=2cm},
+        encoder/.style={rectangle, draw, fill=blue!20, minimum height=0.5cm, minimum width=1.5cm},
+        decoder/.style={rectangle, draw, fill=red!20, minimum height=0.5cm, minimum width=1.5cm},
+        relu/.style={rectangle, draw, fill=yellow!20, minimum height=0.5cm, minimum width=1.5cm},
         arrow/.style={-Stealth, thick}
     ]
         % Encoder
-        \node[encoder,xshift=-10.0cm] (input) {入力画像};
-        \node[encoder, right=0.75cm of input] (conv1) {Conv2d (3, 16)};
-        \node[relu, right=0.75cm of conv1] (relu1) {ReLU};
+        \node[encoder] (input) {入力画像};
+        \node[encoder, below=0.8cm of input] (conv1) {Conv2d (3, 16)};
+        \node[relu, right=0.75cm of conv1] (relu1) {ReLU}; % ReLUノードを下に配置
         \node[encoder, right=0.75cm of relu1] (pool1) {MaxPool2d};
         \node[encoder, right=0.75cm of pool1] (conv2) {Conv2d (16, 32)};
-        \node[relu, right=0.75cm of conv2] (relu2) {ReLU};
+        \node[relu, below=0.8cm of relu1] (relu2) {ReLU}; % ReLUノードを下に配置
 
-        \node[encoder, below=of input, yshift=-1cm] (pool2) {MaxPool2d};
+        \node[encoder, right=0.75cm of relu2] (pool2) {MaxPool2d};
         \node[encoder, right=0.75cm of pool2] (conv3) {Conv2d (32, 64)};
-        \node[relu, right=0.75cm of conv3] (relu3) {ReLU};
+        \node[relu, below=0.8cm of relu2] (relu3) {ReLU}; % ReLUノードを下に配置
         \node[encoder, right=0.75cm of relu3] (pool3) {MaxPool2d};
         \node[encoder, right=0.75cm of pool3] (conv4) {Conv2d (64, 128)};
-        \node[relu, right=0.75cm of conv4] (relu4) {ReLU};
+        \node[relu, below=0.8cm of relu3] (relu4) {ReLU}; % ReLUノードを下に配置
 
-        \node[encoder, below=of pool2, yshift=-1cm] (pool4) {MaxPool2d};
+        \node[encoder, right=0.75cm of relu4] (pool4) {MaxPool2d};
         \node[encoder, right=0.75cm of pool4] (conv5) {Conv2d (128, 256)};
-        \node[relu, right=0.75cm of conv5] (relu5) {ReLU};
+        \node[relu, below=0.8cm of relu4] (relu5) {ReLU}; % ReLUノードを下に配置
 
         % Decoder
-        \node[decoder, below=of pool4, yshift=-1cm] (deconv1) {ConvTranspose2d (256, 128)};
-        \node[relu, right=0.75cm of deconv1] (relu6) {ReLU};
+        \node[decoder, below=6.0cm of conv1] (deconv1) {ConvTranspose2d (256, 128)};
+        \node[relu, right=0.75cm of deconv1] (relu6) {ReLU}; % ReLUノードを下に配置
         \node[decoder, right=0.75cm of relu6] (conv6) {Conv2d (128, 128)};
-        \node[relu, right=0.75cm of conv6] (relu7) {ReLU};
+        \node[relu, below=0.8cm of relu6] (relu7) {ReLU}; % ReLUノードを下に配置
 
-        \node[decoder, below=of deconv1, yshift=-1cm] (deconv2) {ConvTranspose2d (128, 64)};
-        \node[relu, right=0.75cm of deconv2] (relu8) {ReLU};
+        \node[decoder, right=0.75cm of relu7] (deconv2) {ConvTranspose2d (128, 64)};
+        \node[relu, below=0.8cm of relu7] (relu8) {ReLU}; % ReLUノードを下に配置
         \node[decoder, right=0.75cm of relu8] (conv7) {Conv2d (64, 64)};
-        \node[relu, right=0.75cm of conv7] (relu9) {ReLU};
+        \node[relu, below=0.8cm of relu8] (relu9) {ReLU}; % ReLUノードを下に配置
 
-        \node[decoder, below=of deconv2, yshift=-1cm] (deconv3) {ConvTranspose2d (64, 32)};
-        \node[relu, right=0.75cm of deconv3] (relu10) {ReLU};
+        \node[decoder, right=0.75cm of relu9] (deconv3) {ConvTranspose2d (64, 32)};
+        \node[relu, below=0.8cm of relu9] (relu10) {ReLU}; % ReLUノードを下に配置
         \node[decoder, right=0.75cm of relu10] (conv8) {Conv2d (32, 32)};
-        \node[relu, right=0.75cm of conv8] (relu11) {ReLU};
+        \node[relu, below=0.8cm of relu10] (relu11) {ReLU}; % ReLUノードを下に配置
 
-        \node[decoder, below=of deconv3, xshift=-4cm, yshift=-1cm] (deconv4) {ConvTranspose2d (32, 16)};
-        \node[relu, right=0.75cm of deconv4] (relu12) {ReLU};
+        \node[decoder, right=0.75cm of relu11] (deconv4) {ConvTranspose2d (32, 16)};
+        \node[relu, below=0.8cm of relu11] (relu12) {ReLU}; % ReLUノードを下に配置
         \node[decoder, right=0.75cm of relu12] (conv9) {Conv2d (16, 16)};
-        \node[relu, right=0.75cm of conv9] (relu13) {ReLU};
+        \node[relu, below=0.8cm of relu12] (relu13) {ReLU}; % ReLUノードを下に配置
 
-        \node[decoder, below=of deconv4, xshift=-1cm, yshift=-1cm] (deconv5) {ConvTranspose2d (16, 3)};
-        \node[relu, right=0.75cm of deconv5] (relu14) {ReLU};
-        \node[decoder, below=of deconv5, yshift=-1cm] (output) {出力画像};
+        \node[decoder, right=0.75cm of relu13] (deconv5) {ConvTranspose2d (16, 3)};
+        \node[relu, below=0.8cm of relu13] (relu14) {ReLU}; % ReLUノードを下に配置
+        \node[decoder, below=0.8cm of relu14] (output) {出力画像};
 
         % Arrows
         \draw[arrow] (input) -- (conv1);
@@ -309,7 +367,7 @@ K-meansクラスタリングは、データをK個のクラスタに分割する
         \draw[arrow] (pool4) -- (conv5);
         \draw[arrow] (conv5) -- (relu5);
 
-        \draw[arrow] (conv5) -- (deconv1); % conv5とdeconv1をつなぐ矢印
+        \draw[arrow] (relu5) -- (deconv1); % conv5とdeconv1をつなぐ矢印
         \draw[arrow] (deconv1) -- (relu6);
         \draw[arrow] (relu6) -- (conv6);
         \draw[arrow] (conv6) -- (relu7);
@@ -335,10 +393,9 @@ K-meansクラスタリングは、データをK個のクラスタに分割する
     \end{tikzpicture}
     \caption{現在のAutoEncoderの構造}
     \label{fig:autoencoder}
-    \begin{center}
-        \small (入力チャネル, 出力チャネル)
-    \end{center}
 \end{figure}
+
+\subsubsection{変更点}
 
 \begin{itemize}
     \item 畳み込み層と逆畳み込み層の数を減らし、モデルの深さを浅くした。
@@ -346,15 +403,16 @@ K-meansクラスタリングは、データをK個のクラスタに分割する
     \item ReLU活性化関数の使用を最小限に抑えた。
 \end{itemize}
 
+
 \subsubsection{改良の効果}
-これらの変更により、以下のような良い変化が見られた。
+これらの変更により、以下のような改善点が見られた。
 \begin{itemize}
     \item \textbf{計算コストの削減}: モデルの深さを浅くし、バッチ正規化層を削除することで、計算コストが大幅に削減された。これにより、学習速度が向上し、より短時間でモデルのトレーニングが完了するようになった。
     \item \textbf{過学習の防止}: モデルのパラメータ数を減らすことで、過学習のリスクが低減された。これにより、テストデータに対する汎化性能が向上し、より安定した結果が得られるようになった。
     \item \textbf{モデルの解釈性の向上}: 構造をシンプルにすることで、モデルの挙動がより理解しやすくなった。これにより、モデルの改善点や問題点を特定しやすくなり、さらなる改良が容易になった。
 \end{itemize}
 
-以上のように、現在のAutoEncoderモデルは、以前のモデルと比較して構造がシンプルになり、計算コストの削減、過学習の防止、モデルの解釈性の向上といった良い変化が見られた。
+以上のように、現在のAutoEncoderモデルは、以前のモデルと比較して構造がシンプルになり、計算コストの削減、過学習の防止、モデルの解釈性の向上といった改善点が見られた。
 
 \subsubsection{AutoEncoderモデルのアップデートの重要性}
 AutoEncoderモデルをアップデートすることは、モデルの性能向上や新しいデータへの適応において非常に重要だ。以下に、モデルをアップデートしないで使い続けることと、アップデートして使うことの差について説明する。
@@ -375,10 +433,38 @@ AutoEncoderモデルをアップデートすることは、モデルの性能向
     \item \textbf{適応能力の向上}: モデルが新しいデータや環境に適応できるようになり、汎化性能が向上する。これは、モデルがより広範なデータセットに対して有効であることを意味する\cite{lecun2015deep}。
 \end{itemize}
 
-\paragraph{結論}
-以上のように、AutoEncoderモデルをアップデートすることは、性能向上、適応能力の向上など、多くの利点がある。したがって、モデルを定期的にアップデートすることは、長期的な視点で見ても非常に重要だ。
+\subsection{モデルのアップデート方法}
+本研究では、検出に使用した画像を用いてモデルのアップデートを行う。目標は自動アップデートである。アップデート用学習データを作成するためには、以下の二つのステップが必要である。
 
-\bibliographystyle{plain}
+始めに、全体の画像を背景ごとにクラスタリングする。これはAutoEncoderで特徴抽出を行い、その後主成分分析で次元削減し、k-meansクラスタリングを用いることで可能であることがわかった。
+
+次に、画像の中から物体画像を取り除く。これはCLIPを使用することで効果的に行うことができる。CLIPを用いることで、画像内の物体をある程度の精度で検出し、物体が存在しない画像を抽出することができる。
+
+これらのステップに関しては、次の章で詳しく説明する。
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance=2cm, auto]
+        % Nodes
+        \node (start) [startstop] {検出に使用した画像};
+        \node (ae) [process, below of=start] {AEで特徴抽出};
+        \node (pca) [process, below of=ae] {PCAで次元削減};
+        \node (kmeans) [process, below of=pca] {k-meansでクラスタリング};
+        \node (clip) [process, below of=kmeans] {CLIPで物体画像を除去};
+        \node (end) [startstop, below of=clip] {アップデート用学習データ};
+
+        % Arrows
+        \draw [arrow] (start) -- (ae);
+        \draw [arrow] (ae) -- (pca);
+        \draw [arrow] (pca) -- (kmeans);
+        \draw [arrow] (kmeans) -- (clip);
+        \draw [arrow] (clip) -- (end);
+    \end{tikzpicture}
+    \caption{モデルのアップデート方法の流れ}
+    \label{fig:model_update_flow}
+\end{figure}
+
+\bibliographystyle{unsrt}
 \bibliography{references}
 
 \end{document}
