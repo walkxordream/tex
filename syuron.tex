@@ -464,6 +464,143 @@ AutoEncoderモデルをアップデートすることは、モデルの性能向
     \label{fig:model_update_flow}
 \end{figure}
 
+\subsection{プログラミング環境と使用したライブラリ}
+実験はPythonを用いて行った。主なプログラミング環境と使用したライブラリは以下の通りである。
+
+\begin{itemize}
+    \item \textbf{Python 3.10.12}: プログラミング言語として使用。
+    \item \textbf{collections.defaultdict} (標準ライブラリ): デフォルト値を持つ辞書に使用。
+    \item \textbf{csv} (標準ライブラリ): CSVファイルの操作に使用。
+    \item \textbf{cv2} (4.10.0.84): 画像処理に使用。
+    \item \textbf{datetime} (標準ライブラリ): 日付と時間の操作に使用。
+    \item \textbf{deep\_translator} (1.11.4): テキストの翻訳に使用。
+    \item \textbf{glob} (標準ライブラリ): ファイルパスのパターンマッチングに使用。
+    \item \textbf{matplotlib.pyplot} (3.10.0): グラフの描画に使用。
+    \item \textbf{numpy} (1.26.3): 数値計算に使用。
+    \item \textbf{open\_clip} (2.29.0): CLIPモデルの使用。
+    \item \textbf{open\_clip.tokenizer} (2.29.0): テキストのトークン化に使用。
+    \item \textbf{os} (標準ライブラリ): OS機能へのアクセスに使用。
+    \item \textbf{PIL.Image} (11.0.0): 画像操作に使用。
+    \item \textbf{PIL.ImageDraw} (11.0.0): 画像に描画するために使用。
+    \item \textbf{PIL.ImageFont} (11.0.0): 画像にフォントを使用するために使用。
+    \item \textbf{PIL.ImageOps} (11.0.0): 画像の操作に使用。
+    \item \textbf{random} (標準ライブラリ): 乱数生成に使用。
+    \item \textbf{re} (標準ライブラリ): 正規表現操作に使用。
+    \item \textbf{shutil} (標準ライブラリ): 高レベルのファイル操作に使用。
+    \item \textbf{sklearn.cluster.KMeans} (1.6.0): K-meansクラスタリングに使用。
+    \item \textbf{sklearn.decomposition.PCA} (1.6.0): 主成分分析に使用。
+    \item \textbf{sklearn.preprocessing.LabelEncoder} (1.6.0): ラベルエンコーディングに使用。
+    \item \textbf{torch} (2.5.1+cu118): 深層学習モデルの構築と訓練に使用。
+    \item \textbf{torch.nn} (2.5.1+cu118): ニューラルネットワークの構築に使用。
+    \item \textbf{torch.optim} (2.5.1+cu118): 最適化アルゴリズムに使用。
+    \item \textbf{torch.utils.data.DataLoader} (2.5.1+cu118): データローダーの操作に使用。
+    \item \textbf{torch.utils.data.Dataset} (2.5.1+cu118): データセットの操作に使用。
+    \item \textbf{torchvision.transforms} (0.20.1+cu118): 画像の前処理に使用。
+    \item \textbf{tqdm} (4.67.1): プログレスバーの表示に使用。
+\end{itemize}
+
+\subsection{想定環境}
+
+\begin{verbatim}
+    ルートディレクトリ/
+    ├── 2023_main.py
+    ├── 2024_main.py
+    ├── AE_clip.ipynb
+    ├── AE_deep_check.ipynb
+    ├── AE_deep_check_change.ipynb
+    ├── AE_deep_finetrain_matomete.py
+    ├── AE_deep_main_search.ipynb
+    ├── AE_deep_train_matomete.py
+    ├── AE_for_newmodel.ipynb
+    ├── AE_score_check_labels.ipynb
+    ├── imgs/
+    └── models/
+    \end{verbatim}
+
+\section{使用したデータの説明}
+
+\subsection{画像データ}
+
+\begin{itemize}
+    \item \textbf{imgs/for\_update\_img}:
+    \begin{itemize}
+        \item 説明: 2024年9月3日に撮影した3000×4000ピクセルの画像が156枚含まれている。
+    \end{itemize}
+
+    \item \textbf{imgs/old\_all\_img/train\_img\_6048/6048/A\_train\_img}:
+    \begin{itemize}
+        \item 説明: 去年使用した224×224ピクセルの画像が背景ごとに分類されずに1512枚ずつ、計6048枚含まれている。
+    \end{itemize}
+
+    \item \textbf{imgs/make\_pca\_img1000}:
+    \begin{itemize}
+        \item 説明: A\_train\_imgと重複しない画像が1000枚ずつ、計4000枚含まれている。
+    \end{itemize}
+
+    \item \textbf{imgs/old\_train\_imaga/}:
+    \begin{itemize}
+        \item \textbf{around\_wind/}: jpgが6048枚
+        \item \textbf{light\_green/}: jpgが6048枚
+        \item \textbf{dark\_green/}: jpgが6048枚
+        \item \textbf{white/}: jpgが6048枚
+        \item 説明: 去年学習に使用した背景ごとに分類された224×224ピクセルの画像がそれぞれ含まれている。
+    \end{itemize}
+
+    \item \textbf{imgs/test\_img}:
+    \begin{itemize}
+        \item 説明: 2024年9月3日に撮影したfor\_update\_imgには含まれていない3000×4000ピクセルの画像が4枚含まれている。
+    \end{itemize}
+
+    \item \textbf{imgs/test\_img2/}:
+    \begin{itemize}
+        \item \textbf{yes/}:
+        \begin{itemize}
+            \item \textbf{dark/}: jpgが100枚
+            \item \textbf{light/}: jpgが100枚
+            \item \textbf{white/}: jpgが100枚
+        \end{itemize}
+        \item \textbf{no/}:
+        \begin{itemize}
+            \item \textbf{dark/}: jpgが100枚
+            \item \textbf{light/}: jpgが100枚
+            \item \textbf{white/}: jpgが100枚
+        \end{itemize}
+        \item 説明: test\_imgとは別の2024年9月3日に撮影したfor\_update\_imgには含まれていない画像の中から、テスト用に背景ごとの物体が存在する画像と存在しない画像に分類したもの。
+    \end{itemize}
+
+    \item \textbf{imgs/update\_img\_remove/}:
+    \begin{itemize}
+        \item \textbf{dark\_object/}: jpgが306枚
+        \item \textbf{dark/}: jpgが4973枚
+        \item \textbf{light\_object/}: jpgが1703枚
+        \item \textbf{light/}: jpgが7518枚
+        \item \textbf{white\_object/}: jpgが1925枚
+        \item \textbf{white/}: jpgが3064枚
+        \item 説明: update\_img（今後製作される）を背景ごとに物体が存在する画像としない画像に分けたもの。
+    \end{itemize}
+\end{itemize}
+
+\subsection{モデルデータ}
+
+\begin{itemize}
+    \item \textbf{models/2023models/}:
+    \begin{itemize}
+        \item \textbf{AEmodel\_dark\_green20230927.pth}
+        \item \textbf{AEmodel\_light\_green20230927.pth}
+        \item \textbf{AEmodel\_white20230927.pth}
+        \item \textbf{AEmodel\_paved\_ground20230927.pth}
+        \item 説明: 去年製作した背景ごとに224×224ピクセルの画像を6048枚学習させたモデル。
+    \end{itemize}
+\end{itemize}
+
+\section{実験結果}
+本章では、モデルのアップデート方法について説明し、実験結果を示す。
+\subsection{使用した画像の説明}
+本研究では、山形県企業局が提供する風力発電機周辺の画像を使用した。これらの画像は、ドローンを用いて撮影されたものであり、様々な季節や天候条件下で撮影されたものである。画像の解像度は高く、鳥の死骸を検出するための十分な情報が含まれている。
+
+\subsection{実験手法}
+実験では、以下の手順でモデルの訓練と評価を行った。
+
 \bibliographystyle{unsrt}
 \bibliography{references}
 

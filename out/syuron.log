@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.3)  9 JAN 2025 01:14
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.3)  10 JAN 2025 18:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -741,11 +741,63 @@ Overfull \vbox (53.26842pt too high) has occurred while \output is active []
 
 [8]
 
-[9] (out/syuron.bbl
+[9]
 
-[10])
+[10]
 
-[11
+Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
+(xeCJK)                
+(xeCJK)                Try to use `\setCJKmonofont[<...>]{<...>}' to define
+(xeCJK)                it.
+
+Missing character: There is no ├ (U+251C) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+Missing character: There is no ├ (U+251C) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+Missing character: There is no ├ (U+251C) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+
+
+[11]
+Missing character: There is no ├ (U+251C) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+Missing character: There is no ├ (U+251C) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+Missing character: There is no ├ (U+251C) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+Missing character: There is no ├ (U+251C) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+Missing character: There is no ├ (U+251C) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+Missing character: There is no ├ (U+251C) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+Missing character: There is no ├ (U+251C) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+Missing character: There is no ├ (U+251C) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+Missing character: There is no └ (U+2514) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
+
+
+[12] (out/syuron.bbl
+
+[13]
+
+[14])
+
+[15
 
 ] (out/syuron.aux)
  ***********
@@ -757,15 +809,15 @@ L3 programming layer <2022/08/05>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `syuron.out' has not changed.
-(rerunfilecheck)             Checksum: E9EA82D3C12C8D9FE4BFFFBC4E58819E;1060.
+(rerunfilecheck)             Checksum: 2A1C21903831BBEF932B8C51E407AB45;2012.
  ) 
 Here is how much of TeX's memory you used:
- 25236 strings out of 473889
- 538969 string characters out of 5734826
- 1007925 words of memory out of 5000000
- 47877 multiletter control sequences out of 15000+600000
- 562557 words of font info for 71 fonts, out of 8000000 for 9000
+ 25245 strings out of 473889
+ 539153 string characters out of 5734826
+ 1007932 words of memory out of 5000000
+ 47884 multiletter control sequences out of 15000+600000
+ 562565 words of font info for 72 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 84i,6n,93p,494b,809s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,6n,93p,494b,883s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on out/syuron.pdf (13 pages).
+Output written on out/syuron.pdf (17 pages).
