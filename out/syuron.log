@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.3)  10 JAN 2025 18:33
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.3)  14 JAN 2025 03:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -578,7 +578,11 @@ File: pgflibraryarrows.meta.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgfarrowlength=\dimen302
 \pgfarrowwidth=\dimen303
 \pgfarrowlinewidth=\dimen304
-) (out/syuron.aux)
+) (out/syuron.aux
+
+LaTeX Warning: Label `fig:kmeans_plot' multiply defined.
+
+)
 \openout1 = `syuron.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
@@ -745,14 +749,13 @@ Overfull \vbox (53.26842pt too high) has occurred while \output is active []
 
 [10]
 
+[11]
+
 Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
 (xeCJK)                
 (xeCJK)                Try to use `\setCJKmonofont[<...>]{<...>}' to define
 (xeCJK)                it.
 
-
-
-[11]
 Missing character: There is no ├ (U+251C) in font [lmmono12-regular]:!
 Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
 Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
@@ -791,13 +794,50 @@ Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
 Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
 
 
-[12] (out/syuron.bbl
+[12]
 
 [13]
 
-[14])
+[14]
+File: imgs/loss_plot_20241224_A_train_img.png Graphic file (type bmp)
+<imgs/loss_plot_20241224_A_train_img.png>
 
-[15
+
+[15]
+Overfull \hbox (26.8401pt too wide) in paragraph at lines 676--677
+[]\TU/lmr/bx/n/12 models/old_models6048/6048_AEdeepmodel_20241224_A_train_img.pth 
+ []
+
+File: imgs/kiyodo.png Graphic file (type bmp)
+<imgs/kiyodo.png>
+File: imgs/pca.png Graphic file (type bmp)
+<imgs/pca.png>
+
+
+[16]
+File: imgs/pca_k-means.png Graphic file (type bmp)
+<imgs/pca_k-means.png>
+
+
+[17]
+Overfull \hbox (26.8401pt too wide) in paragraph at lines 719--720
+[]\TU/lmr/bx/n/12 models/old_models6048/6048_AEdeepmodel_20241224_A_train_img.pth 
+ []
+
+
+
+[18]
+File: imgs/k-means2.png Graphic file (type bmp)
+<imgs/k-means2.png>
+
+
+[19]
+
+[20] (out/syuron.bbl
+
+[21])
+
+[22
 
 ] (out/syuron.aux)
  ***********
@@ -808,16 +848,19 @@ L3 programming layer <2022/08/05>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package rerunfilecheck Info: File `syuron.out' has not changed.
-(rerunfilecheck)             Checksum: FEC358545325509F9DF1547B70A6FCA8;2012.
+(rerunfilecheck)             Checksum: 332A65FAC6B28D9C5F85FA4CED9278AC;2162.
  ) 
 Here is how much of TeX's memory you used:
- 25245 strings out of 473889
- 539153 string characters out of 5734826
- 1007932 words of memory out of 5000000
- 47884 multiletter control sequences out of 15000+600000
+ 25310 strings out of 473889
+ 541204 string characters out of 5734826
+ 1008127 words of memory out of 5000000
+ 47942 multiletter control sequences out of 15000+600000
  562565 words of font info for 72 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 84i,6n,93p,494b,885s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,6n,93p,494b,809s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on out/syuron.pdf (17 pages).
+Output written on out/syuron.pdf (24 pages).

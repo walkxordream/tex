@@ -25,10 +25,36 @@
 \contentsline {paragraph}{モデルをアップデートする場合}{9}{section*.18}%
 \contentsline {subsection}{\numberline {1.2.4}モデルのアップデート方法}{10}{subsection.1.2.4}%
 \contentsline {section}{\numberline {1.3}使用したデータの説明}{10}{section.1.3}%
-\contentsline {subsection}{\numberline {1.3.1}プログラミング環境と使用したライブラリ}{10}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.1}プログラミング環境と使用したライブラリ}{11}{subsection.1.3.1}%
 \contentsline {subsection}{\numberline {1.3.2}想定環境}{12}{subsection.1.3.2}%
 \contentsline {subsection}{\numberline {1.3.3}画像データ}{12}{subsection.1.3.3}%
 \contentsline {subsection}{\numberline {1.3.4}モデルデータ}{13}{subsection.1.3.4}%
-\contentsline {section}{\numberline {1.4}実験結果}{13}{section.1.4}%
-\contentsline {subsection}{\numberline {1.4.1}使用した画像の説明}{13}{subsection.1.4.1}%
-\contentsline {subsection}{\numberline {1.4.2}実験手法}{14}{subsection.1.4.2}%
+\contentsline {section}{\numberline {1.4}実験}{13}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}物体検出の試み}{14}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}モデルアップデートの有用性}{14}{subsection.1.4.2}%
+\contentsline {subsubsection}{背景画像の分類}{15}{section*.19}%
+\contentsline {paragraph}{使用プログラム}{15}{section*.20}%
+\contentsline {paragraph}{使用画像}{15}{section*.21}%
+\contentsline {subsubsection}{出力}{15}{section*.22}%
+\contentsline {paragraph}{モデル名}{15}{section*.23}%
+\contentsline {paragraph}{}{15}{figure.1.5}%
+\contentsline {paragraph}{使用プログラム}{16}{section*.25}%
+\contentsline {paragraph}{使用画像}{16}{section*.26}%
+\contentsline {paragraph}{使用モデル}{16}{section*.27}%
+\contentsline {subsubsection}{出力}{16}{section*.28}%
+\contentsline {paragraph}{寄与度の確認}{16}{figure.1.6}%
+\contentsline {paragraph}{二次元プロット}{17}{figure.1.7}%
+\contentsline {paragraph}{k-meansクラスタリング}{18}{figure.1.8}%
+\contentsline {paragraph}{使用プログラム}{18}{section*.32}%
+\contentsline {paragraph}{使用画像}{18}{section*.33}%
+\contentsline {paragraph}{使用モデル}{18}{section*.34}%
+\contentsline {subsubsection}{出力}{19}{section*.35}%
+\contentsline {paragraph}{保存先}{19}{section*.36}%
+\contentsline {paragraph}{}{19}{figure.1.9}%
+\contentsline {subsubsection}{物体画像の抽出}{19}{section*.38}%
+\contentsline {paragraph}{使用プログラム}{20}{section*.39}%
+\contentsline {paragraph}{使用モデル}{20}{section*.40}%
+\contentsline {subsection}{\numberline {1.4.3}使用した言葉}{20}{subsection.1.4.3}%
+\contentsline {paragraph}{使用画像}{21}{section*.41}%
+\contentsline {paragraph}{出力}{21}{section*.42}%
+\contentsline {paragraph}{保存先}{21}{section*.43}%

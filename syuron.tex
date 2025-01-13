@@ -434,13 +434,13 @@ AutoEncoderモデルをアップデートすることは、モデルの性能向
 \end{itemize}
 
 \subsection{モデルのアップデート方法}
-本研究では、検出に使用した画像を用いてモデルのアップデートを行う。目標は自動アップデートである。アップデート用学習データを作成するためには、以下の二つのステップが必要である。
+本研究では、検出に使用した画像を用いてモデルのアップデートを行う。目標は自動アップデートである。アップデート用学習データを自動で作成するためには、以下の二つのステップが必要である。
 
 始めに、全体の画像を背景ごとにクラスタリングする。これはAutoEncoderで特徴抽出を行い、その後主成分分析で次元削減し、k-meansクラスタリングを用いることで可能であることがわかった。
 
 次に、画像の中から物体画像を取り除く。これはCLIPを使用することで効果的に行うことができる。CLIPを用いることで、画像内の物体をある程度の精度で検出し、物体が存在しない画像を抽出することができる。
 
-これらのステップに関しては、次の章で詳しく説明する。
+これらのステップに関しては、以降の章で詳しく説明する。
 
 \begin{figure}[H]
     \centering
@@ -465,6 +465,8 @@ AutoEncoderモデルをアップデートすることは、モデルの性能向
 \end{figure}
 
 \section{使用したデータの説明}
+
+本章では、本研究で使用したデータについて説明する。まず、実験に使用したプログラミング環境とライブラリについて述べ、その後、実験に使用したファイルとディレクトリの構造を示す。さらに、使用した画像データとモデルデータについて詳細に説明する。
 
 \subsection{プログラミング環境と使用したライブラリ}
 実験はPythonを用いて行った。主なプログラミング環境と使用したライブラリは以下の通りである。
@@ -594,13 +596,201 @@ AutoEncoderモデルをアップデートすることは、モデルの性能向
     \end{itemize}
 \end{itemize}
 
-\section{実験結果}
-本章では、モデルのアップデート方法について説明し、実験結果を示す。
-\subsection{使用した画像の説明}
-本研究では、山形県企業局が提供する風力発電機周辺の画像を使用した。これらの画像は、ドローンを用いて撮影されたものであり、様々な季節や天候条件下で撮影されたものである。画像の解像度は高く、鳥の死骸を検出するための十分な情報が含まれている。
+\section{実験}
+本章では、物体検出を試みたうえでモデルアップデートの有用性について論じる。
+\subsection{物体検出の試み}
+本研究では、物体検出を行うために以下のプログラムファイルを使用した。
 
-\subsection{実験手法}
-実験では、以下の手順でモデルの訓練と評価を行った。
+\begin{itemize}
+    \item \textbf{2023\_main.py}: 2023年に開発された物体検出プログラム。主に従来の手法を用いて物体検出を行う。
+\end{itemize}
+
+このプログラムファイルを用いて、以下の手順で物体検出を試みた。
+%まだしてない
+\begin{enumerate}
+    \item \textbf{データの準備}: 画像データを前処理し、訓練データとテストデータに分割した。
+    \item \textbf{物体検出の実行}: 訓練済みモデルを用いてテストデータ上で物体検出を実行した。
+    \item \textbf{結果の評価}: 検出結果を評価し、精度、再現率、F2スコアなどの評価指標を算出した。
+\end{enumerate}
+
+これにより、従来のモデルと方法では物体検出の精度が十分でないことがわかった。そのため、モデルのアップデートを行うことが必要である。
+また、実際に活用することをふまえ、モデルのアップデートを自動化することが重要であると考えられる。
+
+\subsection{モデルアップデートの有用性}
+本研究では、モデルアップデートの有用性を検証するために、以下のプログラムファイルを使用した。また、これは自動でアップデートを行うという前提の上での検証であることを留意してほしい。
+
+\begin{itemize}
+    \item \textbf{AE\_clip.ipynb}: CLIPモデルを使用して画像内の物体を検出し、物体が存在しない画像を抽出するためのプログラム。
+    \item \textbf{AE\_deep\_check.ipynb}: 物体画像が全く入っていないモデルと若干入っているモデルの精度を比較するためのプログラム。
+    \item \textbf{AE\_deep\_check\_change.ipynb}: 学習枚数を変化させたときの 物体画像が全く入っていないモデルと若干入っているモデルの精度を比較するためのプログラム。
+    \item \textbf{AE\_deep\_finetrain\_matomete.py}: 古い画像を学習させたモデルを新しい画像でアップデートするためのプログラム。
+    \item \textbf{AE\_deep\_main\_search.ipynb}: 差分画像から物体画像を検出する精度向上を試みるプログラム。
+    \item \textbf{AE\_deep\_train\_matomete.py}: 0からモデルを学習するプログラム。
+    \item \textbf{AE\_for\_newmodel.ipynb}: 新しいモデルを学習するための画像を分類するプログラム。
+    \item \textbf{AE\_score\_check\_labels.ipynb}: 背景画像の自動分類を検証するプログラム。
+\end{itemize}
+
+これらのプログラムファイルを用いて、モデルの自動アップデートを行い、その有用性を検証した。
+
+\subsubsection{背景画像の分類}
+初めに、AEの性能を最大限発揮するために、全体画像から背景ごとに画像を分類することが重要である。これから、背景ごとに画像を分類する方法を説明する。通常、AEモデルを作成するときは画像の特徴の圧縮と再構築を行い入力画像と出力画像をなるべく一致させようとする性質を利用するために学習画像は似た画像を使う。しかし、今回は4種類の異なった画像を均一な枚数学習させることによって、それぞれの特徴を学習したモデルを作成する。このAEモデルで分類したい画像を圧縮し、再構築する前のベクトルを取り出し主成分分析を行い、次元削減を行う。その後、k-meansクラスタリングを行い、背景ごとに画像を分類する。
+
+\paragraph{使用プログラム}
+\begin{itemize}
+    \item \textbf{AE\_for\_newmodel.ipynb}
+\end{itemize}
+
+\paragraph{使用画像}
+\begin{itemize}
+    \item \textbf{imgs/old\_all\_img/train\_img\_6048/6048/A\_train\_img}
+\end{itemize}
+
+\subsubsection{出力}
+プログラムと画像を用いて、以下のモデルを作成した。
+
+\paragraph{モデル名}
+\begin{itemize}
+    \item \textbf{models/old\_models6048/20241224\_A\_train\_model.pth}
+\end{itemize}
+
+\paragraph{}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20241224_A_train_img.png}
+    \caption{学習推移のグラフ}
+    \label{fig:learning_curve}
+\end{figure}
+
+\paragraph{使用プログラム}
+\begin{itemize}
+    \item \textbf{AE\_score\_check\_labels.ipynb}
+\end{itemize}
+
+\paragraph{使用画像}
+\begin{itemize}
+    \item \textbf{imgs/make\_pca\_img1000}
+\end{itemize}
+
+\paragraph{使用モデル}
+\begin{itemize}
+    \item \textbf{models/old\_models6048/6048\_AEdeepmodel\_20241224\_A\_train\_img.pth}
+\end{itemize}
+
+\subsubsection{出力}
+プログラムと画像とモデルを用いて、画像の圧縮、ベクトルの主成分分析、寄与度の確認、二次元へのプロット、クラスター数10でのk-meansを行った。
+\paragraph{寄与度の確認}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/kiyodo.png}
+    \caption{主成分分析の寄与度}
+    \label{fig:contribution_plot}
+\end{figure}
+主成分分析の寄与度を示すグラフである。このグラフにより、各主成分がデータの分散にどの程度寄与しているかを確認することができる。ほとんどの寄与度が第一主成分と第二主成分で占められていることがわかる。したがって、二次元にプロットしてもデータの重要な情報を保持できることがわかる。
+
+\paragraph{二次元プロット}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/pca.png}
+    \caption{主成分分析による二次元プロット}
+    \label{fig:two_dimensional_plot}
+\end{figure}
+主成分分析によって次元削減されたデータの二次元プロットである。このプロットにより、データの分布やクラスタリングの傾向を視覚的に確認することができる。結果より、aroundとlightが近く、その他は離れていることがわかる。このことから、aroundとlightは似た特徴を持っていることが示唆されるため、合わせて1種類の背景としlightと扱うことにする。そのため、以降は背景画像は3種類とする。
+\paragraph{k-meansクラスタリング}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/pca_k-means.png}
+    \caption{k-meansクラスタリングの結果}
+    \label{fig:kmeans_plot}
+\end{figure}
+クラスター数10のk-meansクラスタリングの結果を示すプロットである。このプロットにより、データがどのようにクラスタに分割されたかを視覚的に確認することができる。横軸の値が小さいクラスターから順に数字を0から9まで振ることで結果が固定される。この結果をもとに、0と1はwhite、4と5はlight、8と9はdarkとすることで曖昧な境界部分は除かれつつ画像を背景ごとに分類することができる。
+
+\paragraph{使用プログラム}
+\begin{itemize}
+    \item \textbf{AE\_for\_newmodel.ipynb}
+\end{itemize}
+
+\paragraph{使用画像}
+\begin{itemize}
+    \item \textbf{imgs/for\_update\_img}
+\end{itemize}
+
+\paragraph{使用モデル}
+\begin{itemize}
+    \item \textbf{models/old\_models6048/6048\_AEdeepmodel\_20241224\_A\_train\_img.pth}
+\end{itemize}
+
+\subsubsection{出力}
+プログラムと画像とモデルを用いて、画像の圧縮、ベクトルの主成分分析、二次元へのプロット、クラスター数10でのk-meansを行い、入力画像を背景ごとに分類した。この時、主成分分析に使用したモデルは\texttt{AE\_score\_check\_labels.ipynb}で使用したモデルと同じことに注意する。保存先は以下の通りである。
+
+\paragraph{保存先}
+\begin{itemize}
+    \item \textbf{imgs/update\_img}:
+    \begin{itemize}
+        \item \textbf{dark}
+        \item \textbf{light}
+        \item \textbf{white}
+    \end{itemize}
+\end{itemize}
+
+\paragraph{}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/k-means2.png}
+    \caption{k-meansクラスタリングの結果}
+    \label{fig:kmeans_plot}
+\end{figure}
+
+\subsubsection{物体画像の抽出}
+次に、背景ごとに分類された画像から物体画像を抽出する。これは、CLIPモデルを使用して画像内の物体を検出し、物体が存在する画像を抽出することで行う。
+
+\paragraph{使用プログラム}
+\begin{itemize}
+    \item \textbf{AE\_clip.ipynb}
+\end{itemize}
+
+\paragraph{使用モデル}
+本研究で使用したモデルは以下の通りである。
+\begin{itemize}
+    \item \textbf{RN50}
+    \item \textbf{RN50x64}
+\end{itemize}
+
+\subsection{使用した言葉}
+本研究で使用した言葉は以下の通りである。これらの言葉はCLIPモデルに入力するためにGoogleTranslatorで英語に翻訳されて使用された。
+\begin{itemize}
+    \item \textbf{NO\_A}: 上空から緑色や黃緑色の草が生い茂った箇所を見下ろした画像で全体をくまなく探してもゴミなどの人工物、白色の小さい物体、黒色の物体、木の枝は確実に写っていない
+    \item \textbf{NO\_B}: 上空から緑色や黃緑色の草が砂浜の上から生えているのを見下ろした画像で全体をくまなく探してもゴミなどの人工物、白色の小さい物体、黒色の物体、木の枝は確実に写っていない
+    \item \textbf{NO\_C}: 上空から緑色の葉が生えた木と隙間に砂浜が見られる箇所で画像で全体をくまなく探してもゴミなどの人工物、白色の小さい物体、黒色の物体、木の枝は確実に写っていない
+    \item \textbf{NO\_D}: 上空からクリーム色の砂浜の上に少し草が生えている箇所を見下ろした画像で全体をくまなく探してもゴミなどの人工物、白色の小さい物体、黒色の物体、木の枝は確実に写っていない
+    \item \textbf{NO\_E}: 上空からクリーム色の砂浜を見下ろした画像で全体をくまなく探してもゴミなどの人工物、白色の小さい物体、黒色の物体、木の枝は確実に写っていない
+    \item \textbf{YES\_A}: 上空から緑色や黃緑色の草が生い茂った箇所を見下ろした画像で全体をくまなく探した結果ゴミなどの人工物が写っている可能性がある
+    \item \textbf{YES\_B}: 上空から緑色の葉が生えた木を見下ろした画像で全体をくまなく探した結果ゴミなどの人工物が写っている可能性がある
+    \item \textbf{YES\_C}: 上空から緑色や黃緑色の草が砂浜の上から生えているのを見下ろした画像で全体をくまなく探した結果ゴミなどの人工物が写っている可能性がある
+    \item \textbf{YES\_D}: 上空から緑色の葉が生えた木と隙間に砂浜が見られる箇所で画像で全体をくまなく探した結果ゴミなどの人工物が写っている可能性がある
+    \item \textbf{YES\_E}: 上空からクリーム色の砂浜の上に少し草が生えている箇所を見下ろした画像で全体をくまなく探した結果ゴミなどの人工物が写っている可能性がある
+    \item \textbf{YES\_F}: 上空からクリーム色の砂浜を見下ろした画像で全体をくまなく探した結果ゴミなどの人工物が写っている可能性がある
+\end{itemize}
+
+\paragraph{使用画像}
+\begin{itemize}
+    \item \textbf{imgs/update\_img/}:
+    \begin{itemize}
+        \item \textbf{dark}
+        \item \textbf{light}
+        \item \textbf{white}
+    \end{itemize}
+    \item \textbf{imgs/update\_img\_remove/}
+\end{itemize}
+
+\paragraph{出力}
+プログラムとモデルと画像を用いて、物体画像を抽出した。また、予め物体画像を抽出しておくことで二つのモデルにおける精度比較も行った。100％物体画像を取り除くことは出来なかったたため、物体画像を完全に取り除いた画像も保存し、それぞれの画像で学習を行いモデルの精度比較に使用する。また、物体を取り除いて学習データを作成する際に、ランダムに上下反転、左右反転、回転を行い、データ拡張を行った。保存先は以下の通りである。
+
+\paragraph{保存先}
+\begin{itemize}
+    \item \textbf{imgs/update\_train\_imgs\_remove/train\_img\_6048}: 完全に物体を取り除いた画像
+    \item \textbf{imgs/update\_train\_imgs\_default/train\_img\_6048}
+\end{itemize}
+
 
 \bibliographystyle{unsrt}
 \bibliography{references}
