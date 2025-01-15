@@ -506,7 +506,7 @@ AutoEncoderモデルをアップデートすることは、モデルの性能向
 \subsection{想定環境}
 
 \begin{verbatim}
-    ルートディレクトリ/
+        /
     ├── 2023_main.py
     ├── 2024_main.py
     ├── AE_clip.ipynb
@@ -552,6 +552,11 @@ AutoEncoderモデルをアップデートすることは、モデルの性能向
     \item \textbf{imgs/test\_img}:
     \begin{itemize}
         \item 説明: 2024年9月3日に撮影したfor\_update\_imgには含まれていない3000×4000ピクセルの画像が4枚含まれている。
+    \end{itemize}
+
+    \item \textbf{imgs/test\_objects}:
+    \begin{itemize}
+        \item 説明: test\_imgを224×224ピクセルに分割した画像の中から、物体が存在する画像
     \end{itemize}
 
     \item \textbf{imgs/test\_img2/}:
@@ -601,18 +606,56 @@ AutoEncoderモデルをアップデートすることは、モデルの性能向
 \subsection{物体検出の試み}
 本研究では、物体検出を行うために以下のプログラムファイルを使用した。
 
+\paragraph{使用プログラム}
 \begin{itemize}
-    \item \textbf{2023\_main.py}: 2023年に開発された物体検出プログラム。主に従来の手法を用いて物体検出を行う。
+    \item \textbf{2023\_main.py}
 \end{itemize}
 
-このプログラムファイルを用いて、以下の手順で物体検出を試みた。
-%まだしてない
+\paragraph{使用画像}
+\begin{itemize}
+    \item \textbf{imgs/test\_img}
+    \item \textbf{imgs/test\_objects}
+\end{itemize}
+
+\subsubsection{出力}
+プログラムの実行結果として、\texttt{imgs/AE\_2023\_result}フォルダが作成され、物体だと思った画像が保存される。また、答えの画像も渡しているため、F2スコアが計算される。
+\subsubsection{出力までの流れ}
 \begin{enumerate}
     \item \textbf{データの準備}: 画像データを前処理し、訓練データとテストデータに分割した。
-    \item \textbf{物体検出の実行}: 訓練済みモデルを用いてテストデータ上で物体検出を実行した。
-    \item \textbf{結果の評価}: 検出結果を評価し、精度、再現率、F2スコアなどの評価指標を算出した。
-\end{enumerate}
+    \item \textbf{画像の分割}: 入力画像を224×224ピクセルの小さな画像に分割した。分割後の枚数は881枚である。
+    \item \textbf{物体検出の実行}: 分割された画像をオートエンコーダーモデルに通し、物体が存在するかどうかを判定した。
+        \begin{itemize}
+            \item オートエンコーダーモデルを使用して、入力画像を再構築する。
+            \item 再構築された画像と元の画像の差分を計算し、差分画像を生成する。
+            \item 再構築された画像と元の画像のMSE（平均二乗誤差）を計算し、MSEが最も小さいモデルの差分画像を採用する。
+            \item 差分画像から輪郭を抽出し、最大面積の輪郭を計算する。
+            \item 最大面積がしきい値を超える場合、物体が存在すると判定する。
+        \end{itemize}
+        \item \textbf{結果の保存}: 物体が存在すると判定された画像を保存した。
+        \item \textbf{評価指標の計算}: 混合行列を作成し、F2スコアを計算した。
+    \end{enumerate}
 
+\subsubsection{f2スコアの計算}
+AEが物体だと思った画像の枚数は366枚で、その中に入っていた物体画像の枚数は25枚である。testフォルダの画像を分割した画像が884枚で、その中に入っていいた物体画像の枚数が50枚である。混合行列の要素は以下の通りである。
+
+\begin{itemize}
+    \item 混合行列の要素:
+        \begin{itemize}
+            \item True Positives (TP): 25枚
+            \item False Positives (FP): 341枚
+            \item True Negatives (TN): 493枚
+            \item False Negatives (FN): 25枚
+        \end{itemize}
+    \item 精度（Precision）と再現率（Recall）を計算する。
+        \begin{itemize}
+            \item Precision = \(\frac{TP}{TP + FP} = \frac{25}{25 + 341} \approx 0.068\)
+            \item Recall = \(\frac{TP}{TP + FN} = \frac{25}{25 + 25} = 0.5\)
+        \end{itemize}
+    \item F2スコアを計算する。
+        \begin{itemize}
+            \item F2 = \(\frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \text{Precision}) + \text{Recall}} = \frac{5 \cdot (0.068 \cdot 0.5)}{4 \cdot 0.068 + 0.5} \approx 0.22\)
+        \end{itemize}
+\end{itemize}
 これにより、従来のモデルと方法では物体検出の精度が十分でないことがわかった。そのため、モデルのアップデートを行うことが必要である。
 また、実際に活用することをふまえ、モデルのアップデートを自動化することが重要であると考えられる。
 
@@ -637,7 +680,7 @@ AutoEncoderモデルをアップデートすることは、モデルの性能向
 
 \paragraph{使用プログラム}
 \begin{itemize}
-    \item \textbf{AE\_for\_newmodel.ipynb}
+    \item \textbf{AE\_deep\_train\_matomete.py}
 \end{itemize}
 
 \paragraph{使用画像}
@@ -645,13 +688,24 @@ AutoEncoderモデルをアップデートすることは、モデルの性能向
     \item \textbf{imgs/old\_all\_img/train\_img\_6048/6048/A\_train\_img}
 \end{itemize}
 
-\subsubsection{出力}
-プログラムと画像を用いて、以下のモデルを作成した。
-
-\paragraph{モデル名}
+\paragraph{出力モデル名}
 \begin{itemize}
     \item \textbf{models/old\_models6048/20241224\_A\_train\_model.pth}
 \end{itemize}
+
+\subsubsection{出力までの流れ}
+プログラムと画像を用いて、以下の流れでモデルを作成した。
+
+\begin{enumerate}
+    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
+    \item \textbf{データの準備}: 指定されたディレクトリから画像データを読み込み、学習用と評価用に分割する。
+    \item \textbf{モデルの定義}: 深層オートエンコーダーモデルを定義する。
+    \item \textbf{学習の設定}: モデルの最適化手法や誤差関数を設定し、学習の準備を行う。
+    \item \textbf{モデルの学習}: 学習データを用いてモデルを学習させる。学習中の損失を記録し、最も良いモデルを保存する。
+    \item \textbf{評価の実行}: 評価データを用いてモデルの性能を評価し、損失を記録する。
+    \item \textbf{結果の保存}: 学習の収束具合をプロットし、画像として保存する。また、損失の推移をCSVファイルに書き込む。
+\end{enumerate}
+
 
 \paragraph{}
 \begin{figure}[H]
@@ -675,9 +729,27 @@ AutoEncoderモデルをアップデートすることは、モデルの性能向
 \begin{itemize}
     \item \textbf{models/old\_models6048/6048\_AEdeepmodel\_20241224\_A\_train\_img.pth}
 \end{itemize}
-
 \subsubsection{出力}
-プログラムと画像とモデルを用いて、画像の圧縮、ベクトルの主成分分析、寄与度の確認、二次元へのプロット、クラスター数10でのk-meansを行った。
+プログラムと画像とモデルを用いて画像の圧縮、ベクトルの主成分分析、寄与度の確認、二次元へのプロット、クラスター数10でのk-meansを行った。
+
+\subsubsection{出力までの流れ}
+\begin{enumerate}
+    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
+    \item \textbf{モデルの読み込み}: 事前に訓練されたオートエンコーダーモデルを読み込む。
+    \item \textbf{画像の読み込み}: 指定されたディレクトリから画像を読み込む。
+    \item \textbf{オートエンコーダーによる特徴抽出}: 読み込んだ画像をオートエンコーダーモデルに通し、特徴ベクトルを抽出する。
+    \item \textbf{PCAによる次元削減}: 抽出された特徴ベクトルに対してPCA（主成分分析）を行い、次元削減を行う。
+        \begin{itemize}
+            \item PCAの寄与度を確認し、主成分の重要性を評価する。
+        \end{itemize}
+    \item \textbf{PCA結果のプロット}: PCAによる次元削減結果をプロットし、視覚的に確認する。
+    \item \textbf{K-meansクラスタリング}: 次元削減された特徴ベクトルに対してK-meansクラスタリングを行い、画像をクラスタに分類する。
+        \begin{itemize}
+            \item クラスタ番号を再割り当てし、クラスタごとに画像を保存する。
+        \end{itemize}
+    \item \textbf{クラスタリング結果のプロット}: K-meansクラスタリングの結果をプロットし、各クラスタの分布を視覚的に確認する。
+\end{enumerate}
+
 \paragraph{寄与度の確認}
 \begin{figure}[H]
     \centering
@@ -720,7 +792,7 @@ AutoEncoderモデルをアップデートすることは、モデルの性能向
 \end{itemize}
 
 \subsubsection{出力}
-プログラムと画像とモデルを用いて、画像の圧縮、ベクトルの主成分分析、二次元へのプロット、クラスター数10でのk-meansを行い、入力画像を背景ごとに分類した。この時、主成分分析に使用したモデルは\texttt{AE\_score\_check\_labels.ipynb}で使用したモデルと同じことに注意する。保存先は以下の通りである。
+プログラムと画像とモデルを用いて、画像の圧縮、ベクトルの主成分分析、二次元へのプロット、クラスター数10でのk-meansを行い、以下の流れで入力画像を背景ごとに分類した。この時、主成分分析に使用したモデルは\texttt{AE\_score\_check\_labels.ipynb}で使用したモデルと同じことに注意する。
 
 \paragraph{保存先}
 \begin{itemize}
@@ -732,12 +804,35 @@ AutoEncoderモデルをアップデートすることは、モデルの性能向
     \end{itemize}
 \end{itemize}
 
+\subsubsection{出力までの流れ}
+\begin{enumerate}
+    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
+    \item \textbf{モデルの読み込み}: 事前に訓練されたオートエンコーダーモデルを読み込む。
+    \item \textbf{画像の読み込み}: 指定されたディレクトリから画像を読み込む。
+    \item \textbf{画像の分割}: 読み込んだ画像を224×224ピクセルの小さな画像に分割する。
+    \item \textbf{オートエンコーダーによる特徴抽出}: 分割された画像をオートエンコーダーモデルに通し、特徴ベクトルを抽出する。
+    \item \textbf{PCAによる次元削減}: 抽出された特徴ベクトルに対してPCA（主成分分析）を行い、次元削減を行う。
+        \begin{itemize}
+            \item PCAの寄与度を確認し、主成分の重要性を評価する。
+        \end{itemize}
+    \item \textbf{PCA結果のプロット}: PCAによる次元削減結果をプロットし、視覚的に確認する。
+    \item \textbf{K-meansクラスタリング}: 次元削減された特徴ベクトルに対してK-meansクラスタリングを行い、画像をクラスタに分類する。
+        \begin{itemize}
+            \item クラスタ番号を再割り当てし、クラスタごとに画像を保存する。
+        \end{itemize}
+    \item \textbf{クラスタリング結果のプロット}: K-meansクラスタリングの結果をプロットし、各クラスタの分布を視覚的に確認する。
+    \item \textbf{画像の移動}: クラスタリング結果に基づいて、画像を新しいフォルダに移動する。
+        \begin{itemize}
+            \item クラスタ番号に応じて、画像を`white`、`light`、`dark`のフォルダに分類する。
+        \end{itemize}
+\end{enumerate}
+
 \paragraph{}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{imgs/k-means2.png}
     \caption{k-meansクラスタリングの結果}
-    \label{fig:kmeans_plot}
+    \label{fig:kmeans_plot2}
 \end{figure}
 
 \subsubsection{物体画像の抽出}
@@ -755,7 +850,7 @@ AutoEncoderモデルをアップデートすることは、モデルの性能向
     \item \textbf{RN50x64}
 \end{itemize}
 
-\subsection{使用した言葉}
+\subsubsection{使用した言葉}
 本研究で使用した言葉は以下の通りである。これらの言葉はCLIPモデルに入力するためにGoogleTranslatorで英語に翻訳されて使用された。
 \begin{itemize}
     \item \textbf{NO\_A}: 上空から緑色や黃緑色の草が生い茂った箇所を見下ろした画像で全体をくまなく探してもゴミなどの人工物、白色の小さい物体、黒色の物体、木の枝は確実に写っていない
@@ -790,6 +885,19 @@ AutoEncoderモデルをアップデートすることは、モデルの性能向
     \item \textbf{imgs/update\_train\_imgs\_remove/train\_img\_6048}: 完全に物体を取り除いた画像
     \item \textbf{imgs/update\_train\_imgs\_default/train\_img\_6048}
 \end{itemize}
+
+\subsubsection{出力までの流れ}
+\begin{enumerate}
+    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
+    \item \textbf{モデルの読み込み}: 事前に訓練されたCLIPモデル（RN50x64およびRN50）を読み込む。
+    \item \textbf{翻訳}: 使用する日本語の説明文をGoogleTranslatorで英語に翻訳する。
+    \item \textbf{画像のコピー}: 指定されたフォルダからランダムに画像を選択し、テスト用フォルダにコピーする。
+    \item \textbf{画像の予測とプロット}: コピーした画像に対してCLIPモデルを用いて予測を行い、結果をプロットして保存する。
+    \item \textbf{画像の分類と保存}: 予測結果に基づいて画像を分類し、結果を保存する。
+    \item \textbf{フォルダのコピーと整理}: 分類結果のフォルダをコピーし、不要なディレクトリを削除する。
+    \item \textbf{画像の移動}: 物体画像を含むフォルダから画像を移動し、正答率を計算する。
+    \item \textbf{画像のコピーと反転処理}: 指定された枚数の画像をコピーし、必要に応じて反転や回転処理を行う。
+\end{enumerate}
 
 
 \bibliographystyle{unsrt}
