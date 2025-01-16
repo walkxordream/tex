@@ -8,6 +8,9 @@
 \usepackage{float}
 \usepackage{tikz}
 \usepackage[a4paper, left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
 \setCJKmainfont{MS Mincho}
 \usetikzlibrary{positioning, shapes.geometric, arrows.meta}
 \tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30]
@@ -540,12 +543,11 @@ AutoEncoderモデルをアップデートすることは、モデルの性能向
         \item 説明: A\_train\_imgと重複しない画像が1000枚ずつ、計4000枚含まれている。
     \end{itemize}
 
-    \item \textbf{imgs/old\_train\_imaga/}:
+    \item \textbf{imgs/old\_train\_img3/train\_img\_6048/6048}:
     \begin{itemize}
-        \item \textbf{around\_wind/}: jpgが6048枚
-        \item \textbf{light\_green/}: jpgが6048枚
-        \item \textbf{dark\_green/}: jpgが6048枚
-        \item \textbf{white/}: jpgが6048枚
+        \item \textbf{new\_dark/}: jpgが6048枚
+        \item \textbf{new\_light/}: jpgが6048枚
+        \item \textbf{new\_white/}: jpgが6048枚
         \item 説明: 去年学習に使用した背景ごとに分類された224×224ピクセルの画像がそれぞれ含まれている。
     \end{itemize}
 
@@ -632,7 +634,7 @@ AutoEncoderモデルをアップデートすることは、モデルの性能向
             \item 最大面積がしきい値を超える場合、物体が存在すると判定する。
         \end{itemize}
         \item \textbf{結果の保存}: 物体が存在すると判定された画像を保存した。
-        \item \textbf{評価指標の計算}: 混合行列を作成し、F2スコアを計算した。
+        \item \textbf{評価指標の計算}: 混合行列を作成し、F2スコアを計算した（以降で詳細を説明）。
     \end{enumerate}
 
 \subsubsection{f2スコアの計算}
@@ -675,7 +677,7 @@ AEが物体だと思った画像の枚数は366枚で、その中に入ってい
 
 これらのプログラムファイルを用いて、モデルの自動アップデートを行い、その有用性を検証した。
 
-\subsubsection{背景画像の分類}
+\subsection{背景画像の分類}
 初めに、AEの性能を最大限発揮するために、全体画像から背景ごとに画像を分類することが重要である。これから、背景ごとに画像を分類する方法を説明する。通常、AEモデルを作成するときは画像の特徴の圧縮と再構築を行い入力画像と出力画像をなるべく一致させようとする性質を利用するために学習画像は似た画像を使う。しかし、今回は4種類の異なった画像を均一な枚数学習させることによって、それぞれの特徴を学習したモデルを作成する。このAEモデルで分類したい画像を圧縮し、再構築する前のベクトルを取り出し主成分分析を行い、次元削減を行う。その後、k-meansクラスタリングを行い、背景ごとに画像を分類する。
 
 \paragraph{使用プログラム}
@@ -695,17 +697,17 @@ AEが物体だと思った画像の枚数は366枚で、その中に入ってい
 
 \subsubsection{出力までの流れ}
 プログラムと画像を用いて、以下の流れでモデルを作成した。
-
 \begin{enumerate}
     \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
     \item \textbf{データの準備}: 指定されたディレクトリから画像データを読み込み、学習用と評価用に分割する。
+    \item \textbf{データセットの作成}: 画像データを読み込み、PyTorchのデータセットとして準備する。
+    \item \textbf{データローダーの作成}: 学習用と評価用のデータローダーを作成する。
     \item \textbf{モデルの定義}: 深層オートエンコーダーモデルを定義する。
-    \item \textbf{学習の設定}: モデルの最適化手法や誤差関数を設定し、学習の準備を行う。
-    \item \textbf{モデルの学習}: 学習データを用いてモデルを学習させる。学習中の損失を記録し、最も良いモデルを保存する。
-    \item \textbf{評価の実行}: 評価データを用いてモデルの性能を評価し、損失を記録する。
-    \item \textbf{結果の保存}: 学習の収束具合をプロットし、画像として保存する。また、損失の推移をCSVファイルに書き込む。
+    \item \textbf{最適化手法と誤差関数の設定}: モデルの最適化手法としてAdamを使用し、誤差関数としてMSELossを設定する。
+    \item \textbf{学習の実行}: 指定されたエポック数だけモデルの学習を行う。学習中に最も良いモデルを保存する。
+    \item \textbf{評価の実行}: 学習後、評価用データを用いてモデルの性能を評価する。
+    \item \textbf{結果の保存}: 学習と評価の損失をプロットし、画像として保存する。また、損失の推移をCSVファイルに保存する。
 \end{enumerate}
-
 
 \paragraph{}
 \begin{figure}[H]
@@ -740,14 +742,14 @@ AEが物体だと思った画像の枚数は366枚で、その中に入ってい
     \item \textbf{オートエンコーダーによる特徴抽出}: 読み込んだ画像をオートエンコーダーモデルに通し、特徴ベクトルを抽出する。
     \item \textbf{PCAによる次元削減}: 抽出された特徴ベクトルに対してPCA（主成分分析）を行い、次元削減を行う。
         \begin{itemize}
-            \item PCAの寄与度を確認し、主成分の重要性を評価する。
+            \item PCAの寄与度を確認し、主成分の重要性を評価する（以降で寄与度の詳細を説明）。
         \end{itemize}
-    \item \textbf{PCA結果のプロット}: PCAによる次元削減結果をプロットし、視覚的に確認する。
+    \item \textbf{PCA結果のプロット}: PCAによる次元削減結果をプロットし、視覚的に確認する（以降でPCAのプロットの詳細を説明）。
     \item \textbf{K-meansクラスタリング}: 次元削減された特徴ベクトルに対してK-meansクラスタリングを行い、画像をクラスタに分類する。
         \begin{itemize}
             \item クラスタ番号を再割り当てし、クラスタごとに画像を保存する。
         \end{itemize}
-    \item \textbf{クラスタリング結果のプロット}: K-meansクラスタリングの結果をプロットし、各クラスタの分布を視覚的に確認する。
+    \item \textbf{クラスタリング結果のプロット}: K-meansクラスタリングの結果をプロットし、各クラスタの分布を視覚的に確認する（以降でk-meansのプロットの詳細を説明）。
 \end{enumerate}
 
 \paragraph{寄与度の確認}
@@ -820,7 +822,7 @@ AEが物体だと思った画像の枚数は366枚で、その中に入ってい
         \begin{itemize}
             \item クラスタ番号を再割り当てし、クラスタごとに画像を保存する。
         \end{itemize}
-    \item \textbf{クラスタリング結果のプロット}: K-meansクラスタリングの結果をプロットし、各クラスタの分布を視覚的に確認する。
+    \item \textbf{クラスタリング結果のプロット}: K-meansクラスタリングの結果をプロットし、各クラスタの分布を視覚的に確認する（以降でk-meansのプロットの詳細を説明）。
     \item \textbf{画像の移動}: クラスタリング結果に基づいて、画像を新しいフォルダに移動する。
         \begin{itemize}
             \item クラスタ番号に応じて、画像を`white`、`light`、`dark`のフォルダに分類する。
@@ -835,7 +837,7 @@ AEが物体だと思った画像の枚数は366枚で、その中に入ってい
     \label{fig:kmeans_plot2}
 \end{figure}
 
-\subsubsection{物体画像の抽出}
+\subsection{物体画像の抽出}
 次に、背景ごとに分類された画像から物体画像を抽出する。これは、CLIPモデルを使用して画像内の物体を検出し、物体が存在する画像を抽出することで行う。
 
 \paragraph{使用プログラム}
@@ -882,6 +884,8 @@ AEが物体だと思った画像の枚数は366枚で、その中に入ってい
 
 \paragraph{保存先}
 \begin{itemize}
+    \item \textbf{imgs/clip\_test}:
+    \item \textbf{imgs/clip\_test\_result}
     \item \textbf{imgs/update\_train\_imgs\_remove/train\_img\_6048}: 完全に物体を取り除いた画像
     \item \textbf{imgs/update\_train\_imgs\_default/train\_img\_6048}
 \end{itemize}
@@ -892,13 +896,199 @@ AEが物体だと思った画像の枚数は366枚で、その中に入ってい
     \item \textbf{モデルの読み込み}: 事前に訓練されたCLIPモデル（RN50x64およびRN50）を読み込む。
     \item \textbf{翻訳}: 使用する日本語の説明文をGoogleTranslatorで英語に翻訳する。
     \item \textbf{画像のコピー}: 指定されたフォルダからランダムに画像を選択し、テスト用フォルダにコピーする。
-    \item \textbf{画像の予測とプロット}: コピーした画像に対してCLIPモデルを用いて予測を行い、結果をプロットして保存する。
+    \item \textbf{テスト画像の予測とプロット}: テスト用にコピーした画像に対してCLIPモデルを用いて予測を行い、結果をプロットして保存する（以降でtestの結果の詳細を説明）。
+    \item \textbf{画像の予測}: メインの画像に対してCLIPモデルを用いて予測を行う。
     \item \textbf{画像の分類と保存}: 予測結果に基づいて画像を分類し、結果を保存する。
     \item \textbf{フォルダのコピーと整理}: 分類結果のフォルダをコピーし、不要なディレクトリを削除する。
-    \item \textbf{画像の移動}: 物体画像を含むフォルダから画像を移動し、正答率を計算する。
-    \item \textbf{画像のコピーと反転処理}: 指定された枚数の画像をコピーし、必要に応じて反転や回転処理を行う。
+    \item \textbf{画像の移動}: 物体画像を含むフォルダから画像を移動し、物体の割合を計算する（以降で物体の割合の詳細を説明）。
+    \item \textbf{画像のコピーと反転処理}: 画像をコピーし、6048枚になるように、必要に応じて反転や回転処理を行う。
 \end{enumerate}
 
+\subsubsection{テスト画像の結果}
+以下に、テスト画像の予測結果を示す。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/test1.png}
+    \caption{テスト画像1の予測結果}
+    \label{fig:test_image_1_result}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/test2.png}
+    \caption{テスト画像2の予測結果}
+    \label{fig:test_image_2_result}
+\end{figure}
+
+\subsubsection{物体を含んでいる割合}
+以下に、物体を含んでいる割合を示す。
+
+\begin{table}[H]
+    \centering
+    \caption{RN50x64モデルとRN50モデルの物体を含んでいる割合の比較}
+    \label{tab:model_comparison}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        カテゴリ & RN50x64 & RN50 \\
+        \hline
+        dark & 1.26\% & 4.64\% \\
+        \hline
+        light & 11.76\% & 15.33\% \\
+        \hline
+        white & 20.51\% & 29.98\% \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\paragraph{RN50x64モデルとRN50モデルの比較}
+RN50x64モデルとRN50モデルの結果を比較すると、RN50x64モデルの方が物体を含んでいる割合が低いことがわかる。特に、物体を含んでいる割合において、RN50x64モデルは全てのカテゴリでRN50モデルよりも優れている。
+結果から、RN50x64モデルを使用して物体画像を抽出することが適していると言えるため以降はRN50x64モデルを使用した画像を用いて実験を進める。なお、上記の表からもわかるように、完全に物体を取り除くことは出来なかったため、以降の章で若干物体の画像が入った画像でモデルのアップデートを行った場合と全く物体が入っていない画像でモデルのアップデートを行った場合の精度の比較を行う。
+
+\subsection{モデルのアップデート}
+次に、物体画像を含んでいる割合が低いRN50x64モデルを使用して、モデルのアップデートを行う。モデルのアップデートは、古い画像を学習させたモデルを新しい画像でアップデートすることで行う。また、ここまでで4分類ではなく3分類の方が適していることがわかったため、アップデートをするモデルも作り直す。
+
+\subsubsection{旧モデルの再学習}
+
+\paragraph{使用プログラム}
+\begin{itemize}
+    \item \textbf{AE\_deep\_train\_matomete.py}
+\end{itemize}
+
+\paragraph{使用画像}
+\begin{itemize}
+    \item \textbf{imgs/old\_train\_img3/train\_img\_6048/6048}
+\end{itemize}
+
+\paragraph{出力モデル名}
+\begin{itemize}
+    \item \textbf{models/old\_models6048/20241225\_new\_dark.pth}
+    \item \textbf{models/old\_models6048/20241225\_new\_light.pth}
+    \item \textbf{models/old\_models6048/20241225\_new\_white.pth}
+\end{itemize}
+
+\subsubsection{出力までの流れ}
+省略
+
+\paragraph{}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20241225_new_dark.png}
+    \caption{20241225\_new\_dark}
+    \label{fig:learning_curve1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20241225_new_light.png}
+    \caption{20241225\_new\_light}
+    \label{fig:learning_curve2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20241225_new_white.png}
+    \caption{20241225\_new\_white}
+    \label{fig:learning_curve3}
+\end{figure}
+
+\subsubsection{モデルのアップデート}
+
+\paragraph{使用プログラム}
+\begin{itemize}
+    \item \textbf{AE\_deep\_finetrain\_matomete.py}
+\end{itemize}
+
+\paragraph{使用画像}
+\begin{itemize}
+    \item \textbf{imgs/update\_train\_imgs\_default/train\_img\_6048}
+\end{itemize}
+
+\paragraph{出力モデル名}
+\begin{itemize}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_ddark.pth}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_dlight.pth}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_dwhite.pth}
+\end{itemize}
+
+\subsubsection{出力までの流れ}
+
+\begin{enumerate}
+    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
+    \item \textbf{データの準備}: 指定されたディレクトリから画像データを読み込み、学習用と評価用に分割する。
+    \item \textbf{データセットの作成}: 画像データを読み込み、PyTorchのデータセットとして準備する。
+    \item \textbf{データローダーの作成}: 学習用と評価用のデータローダーを作成する。
+    \item \textbf{モデルの定義}: 深層オートエンコーダーモデルを定義する。
+    \item \textbf{モデルの読み込み}: 事前に保存されたモデルの重みを読み込む。
+    \item \textbf{最適化手法と誤差関数の設定}: モデルの最適化手法としてAdamを使用し、誤差関数としてMSELossを設定する。
+    \item \textbf{学習の実行}: 指定されたエポック数だけモデルの学習を行う。学習中に最も良いモデルを保存する。
+    \item \textbf{評価の実行}: 学習後、評価用データを用いてモデルの性能を評価する。
+    \item \textbf{結果の保存}: 学習と評価の損失をプロットし、画像として保存する。また、損失の推移をCSVファイルに保存する。
+\end{enumerate}
+
+\paragraph{}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_ddark.png}
+    \caption{20250115\_fine6048\_ddark}
+    \label{fig:learning_curve1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_dlight.png}
+    \caption{20250115\_fine6048\_dlight}
+    \label{fig:learning_curve2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_dwhite.png}
+    \caption{20250115\_fine6048\_dwhite}
+    \label{fig:learning_curve3}
+\end{figure}
+
+\paragraph{使用プログラム}
+\begin{itemize}
+    \item \textbf{AE\_deep\_finetrain\_matomete.py}
+\end{itemize}
+
+\paragraph{使用画像}
+\begin{itemize}
+    \item \textbf{imgs/update\_train\_imgs\_remove/train\_img\_6048}
+\end{itemize}
+
+\paragraph{出力モデル名}
+\begin{itemize}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rdark.pth}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rlight.pth}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rwhite.pth}
+\end{itemize}
+
+\subsubsection{出力までの流れ}
+省略
+
+\paragraph{}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_rdark.png}
+    \caption{20250115\_fine6048\_rdark}
+    \label{fig:learning_curve1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_rlight.png}
+    \caption{20250115\_fine6048\_rlight}
+    \label{fig:learning_curve2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_rwhite.png}
+    \caption{20250115\_fine6048\_rwhite}
+    \label{fig:learning_curve3}
+\end{figure}
 
 \bibliographystyle{unsrt}
 \bibliography{references}
