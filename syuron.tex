@@ -10,6 +10,7 @@
 \usepackage[a4paper, left=1in, right=1in, top=1in, bottom=1in]{geometry}
 \usepackage{tikz}
 \usepackage{pgfplots}
+\usepackage{subcaption}
 \pgfplotsset{compat=1.17}
 \setCJKmainfont{MS Mincho}
 \usetikzlibrary{positioning, shapes.geometric, arrows.meta}
@@ -108,6 +109,15 @@ K-meansクラスタリングは、データをK個のクラスタに分割する
 
 \subsubsection{ゼロショット学習（Zero-Shot Learning）}
 ゼロショット学習は、トレーニング時に見たことのないクラスのデータを分類する能力を持つ機械学習手法である。ゼロショット学習では、事前に学習した知識を利用して、新しいクラスのデータを認識する。これにより、少ないデータで新しいクラスを分類することが可能となる。
+
+\subsubsection{F2スコア}
+F2スコアは、精度（Precision）と再現率（Recall）の調和平均を計算するための指標であり、再現率をより重視する場合に使用される。F2スコアは以下の式で計算される：
+
+\[
+F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \text{Precision}) + \text{Recall}}
+\]
+
+F2スコアは0から1の範囲で値を取り、1に近いほどモデルの性能が高いことを示す。F2スコアが高い場合、モデルは高い再現率を維持しつつ、精度も高いことを意味する。逆に、F2スコアが低い場合、モデルは再現率または精度のいずれか、または両方が低いことを示す。F2スコアは、特に不均衡データセットにおいて、モデルの性能を評価するために有用である。
 
 \subsection{検出方法}
 
@@ -619,6 +629,15 @@ AutoEncoderモデルをアップデートすることは、モデルの性能向
     \item \textbf{imgs/test\_objects}
 \end{itemize}
 
+\paragraph{使用モデル}
+\begin{itemize}
+    \item \textbf{models/2023models/AEmodel\_dark\_green20230927.pth}
+    \item \textbf{models/2023models/AEmodel\_light\_green20230927.pth}
+    \item \textbf{models/2023models/AEmodel\_white20230927.pth}
+    \item \textbf{models/2023models/AEmodel\_paved\_ground20230927.pth}
+\end{itemize}
+\subsubsection{出力}
+
 \subsubsection{出力}
 プログラムの実行結果として、\texttt{imgs/AE\_2023\_result}フォルダが作成され、物体だと思った画像が保存される。また、答えの画像も渡しているため、F2スコアが計算される。
 \subsubsection{出力までの流れ}
@@ -655,7 +674,7 @@ AEが物体だと思った画像の枚数は366枚で、その中に入ってい
         \end{itemize}
     \item F2スコアを計算する。
         \begin{itemize}
-            \item F2 = \(\frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \text{Precision}) + \text{Recall}} = \frac{5 \cdot (0.068 \cdot 0.5)}{4 \cdot 0.068 + 0.5} \approx 0.22\)
+            \item F2 = \(\frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \text{Precision}) + \text{Recall}} = \frac{5 \cdot (0.068 \cdot 0.5)}{4 \cdot 0.068 + 0.5} \approx 0.221\)
         \end{itemize}
 \end{itemize}
 これにより、従来のモデルと方法では物体検出の精度が十分でないことがわかった。そのため、モデルのアップデートを行うことが必要である。
@@ -1088,6 +1107,198 @@ RN50x64モデルとRN50モデルの結果を比較すると、RN50x64モデル�
     \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_rwhite.png}
     \caption{20250115\_fine6048\_rwhite}
     \label{fig:learning_curve3}
+\end{figure}
+
+\subsection{物体検出の試み}
+アップデートしたモデルを使って、物体検出を行うために以下のプログラムファイルを使用した。
+
+\paragraph{使用プログラム}
+\begin{itemize}
+    \item \textbf{2024\_main.py}
+\end{itemize}
+
+\paragraph{使用画像}
+\begin{itemize}
+    \item \textbf{imgs/test\_img}
+    \item \textbf{imgs/test\_objects}
+\end{itemize}
+
+\subsubsection{f2スコアの計算}
+以下に、dモデルとrモデルのF2スコアを示す。
+
+\paragraph{dモデルのF2スコア}
+dモデルが物体だと思った画像の枚数は278枚で、その中に入っていた物体画像の枚数は19枚である。testフォルダの画像を分割した画像が903枚で、その中に入っていた物体画像の枚数が50枚である。混合行列の要素は以下の通りである。
+
+\begin{itemize}
+    \item 混合行列の要素:
+        \begin{itemize}
+            \item True Positives (TP): 19枚
+            \item False Positives (FP): 259枚
+            \item True Negatives (TN): 594枚
+            \item False Negatives (FN): 31枚
+        \end{itemize}
+    \item 精度（Precision）と再現率（Recall）を計算する。
+        \begin{itemize}
+            \item Precision = \(\frac{TP}{TP + FP} = \frac{19}{19 + 259} \approx 0.068\)
+            \item Recall = \(\frac{TP}{TP + FN} = \frac{19}{19 + 31} \approx 0.38\)
+        \end{itemize}
+    \item F2スコアを計算する。
+        \begin{itemize}
+            \item F2 = \(\frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \text{Precision}) + \text{Recall}} = \frac{5 \cdot (0.068 \cdot 0.38)}{4 \cdot 0.068 + 0.38} \approx 0.199\)
+        \end{itemize}
+\end{itemize}
+
+\paragraph{rモデルのF2スコア}
+rモデルが物体だと思った画像の枚数は289枚で、その中に入っていた物体画像の枚数は22枚である。testフォルダの画像を分割した画像が906枚で、その中に入っていた物体画像の枚数が50枚である。混合行列の要素は以下の通りである。
+
+\begin{itemize}
+    \item 混合行列の要素:
+        \begin{itemize}
+            \item True Positives (TP): 22枚
+            \item False Positives (FP): 267枚
+            \item True Negatives (TN): 589枚
+            \item False Negatives (FN): 28枚
+        \end{itemize}
+    \item 精度（Precision）と再現率（Recall）を計算する。
+        \begin{itemize}
+            \item Precision = \(\frac{TP}{TP + FP} = \frac{22}{22 + 267} \approx 0.076\)
+            \item Recall = \(\frac{TP}{TP + FN} = \frac{22}{22 + 28} \approx 0.44\)
+        \end{itemize}
+    \item F2スコアを計算する。
+        \begin{itemize}
+            \item F2 = \(\frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \text{Precision}) + \text{Recall}} = \frac{5 \cdot (0.076 \cdot 0.44)}{4 \cdot 0.076 + 0.44} \approx 0.224\)
+        \end{itemize}
+\end{itemize}
+
+両者ともにF2スコアは低いが、rモデルの方がdモデルよりもF2スコアが高いことがわかる。これは、物体画像を含んでいる割合が低いモデルを使用して学習を行ったため、物体画像を含んでいる割合が低い画像をより正確に検出できることが示唆される。
+しかし、あまりに低すぎるため、何故このような結果になったのかを考察する。
+
+\subsection{物体検出の仕組み}
+モデルのアップデートを行っても物体検出をすることはできなかった。ここで着目したいのは、どの段階で物体を見失っているかである。
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance=2cm, every node/.style={rectangle, draw, text width=4cm, align=center}, arrow/.style={thick,->,>=stealth}]
+
+        % ノードの定義
+        \node (start) [startstop] {最もMSEが小さかったモデルによる差分画像};
+        \node (gray) [process, below of=start] {グレースケールに変換};
+        \node (binarize) [process, below of=gray] {閾値30で二値化};
+        \node (denoise) [process, below of=binarize] {ノイズ除去};
+        \node (contour_detection) [process, below of=denoise] {輪郭抽出};
+        \node (area_detection) [process, below of=contour_detection] {面積検出};
+        \node (end) [startstop, below of=area_detection] {処理完了};
+
+        % 矢印の定義
+        \draw [arrow] (start) -- (gray);
+        \draw [arrow] (gray) -- (binarize);
+        \draw [arrow] (binarize) -- (denoise);
+        \draw [arrow] (denoise) -- (contour_detection);
+        \draw [arrow] (contour_detection) -- (area_detection);
+        \draw [arrow] (area_detection) -- (end);
+
+    \end{tikzpicture}
+    \caption{差分画像の処理フロー}
+    \label{fig:diff_image_processing_flow}
+\end{figure}
+物体を検出するために、上記のステップを踏んだ。ステップ1つ1つを確認することで、物体を見失っている原因を特定する。
+
+\subsubsection{画像の紹介}
+以下に、物体検出を行い両方のモデルで失敗した画像を示す。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/65.png}
+    \caption{物体検出に失敗した画像}
+    \label{fig:failed_image}
+\end{figure}
+
+\subsubsection{グレースケールに変換}
+物体検出に失敗した画像をグレースケールに変換した結果を示す。
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/65ddiff.png}
+        \caption{dモデルによるグレースケール画像}
+        \label{fig:failed_image_modeld_diff}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/65rdiff.png}
+        \caption{rモデルによるグレースケール画像}
+        \label{fig:failed_image_modelr_diff}
+    \end{subfigure}
+    \caption{物体検出に失敗した画像のグレースケール変換結果}
+    \label{fig:failed_images_gray}
+\end{figure}
+視覚的には、物体が確認できている。
+
+\subsubsection{二値化}
+次にこれらの画像を二値化する。閾値は30とした。
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/65dbin.png}
+        \caption{dモデルによる二値化画像}
+        \label{fig:failed_image_modeld_bin}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/65rbin.png}
+        \caption{rモデルによる二値化画像}
+        \label{fig:failed_image_modelr_bin}
+    \end{subfigure}
+    \caption{物体検出に失敗した画像の二値化結果}
+    \label{fig:failed_images_bin}
+\end{figure}
+
+\subsection{画像処理のフロー}
+以下に、最もMSEが小さかった画像の処理フローを示す。
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance=2cm]
+
+        % ノードの定義
+        \node (start) [startstop] {最もMSEが小さかった画像};
+        \node (gray) [process, below of=start] {グレースケールに変換};
+        \node (branch) [decision, below of=gray, yshift=-1cm] {正規化するか？};
+        \node (normalize) [process, below of=branch, xshift=-3cm] {正規化をする};
+        \node (no_normalize) [process, below of=branch, xshift=3cm, fill=yellow!30] {正規化をしない};
+        \node (binarize) [process, below of=branch, yshift=-6cm] {二値化};
+        \node (denoise) [process, below of=binarize] {ノイズ除去};
+        \node (dilate_erode_branch) [decision, below of=denoise, yshift=-1cm] {膨張収縮をするか？};
+        \node (dilate_erode) [process, below of=dilate_erode_branch, xshift=-3cm] {膨張収縮をする};
+        \node (no_dilate_erode) [process, below of=dilate_erode_branch, xshift=3cm, fill=yellow!30] {膨張収縮をしない};
+        \node (contour_detection) [process, below of=dilate_erode_branch, yshift=-4cm] {輪郭検出};
+        \node (area_detection) [process, below of=contour_detection] {面積検出};
+        \node (end) [startstop, below of=area_detection] {処理完了};
+
+        % 矢印の定義
+        \draw [arrow] (start) -- (gray);
+        \draw [arrow] (gray) -- (branch);
+        \draw [arrow] (branch) -- node[anchor=east] {はい} (normalize);
+        \draw [arrow] (branch) -- node[anchor=west] {いいえ} (no_normalize);
+        \draw [arrow] (normalize) |- (binarize);
+        \draw [arrow] (no_normalize) |- (binarize);
+        \draw [arrow] (binarize) -- (denoise);
+        \draw [arrow] (denoise) -- (dilate_erode_branch);
+        \draw [arrow] (dilate_erode_branch) -- node[anchor=east] {はい} (dilate_erode);
+        \draw [arrow] (dilate_erode_branch) -- node[anchor=west] {いいえ} (no_dilate_erode);
+        \draw [arrow] (dilate_erode) |- (contour_detection);
+        \draw [arrow] (no_dilate_erode) |- (contour_detection);
+        \draw [arrow] (contour_detection) -- (area_detection);
+        \draw [arrow] (area_detection) -- (end);
+
+    \end{tikzpicture}
+    \caption{画像処理のフロー}
+    \label{fig:image_processing_flow}
 \end{figure}
 
 \bibliographystyle{unsrt}

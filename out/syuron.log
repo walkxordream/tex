@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.3)  16 JAN 2025 22:24
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.3)  17 JAN 2025 20:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -585,7 +585,32 @@ Package pgfplots: loading complementary utilities for your pgf version...
 File: tikzlibraryplotmarks.code.tex 2023-01-15 v3.1.10 (3.1.10)
  (c:/texlive/2024/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotmarks.code.tex
 File: pgflibraryplotmarks.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)))
+))) (c:/texlive/2024/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
+ (c:/texlive/2024/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+ (c:/texlive/2024/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen315
+\captionmargin=\dimen316
+\caption@leftmargin=\dimen317
+\caption@rightmargin=\dimen318
+\caption@width=\dimen319
+\caption@indent=\dimen320
+\caption@parindent=\dimen321
+\caption@hangindent=\dimen322
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count353
+\c@continuedfloat=\count354
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+)
+Package caption Info: New subtype `subfigure' on input line 238.
+\c@subfigure=\count355
+Package caption Info: New subtype `subtable' on input line 238.
+\c@subtable=\count356
+)
 
 Package fontspec Info: 
 (fontspec)             Could not resolve font "MS Mincho/BI" (it probably
@@ -620,10 +645,10 @@ File: tikzlibraryshapes.geometric.code.tex 2023-01-15 v3.1.10 (3.1.10)
 File: pgflibraryshapes.geometric.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )) (c:/texlive/2024/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex
 File: pgflibraryarrows.meta.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfarrowinset=\dimen315
-\pgfarrowlength=\dimen316
-\pgfarrowwidth=\dimen317
-\pgfarrowlinewidth=\dimen318
+\pgfarrowinset=\dimen323
+\pgfarrowlength=\dimen324
+\pgfarrowwidth=\dimen325
+\pgfarrowlinewidth=\dimen326
 ) (out/syuron.aux
 
 LaTeX Warning: Label `fig:learning_curve1' multiply defined.
@@ -646,27 +671,27 @@ LaTeX Warning: Label `fig:learning_curve3' multiply defined.
 )
 \openout1 = `syuron.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-Package hyperref Info: Link coloring OFF on input line 22.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+Package hyperref Info: Link coloring OFF on input line 23.
  (out/syuron.out) (out/syuron.out)
 \@outlinefile=\write4
 \openout4 = `syuron.out'.
@@ -678,56 +703,56 @@ Package fontspec Info:
 
 \symlegacymaths=\mathgroup4
 LaTeX Font Info:    Overwriting symbol font `legacymaths' in version `bold'
-(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 22.
-LaTeX Font Info:    Redeclaring math accent \acute on input line 22.
-LaTeX Font Info:    Redeclaring math accent \grave on input line 22.
-LaTeX Font Info:    Redeclaring math accent \ddot on input line 22.
-LaTeX Font Info:    Redeclaring math accent \tilde on input line 22.
-LaTeX Font Info:    Redeclaring math accent \bar on input line 22.
-LaTeX Font Info:    Redeclaring math accent \breve on input line 22.
-LaTeX Font Info:    Redeclaring math accent \check on input line 22.
-LaTeX Font Info:    Redeclaring math accent \hat on input line 22.
-LaTeX Font Info:    Redeclaring math accent \dot on input line 22.
-LaTeX Font Info:    Redeclaring math accent \mathring on input line 22.
-LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 22.
-LaTeX Font Info:    Redeclaring math symbol \Delta on input line 22.
-LaTeX Font Info:    Redeclaring math symbol \Theta on input line 22.
-LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 22.
-LaTeX Font Info:    Redeclaring math symbol \Xi on input line 22.
-LaTeX Font Info:    Redeclaring math symbol \Pi on input line 22.
-LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 22.
-LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 22.
-LaTeX Font Info:    Redeclaring math symbol \Phi on input line 22.
-LaTeX Font Info:    Redeclaring math symbol \Psi on input line 22.
-LaTeX Font Info:    Redeclaring math symbol \Omega on input line 22.
-LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 22.
-LaTeX Font Info:    Redeclaring symbol font `operators' on input line 22.
+(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 23.
+LaTeX Font Info:    Redeclaring math accent \acute on input line 23.
+LaTeX Font Info:    Redeclaring math accent \grave on input line 23.
+LaTeX Font Info:    Redeclaring math accent \ddot on input line 23.
+LaTeX Font Info:    Redeclaring math accent \tilde on input line 23.
+LaTeX Font Info:    Redeclaring math accent \bar on input line 23.
+LaTeX Font Info:    Redeclaring math accent \breve on input line 23.
+LaTeX Font Info:    Redeclaring math accent \check on input line 23.
+LaTeX Font Info:    Redeclaring math accent \hat on input line 23.
+LaTeX Font Info:    Redeclaring math accent \dot on input line 23.
+LaTeX Font Info:    Redeclaring math accent \mathring on input line 23.
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 23.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 23.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 23.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 23.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 23.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 23.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 23.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 23.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 23.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 23.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 23.
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 23.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 23.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 22.
+(Font)              `operators' in the math version `normal' on input line 23.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> TU/lmr/m/n on input line 22.
+(Font)                  OT1/cmr/m/n --> TU/lmr/m/n on input line 23.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 22.
+(Font)              `operators' in the math version `bold' on input line 23.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> TU/lmr/m/n on input line 22.
+(Font)                  OT1/cmr/bx/n --> TU/lmr/m/n on input line 23.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  TU/lmr/m/n --> TU/lmr/m/n on input line 22.
+(Font)                  TU/lmr/m/n --> TU/lmr/m/n on input line 23.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> TU/lmr/m/it on input line 22.
+(Font)                  OT1/cmr/m/it --> TU/lmr/m/it on input line 23.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> TU/lmr/b/n on input line 22.
+(Font)                  OT1/cmr/bx/n --> TU/lmr/b/n on input line 23.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 22.
+(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 23.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 22.
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 23.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  TU/lmr/m/n --> TU/lmr/b/n on input line 22.
+(Font)                  TU/lmr/m/n --> TU/lmr/b/n on input line 23.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> TU/lmr/b/it on input line 22.
+(Font)                  OT1/cmr/bx/it --> TU/lmr/b/it on input line 23.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 22.
+(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 23.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 22.
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 23.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -765,6 +790,8 @@ LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 
 Package pgfplots notification 'compat/show suggested version=true': you might benefit from \pgfplotsset{compat=1.18} (current compat level: 1.17).
 
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
 
 
 [1
@@ -782,7 +809,7 @@ Package pgfplots notification 'compat/show suggested version=true': you might be
 ]
 
 LaTeX Font Warning: Font shape `TU/MSMincho(0)/b/n' undefined
-(Font)              using `TU/MSMincho(0)/m/n' instead on input line 65.
+(Font)              using `TU/MSMincho(0)/m/n' instead on input line 66.
 
 
 
@@ -793,14 +820,14 @@ LaTeX Font Warning: Font shape `TU/MSMincho(0)/b/n' undefined
 [4]
 
 [5]
-Overfull \hbox (45.40201pt too wide) in paragraph at lines 294--295
+Overfull \hbox (45.40201pt too wide) in paragraph at lines 304--305
  [][] 
  []
 
 
 
 [6]
-Overfull \vbox (53.26842pt too high) has occurred while \output is active []
+Overfull \vbox (36.30841pt too high) has occurred while \output is active []
 
 
 
@@ -864,12 +891,12 @@ Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
 [14]
 
 [15]
+
+[16]
 File: imgs/loss_plot_20241224_A_train_img.png Graphic file (type bmp)
 <imgs/loss_plot_20241224_A_train_img.png>
 
-
-[16]
-Overfull \hbox (26.8401pt too wide) in paragraph at lines 732--733
+Overfull \hbox (26.8401pt too wide) in paragraph at lines 751--752
 []\TU/lmr/bx/n/12 models/old_models6048/6048_AEdeepmodel_20241224_A_train_img.pth 
  []
 
@@ -878,17 +905,17 @@ Overfull \hbox (26.8401pt too wide) in paragraph at lines 732--733
 [17]
 File: imgs/kiyodo.png Graphic file (type bmp)
 <imgs/kiyodo.png>
-File: imgs/pca.png Graphic file (type bmp)
-<imgs/pca.png>
 
 
 [18]
+File: imgs/pca.png Graphic file (type bmp)
+<imgs/pca.png>
 File: imgs/pca_k-means.png Graphic file (type bmp)
 <imgs/pca_k-means.png>
 
 
 [19]
-Overfull \hbox (26.8401pt too wide) in paragraph at lines 793--794
+Overfull \hbox (26.8401pt too wide) in paragraph at lines 812--813
 []\TU/lmr/bx/n/12 models/old_models6048/6048_AEdeepmodel_20241224_A_train_img.pth 
  []
 
@@ -926,17 +953,17 @@ File: imgs/loss_plot_20241225_new_white.png Graphic file (type bmp)
 
 
 [27]
-Overfull \hbox (14.38414pt too wide) in paragraph at lines 1009--1010
+Overfull \hbox (14.38414pt too wide) in paragraph at lines 1028--1029
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_ddark.pth 
  []
 
 
-Overfull \hbox (14.32413pt too wide) in paragraph at lines 1010--1011
+Overfull \hbox (14.32413pt too wide) in paragraph at lines 1029--1030
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_dlight.pth 
  []
 
 
-Overfull \hbox (20.09613pt too wide) in paragraph at lines 1011--1012
+Overfull \hbox (20.09613pt too wide) in paragraph at lines 1030--1031
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_dwhite.pth 
  []
 
@@ -955,17 +982,17 @@ File: imgs/loss_plot_20250115_fine6048_dwhite.png Graphic file (type bmp)
 
 
 [30]
-Overfull \hbox (12.40413pt too wide) in paragraph at lines 1063--1064
+Overfull \hbox (12.40413pt too wide) in paragraph at lines 1082--1083
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rdark.pth 
  []
 
 
-Overfull \hbox (12.34413pt too wide) in paragraph at lines 1064--1065
+Overfull \hbox (12.34413pt too wide) in paragraph at lines 1083--1084
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rlight.pth 
  []
 
 
-Overfull \hbox (18.11613pt too wide) in paragraph at lines 1065--1066
+Overfull \hbox (18.11613pt too wide) in paragraph at lines 1084--1085
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rwhite.pth 
  []
 
@@ -978,11 +1005,39 @@ File: imgs/loss_plot_20250115_fine6048_rlight.png Graphic file (type bmp)
 [31]
 File: imgs/loss_plot_20250115_fine6048_rwhite.png Graphic file (type bmp)
 <imgs/loss_plot_20250115_fine6048_rwhite.png>
- (out/syuron.bbl
 
-[32])
 
-[33
+[32]
+
+[33]
+
+[34]
+File: imgs/65.png Graphic file (type bmp)
+<imgs/65.png>
+
+
+[35]
+File: imgs/65ddiff.png Graphic file (type bmp)
+<imgs/65ddiff.png>
+File: imgs/65rdiff.png Graphic file (type bmp)
+<imgs/65rdiff.png>
+
+
+[36]
+File: imgs/65dbin.png Graphic file (type bmp)
+<imgs/65dbin.png>
+File: imgs/65rbin.png Graphic file (type bmp)
+<imgs/65rbin.png>
+
+
+[37]
+Overfull \vbox (149.52289pt too high) has occurred while \output is active []
+
+
+
+[38] (out/syuron.bbl)
+
+[39
 
 ] (out/syuron.aux)
  ***********
@@ -997,15 +1052,15 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `syuron.out' has not changed.
-(rerunfilecheck)             Checksum: A0977559256D12C0EEBA8866BD006B39;2430.
+(rerunfilecheck)             Checksum: 8C7B62AF3C838C5429C83D847D7A126D;2800.
  ) 
 Here is how much of TeX's memory you used:
- 35395 strings out of 473889
- 884456 string characters out of 5734826
- 1440305 words of memory out of 5000000
- 57877 multiletter control sequences out of 15000+600000
- 562565 words of font info for 72 fonts, out of 8000000 for 9000
+ 36997 strings out of 473889
+ 917050 string characters out of 5734826
+ 1457707 words of memory out of 5000000
+ 59462 multiletter control sequences out of 15000+600000
+ 562581 words of font info for 74 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 84i,8n,93p,753b,821s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,8n,93p,751b,851s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on out/syuron.pdf (35 pages).
+Output written on out/syuron.pdf (41 pages).
