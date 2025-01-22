@@ -153,30 +153,81 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.4.7}物体検出の仕組み}{34}{subsection.1.4.7}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {1.21}{\ignorespaces 差分画像の処理フロー}}{35}{figure.caption.100}\protected@file@percent }
 \newlabel{fig:diff_image_processing_flow}{{1.21}{35}{差分画像の処理フロー}{figure.caption.100}{}}
-\@writefile{toc}{\contentsline {subsubsection}{画像の紹介}{35}{section*.101}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.22}{\ignorespaces 物体検出に失敗した画像}}{36}{figure.caption.102}\protected@file@percent }
-\newlabel{fig:failed_image}{{1.22}{36}{物体検出に失敗した画像}{figure.caption.102}{}}
-\@writefile{toc}{\contentsline {subsubsection}{グレースケールに変換}{36}{section*.103}\protected@file@percent }
-\newlabel{fig:failed_image_modeld_diff}{{1.23a}{36}{dモデルによるグレースケール画像}{figure.caption.104}{}}
-\newlabel{sub@fig:failed_image_modeld_diff}{{a}{36}{dモデルによるグレースケール画像}{figure.caption.104}{}}
-\newlabel{fig:failed_image_modelr_diff}{{1.23b}{36}{rモデルによるグレースケール画像}{figure.caption.104}{}}
-\newlabel{sub@fig:failed_image_modelr_diff}{{b}{36}{rモデルによるグレースケール画像}{figure.caption.104}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.23}{\ignorespaces 物体検出に失敗した画像のグレースケール変換結果}}{36}{figure.caption.104}\protected@file@percent }
-\newlabel{fig:failed_images_gray}{{1.23}{36}{物体検出に失敗した画像のグレースケール変換結果}{figure.caption.104}{}}
-\@writefile{toc}{\contentsline {subsubsection}{二値化}{37}{section*.105}\protected@file@percent }
-\newlabel{fig:failed_image_modeld_bin}{{1.24a}{37}{dモデルによる二値化画像}{figure.caption.106}{}}
-\newlabel{sub@fig:failed_image_modeld_bin}{{a}{37}{dモデルによる二値化画像}{figure.caption.106}{}}
-\newlabel{fig:failed_image_modelr_bin}{{1.24b}{37}{rモデルによる二値化画像}{figure.caption.106}{}}
-\newlabel{sub@fig:failed_image_modelr_bin}{{b}{37}{rモデルによる二値化画像}{figure.caption.106}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.24}{\ignorespaces 物体検出に失敗した画像の二値化結果}}{37}{figure.caption.106}\protected@file@percent }
-\newlabel{fig:failed_images_bin}{{1.24}{37}{物体検出に失敗した画像の二値化結果}{figure.caption.106}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.8}画像処理のフロー}{37}{subsection.1.4.8}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.25}{\ignorespaces 画像処理のフロー}}{38}{figure.caption.107}\protected@file@percent }
-\newlabel{fig:image_processing_flow}{{1.25}{38}{画像処理のフロー}{figure.caption.107}{}}
+\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{35}{section*.101}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{使用画像}{35}{section*.102}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.22}{\ignorespaces 物体検出に失敗した画像}}{36}{figure.caption.103}\protected@file@percent }
+\newlabel{fig:failed_image}{{1.22}{36}{物体検出に失敗した画像}{figure.caption.103}{}}
+\@writefile{toc}{\contentsline {subsubsection}{グレースケールに変換}{36}{section*.104}\protected@file@percent }
+\newlabel{fig:failed_image_modeld_diff}{{1.23a}{36}{dモデルによるグレースケール画像}{figure.caption.105}{}}
+\newlabel{sub@fig:failed_image_modeld_diff}{{a}{36}{dモデルによるグレースケール画像}{figure.caption.105}{}}
+\newlabel{fig:failed_image_modelr_diff}{{1.23b}{36}{rモデルによるグレースケール画像}{figure.caption.105}{}}
+\newlabel{sub@fig:failed_image_modelr_diff}{{b}{36}{rモデルによるグレースケール画像}{figure.caption.105}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.23}{\ignorespaces 物体検出に失敗した画像のグレースケール変換結果}}{36}{figure.caption.105}\protected@file@percent }
+\newlabel{fig:failed_images_gray}{{1.23}{36}{物体検出に失敗した画像のグレースケール変換結果}{figure.caption.105}{}}
+\@writefile{toc}{\contentsline {subsubsection}{二値化}{37}{section*.106}\protected@file@percent }
+\newlabel{fig:failed_image_modeld_bin}{{1.24a}{37}{dモデルによる二値化画像}{figure.caption.107}{}}
+\newlabel{sub@fig:failed_image_modeld_bin}{{a}{37}{dモデルによる二値化画像}{figure.caption.107}{}}
+\newlabel{fig:failed_image_modelr_bin}{{1.24b}{37}{rモデルによる二値化画像}{figure.caption.107}{}}
+\newlabel{sub@fig:failed_image_modelr_bin}{{b}{37}{rモデルによる二値化画像}{figure.caption.107}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.24}{\ignorespaces 物体検出に失敗した画像の二値化結果}}{37}{figure.caption.107}\protected@file@percent }
+\newlabel{fig:failed_images_bin}{{1.24}{37}{物体検出に失敗した画像の二値化結果}{figure.caption.107}{}}
+\@writefile{toc}{\contentsline {subsubsection}{正規化をして二値化}{37}{section*.108}\protected@file@percent }
+\newlabel{fig:failed_image_modeld_normalize}{{1.25a}{37}{dモデルによる正規化画像}{figure.caption.109}{}}
+\newlabel{sub@fig:failed_image_modeld_normalize}{{a}{37}{dモデルによる正規化画像}{figure.caption.109}{}}
+\newlabel{fig:failed_image_modelr_normalize}{{1.25b}{37}{rモデルによる正規化画像}{figure.caption.109}{}}
+\newlabel{sub@fig:failed_image_modelr_normalize}{{b}{37}{rモデルによる正規化画像}{figure.caption.109}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.25}{\ignorespaces 物体検出に失敗した画像の正規化}}{37}{figure.caption.109}\protected@file@percent }
+\newlabel{fig:failed_images_normalize}{{1.25}{37}{物体検出に失敗した画像の正規化}{figure.caption.109}{}}
+\newlabel{fig:failed_image_modeld_bin2}{{1.26a}{38}{dモデルによる二値化画像}{figure.caption.110}{}}
+\newlabel{sub@fig:failed_image_modeld_bin2}{{a}{38}{dモデルによる二値化画像}{figure.caption.110}{}}
+\newlabel{fig:failed_image_modelr_bin2}{{1.26b}{38}{rモデルによる二値化画像}{figure.caption.110}{}}
+\newlabel{sub@fig:failed_image_modelr_bin2}{{b}{38}{rモデルによる二値化画像}{figure.caption.110}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.26}{\ignorespaces 物体検出に失敗した画像の正規化と二値化}}{38}{figure.caption.110}\protected@file@percent }
+\newlabel{fig:failed_images_normalize_bin}{{1.26}{38}{物体検出に失敗した画像の正規化と二値化}{figure.caption.110}{}}
+\@writefile{toc}{\contentsline {subsubsection}{ノイズ除去及び膨張収縮}{38}{section*.111}\protected@file@percent }
+\newlabel{fig:failed_image_modeld_dilate_erode}{{1.27a}{39}{dモデルによるノイズ除去後膨張収縮を行っていない画像}{figure.caption.112}{}}
+\newlabel{sub@fig:failed_image_modeld_dilate_erode}{{a}{39}{dモデルによるノイズ除去後膨張収縮を行っていない画像}{figure.caption.112}{}}
+\newlabel{fig:failed_image_modelr_dilate_erode}{{1.27b}{39}{dモデルによるノイズ除去及び膨張収縮画像}{figure.caption.112}{}}
+\newlabel{sub@fig:failed_image_modelr_dilate_erode}{{b}{39}{dモデルによるノイズ除去及び膨張収縮画像}{figure.caption.112}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.27}{\ignorespaces 物体検出に失敗した画像のノイズ除去及び膨張収縮}}{39}{figure.caption.112}\protected@file@percent }
+\newlabel{fig:failed_images_dilate_erode}{{1.27}{39}{物体検出に失敗した画像のノイズ除去及び膨張収縮}{figure.caption.112}{}}
+\newlabel{fig:failed_image_modeld_dilate_erode}{{1.28a}{39}{rモデルによるノイズ除去後膨張収縮を行っていない画像}{figure.caption.113}{}}
+\newlabel{sub@fig:failed_image_modeld_dilate_erode}{{a}{39}{rモデルによるノイズ除去後膨張収縮を行っていない画像}{figure.caption.113}{}}
+\newlabel{fig:failed_image_modelr_dilate_erode}{{1.28b}{39}{rモデルによるノイズ除去及び膨張収縮画像}{figure.caption.113}{}}
+\newlabel{sub@fig:failed_image_modelr_dilate_erode}{{b}{39}{rモデルによるノイズ除去及び膨張収縮画像}{figure.caption.113}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.28}{\ignorespaces 物体検出に失敗した画像のノイズ除去及び膨張収縮}}{39}{figure.caption.113}\protected@file@percent }
+\newlabel{fig:failed_images_dilate_erode}{{1.28}{39}{物体検出に失敗した画像のノイズ除去及び膨張収縮}{figure.caption.113}{}}
+\newlabel{fig:failed_image_modeld_dilate_erode}{{1.29a}{40}{dモデルによる正規化行いノイズ除去後膨張収縮を行っていない画像}{figure.caption.114}{}}
+\newlabel{sub@fig:failed_image_modeld_dilate_erode}{{a}{40}{dモデルによる正規化行いノイズ除去後膨張収縮を行っていない画像}{figure.caption.114}{}}
+\newlabel{fig:failed_image_modelr_dilate_erode}{{1.29b}{40}{dモデルによる正規化を行いノイズ除去及び膨張収縮画像}{figure.caption.114}{}}
+\newlabel{sub@fig:failed_image_modelr_dilate_erode}{{b}{40}{dモデルによる正規化を行いノイズ除去及び膨張収縮画像}{figure.caption.114}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.29}{\ignorespaces 物体検出に失敗した画像のノイズ除去及び膨張収縮}}{40}{figure.caption.114}\protected@file@percent }
+\newlabel{fig:failed_images_dilate_erode}{{1.29}{40}{物体検出に失敗した画像のノイズ除去及び膨張収縮}{figure.caption.114}{}}
+\newlabel{fig:failed_image_modeld_dilate_erode}{{1.30a}{40}{rモデルによる正規化行いノイズ除去後膨張収縮を行っていない画像}{figure.caption.115}{}}
+\newlabel{sub@fig:failed_image_modeld_dilate_erode}{{a}{40}{rモデルによる正規化行いノイズ除去後膨張収縮を行っていない画像}{figure.caption.115}{}}
+\newlabel{fig:failed_image_modelr_dilate_erode}{{1.30b}{40}{rモデルによる正規化を行いノイズ除去及び膨張収縮画像}{figure.caption.115}{}}
+\newlabel{sub@fig:failed_image_modelr_dilate_erode}{{b}{40}{rモデルによる正規化を行いノイズ除去及び膨張収縮画像}{figure.caption.115}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.30}{\ignorespaces 物体検出に失敗した画像のノイズ除去及び膨張収縮}}{40}{figure.caption.115}\protected@file@percent }
+\newlabel{fig:failed_images_dilate_erode}{{1.30}{40}{物体検出に失敗した画像のノイズ除去及び膨張収縮}{figure.caption.115}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.8}出力画像の精度向上}{41}{subsection.1.4.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{学習枚数の変更}{41}{section*.116}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{41}{section*.117}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用画像}{41}{section*.118}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{出力}{41}{section*.119}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{モデルの作成}{41}{section*.120}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{41}{section*.121}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用画像}{42}{section*.122}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{出力モデル名}{42}{section*.123}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{MSEの推移の確認}{43}{section*.124}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{43}{section*.125}\protected@file@percent }
 \bibstyle{unsrt}
 \bibdata{references}
+\@writefile{toc}{\contentsline {paragraph}{使用モデル}{44}{section*.126}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.31}{\ignorespaces MSEの推移}}{44}{figure.caption.128}\protected@file@percent }
+\newlabel{fig:mse_transition}{{1.31}{44}{MSEの推移}{figure.caption.128}{}}
+\@writefile{toc}{\contentsline {paragraph}{出力}{44}{figure.caption.128}\protected@file@percent }
 \bibcite{he2016deep}{1}
 \bibcite{goodfellow2016deep}{2}
 \bibcite{bishop2006pattern}{3}
 \bibcite{lecun2015deep}{4}
-\gdef \@abspage@last{41}
+\gdef \@abspage@last{47}

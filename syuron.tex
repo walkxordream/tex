@@ -1203,7 +1203,12 @@ rモデルが物体だと思った画像の枚数は289枚で、その中に入�
 \end{figure}
 物体を検出するために、上記のステップを踏んだ。ステップ1つ1つを確認することで、物体を見失っている原因を特定する。
 
-\subsubsection{画像の紹介}
+\paragraph{使用プログラム}
+\begin{itemize}
+    \item \textbf{AE\_deep\_check\_tex.ipynb}
+\end{itemize}
+
+\subsubsection{使用画像}
 以下に、物体検出を行い両方のモデルで失敗した画像を示す。
 
 \begin{figure}[H]
@@ -1257,48 +1262,252 @@ rモデルが物体だと思った画像の枚数は289枚で、その中に入�
     \caption{物体検出に失敗した画像の二値化結果}
     \label{fig:failed_images_bin}
 \end{figure}
+明らかに物体部分が途切れてしまっている。これを解決するために、二値化を行う前に正規化を行い、画像のコントラストを高める。
 
-\subsection{画像処理のフロー}
-以下に、最もMSEが小さかった画像の処理フローを示す。
+\subsubsection{正規化をして二値化}
+以下に、正規化を行った後に二値化した結果を示す。閾値は80とした。
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[node distance=2cm]
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/65seid.png}
+        \caption{dモデルによる正規化画像}
+        \label{fig:failed_image_modeld_normalize}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/65seir.png}
+        \caption{rモデルによる正規化画像}
+        \label{fig:failed_image_modelr_normalize}
+    \end{subfigure}
+    \caption{物体検出に失敗した画像の正規化}
+    \label{fig:failed_images_normalize}
+\end{figure}
 
-        % ノードの定義
-        \node (start) [startstop] {最もMSEが小さかった画像};
-        \node (gray) [process, below of=start] {グレースケールに変換};
-        \node (branch) [decision, below of=gray, yshift=-1cm] {正規化するか？};
-        \node (normalize) [process, below of=branch, xshift=-3cm] {正規化をする};
-        \node (no_normalize) [process, below of=branch, xshift=3cm, fill=yellow!30] {正規化をしない};
-        \node (binarize) [process, below of=branch, yshift=-6cm] {二値化};
-        \node (denoise) [process, below of=binarize] {ノイズ除去};
-        \node (dilate_erode_branch) [decision, below of=denoise, yshift=-1cm] {膨張収縮をするか？};
-        \node (dilate_erode) [process, below of=dilate_erode_branch, xshift=-3cm] {膨張収縮をする};
-        \node (no_dilate_erode) [process, below of=dilate_erode_branch, xshift=3cm, fill=yellow!30] {膨張収縮をしない};
-        \node (contour_detection) [process, below of=dilate_erode_branch, yshift=-4cm] {輪郭検出};
-        \node (area_detection) [process, below of=contour_detection] {面積検出};
-        \node (end) [startstop, below of=area_detection] {処理完了};
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/65seid2.png}
+        \caption{dモデルによる二値化画像}
+        \label{fig:failed_image_modeld_bin2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/65seir2.png}
+        \caption{rモデルによる二値化画像}
+        \label{fig:failed_image_modelr_bin2}
+    \end{subfigure}
+    \caption{物体検出に失敗した画像の正規化と二値化}
+    \label{fig:failed_images_normalize_bin}
+\end{figure}
 
-        % 矢印の定義
-        \draw [arrow] (start) -- (gray);
-        \draw [arrow] (gray) -- (branch);
-        \draw [arrow] (branch) -- node[anchor=east] {はい} (normalize);
-        \draw [arrow] (branch) -- node[anchor=west] {いいえ} (no_normalize);
-        \draw [arrow] (normalize) |- (binarize);
-        \draw [arrow] (no_normalize) |- (binarize);
-        \draw [arrow] (binarize) -- (denoise);
-        \draw [arrow] (denoise) -- (dilate_erode_branch);
-        \draw [arrow] (dilate_erode_branch) -- node[anchor=east] {はい} (dilate_erode);
-        \draw [arrow] (dilate_erode_branch) -- node[anchor=west] {いいえ} (no_dilate_erode);
-        \draw [arrow] (dilate_erode) |- (contour_detection);
-        \draw [arrow] (no_dilate_erode) |- (contour_detection);
-        \draw [arrow] (contour_detection) -- (area_detection);
-        \draw [arrow] (area_detection) -- (end);
+正規化を行うことで、物体部分が途切れることが改善されることはなかった。そのため、次の方法として二値化した画像に対してノイズ除去を行い、その後膨張処理と収縮処理を行うことで物体部分が途切れることの解消を目指し、物体が検出できているのかの確認を行う。
 
-    \end{tikzpicture}
-    \caption{画像処理のフロー}
-    \label{fig:image_processing_flow}
+\subsubsection{ノイズ除去及び膨張収縮}
+以下に、ノイズ除去及び膨張収縮を行っい物体を検出した結果を示す。また、視覚的には正規化によって物体部分が途切れることが改善は見受けられなかったが、物体検出を行う際にはどのような効果が現れるかわからないのでそれも比較して検証を行う。
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/65dnasinasi.png}
+        \caption{dモデルによるノイズ除去後膨張収縮を行っていない画像}
+        \label{fig:failed_image_modeld_dilate_erode}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/65darinasi.png}
+        \caption{dモデルによるノイズ除去及び膨張収縮画像}
+        \label{fig:failed_image_modelr_dilate_erode}
+    \end{subfigure}
+    \caption{物体検出に失敗した画像のノイズ除去及び膨張収縮}
+    \label{fig:failed_images_dilate_erode}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/65rnasinasi.png}
+        \caption{rモデルによるノイズ除去後膨張収縮を行っていない画像}
+        \label{fig:failed_image_modeld_dilate_erode}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/65rarinasi.png}
+        \caption{rモデルによるノイズ除去及び膨張収縮画像}
+        \label{fig:failed_image_modelr_dilate_erode}
+    \end{subfigure}
+    \caption{物体検出に失敗した画像のノイズ除去及び膨張収縮}
+    \label{fig:failed_images_dilate_erode}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/65dnasiari.png}
+        \caption{dモデルによる正規化行いノイズ除去後膨張収縮を行っていない画像}
+        \label{fig:failed_image_modeld_dilate_erode}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/65dariari.png}
+        \caption{dモデルによる正規化を行いノイズ除去及び膨張収縮画像}
+        \label{fig:failed_image_modelr_dilate_erode}
+    \end{subfigure}
+    \caption{物体検出に失敗した画像のノイズ除去及び膨張収縮}
+    \label{fig:failed_images_dilate_erode}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/65rnasiari.png}
+        \caption{rモデルによる正規化行いノイズ除去後膨張収縮を行っていない画像}
+        \label{fig:failed_image_modeld_dilate_erode}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/65rariari.png}
+        \caption{rモデルによる正規化を行いノイズ除去及び膨張収縮画像}
+        \label{fig:failed_image_modelr_dilate_erode}
+    \end{subfigure}
+    \caption{物体検出に失敗した画像のノイズ除去及び膨張収縮}
+    \label{fig:failed_images_dilate_erode}
+
+\end{figure}
+それぞれ3枚の画像が並んでいるが、左から順に入力画像、面積を検出する直前の画像、確認した最大面積の画像である。入力画像の左上にはYESorNOと書かれており、その下には正規化を行ったかどうか、膨張収縮を行ったかどうかが書かれている。また、面積を検出する直前の画像の左上にはYESorNOと書かれており、その下には検出した最大面積の大きさ、一番下にはmseの値が一番小さくなったモデルの名前が書かれている。最大面積が閾値（今回は1200）を超えるとYESと表示される。
+全ての画像に共通して、物体部分の面積を適切に検出できていないことが確認できる。特に膨張収縮を行った画像に関しては物体ではない部分の面積を検出してしまっている。これはAEが再現した画像の再現性が低い部分を膨張収縮により繋げてしまったためである。また、正規化を行っても結果が改善されていないことから、正規化は必要ないことがわかる。以上の結果から、差分画像に対してアプローチを行うのではなく、出力画像の精度向上にアプローチを行うことがより良い結果を得られると考えられる。
+
+\subsection{出力画像の精度向上}
+出力画像の精度を向上させる一般的な方法は学習枚数を増やすことである。学習枚数を増やすことで、モデルがより多くのパターンを学習することができるため、出力画像の精度が向上すると考えられる。しかし今回は現状が最大枚数なため、学習枚数を減らしたモデルを作成し、そのモデルを用いてMSEの推移を確認する。
+また、推移を確認する画像として物体検出に失敗した画像と紹介してきた画像を使用する。
+\subsubsection{学習枚数の変更}
+学習枚数を減らしたデータセットを作成する。今回は100枚、1000枚、2000枚、3000枚、4000枚、5000枚のデータセットを作成する。
+
+\paragraph{使用プログラム}
+\begin{itemize}
+    \item \textbf{AE\_train\_img\_move.ipynb}
+\end{itemize}
+
+\paragraph{使用画像}
+\begin{itemize}
+    \item \textbf{imgs/update\_train\_imgs\_default/train\_img\_6048}
+    \item \textbf{imgs/update\_train\_imgs\_remove/train\_img\_6048}
+\end{itemize}
+
+\paragraph{出力}
+\begin{itemize}
+    \item \textbf{imgs/update\_train\_imgs\_default\_mix}
+    \item \textbf{imgs/update\_train\_imgs\_remove\_mix}
+\end{itemize}
+
+\subsubsection{モデルの作成}
+以下に、学習枚数を減らしたモデルを作成する。
+
+\paragraph{使用プログラム}
+\begin{itemize}
+    \item \textbf{AE\_deep\_finetrain\_matomete.py}
+\end{itemize}
+
+\paragraph{使用画像}
+\begin{itemize}
+    \item \textbf{imgs/update\_train\_imgs\_default\_mix/train\_img\_100}
+    \item \textbf{imgs/update\_train\_imgs\_remove\_mix/train\_img\_100}
+    \item \textbf{imgs/update\_train\_imgs\_default\_mix/train\_img\_1000}
+    \item \textbf{imgs/update\_train\_imgs\_remove\_mix/train\_img\_1000}
+    \item \textbf{imgs/update\_train\_imgs\_default\_mix/train\_img\_2000}
+    \item \textbf{imgs/update\_train\_imgs\_remove\_mix/train\_img\_2000}
+    \item \textbf{imgs/update\_train\_imgs\_default\_mix/train\_img\_3000}
+    \item \textbf{imgs/update\_train\_imgs\_remove\_mix/train\_img\_3000}
+    \item \textbf{imgs/update\_train\_imgs\_default\_mix/train\_img\_4000}
+    \item \textbf{imgs/update\_train\_imgs\_remove\_mix/train\_img\_4000}
+    \item \textbf{imgs/update\_train\_imgs\_default\_mix/train\_img\_5000}
+    \item \textbf{imgs/update\_train\_imgs\_remove\_mix/train\_img\_5000}
+\end{itemize}
+
+\paragraph{出力モデル名}
+\begin{itemize}
+    \item \textbf{models/fine\_model\_paths/100\_fineAEdeepmodel\_20250116\_ddark.pth}
+    \item \textbf{models/fine\_model\_paths/100\_fineAEdeepmodel\_20250116\_dlight.pth}
+    \item \textbf{models/fine\_model\_paths/100\_fineAEdeepmodel\_20250116\_dwhite.pth}
+    \item \textbf{models/fine\_model\_paths/100\_fineAEdeepmodel\_20250116\_rdark.pth}
+    \item \textbf{models/fine\_model\_paths/100\_fineAEdeepmodel\_20250116\_rlight.pth}
+    \item \textbf{models/fine\_model\_paths/100\_fineAEdeepmodel\_20250116\_rwhite.pth}
+    \item \textbf{models/fine\_model\_paths/1000\_fineAEdeepmodel\_20250116\_ddark.pth}
+    \item \textbf{models/fine\_model\_paths/1000\_fineAEdeepmodel\_20250116\_dlight.pth}
+    \item \textbf{models/fine\_model\_paths/1000\_fineAEdeepmodel\_20250116\_dwhite.pth}
+    \item \textbf{models/fine\_model\_paths/1000\_fineAEdeepmodel\_20250116\_rdark.pth}
+    \item \textbf{models/fine\_model\_paths/1000\_fineAEdeepmodel\_20250116\_rlight.pth}
+    \item \textbf{models/fine\_model\_paths/1000\_fineAEdeepmodel\_20250116\_rwhite.pth}
+    \item \textbf{models/fine\_model\_paths/2000\_fineAEdeepmodel\_20250116\_ddark.pth}
+    \item \textbf{models/fine\_model\_paths/2000\_fineAEdeepmodel\_20250116\_dlight.pth}
+    \item \textbf{models/fine\_model\_paths/2000\_fineAEdeepmodel\_20250116\_dwhite.pth}
+    \item \textbf{models/fine\_model\_paths/2000\_fineAEdeepmodel\_20250116\_rdark.pth}
+    \item \textbf{models/fine\_model\_paths/2000\_fineAEdeepmodel\_20250116\_rlight.pth}
+    \item \textbf{models/fine\_model\_paths/2000\_fineAEdeepmodel\_20250116\_rwhite.pth}
+    \item \textbf{models/fine\_model\_paths/3000\_fineAEdeepmodel\_20250116\_ddark.pth}
+    \item \textbf{models/fine\_model\_paths/3000\_fineAEdeepmodel\_20250116\_dlight.pth}
+    \item \textbf{models/fine\_model\_paths/3000\_fineAEdeepmodel\_20250116\_dwhite.pth}
+    \item \textbf{models/fine\_model\_paths/3000\_fineAEdeepmodel\_20250116\_rdark.pth}
+    \item \textbf{models/fine\_model\_paths/3000\_fineAEdeepmodel\_20250116\_rlight.pth}
+    \item \textbf{models/fine\_model\_paths/3000\_fineAEdeepmodel\_20250116\_rwhite.pth}
+    \item \textbf{models/fine\_model\_paths/4000\_fineAEdeepmodel\_20250116\_ddark.pth}
+    \item \textbf{models/fine\_model\_paths/4000\_fineAEdeepmodel\_20250116\_dlight.pth}
+    \item \textbf{models/fine\_model\_paths/4000\_fineAEdeepmodel\_20250116\_dwhite.pth}
+    \item \textbf{models/fine\_model\_paths/4000\_fineAEdeepmodel\_20250116\_rdark.pth}
+    \item \textbf{models/fine\_model\_paths/4000\_fineAEdeepmodel\_20250116\_rlight.pth}
+    \item \textbf{models/fine\_model\_paths/4000\_fineAEdeepmodel\_20250116\_rwhite.pth}
+    \item \textbf{models/fine\_model\_paths/5000\_fineAEdeepmodel\_20250116\_ddark.pth}
+    \item \textbf{models/fine\_model\_paths/5000\_fineAEdeepmodel\_20250116\_dlight.pth}
+    \item \textbf{models/fine\_model\_paths/5000\_fineAEdeepmodel\_20250116\_dwhite.pth}
+    \item \textbf{models/fine\_model\_paths/5000\_fineAEdeepmodel\_20250116\_rdark.pth}
+    \item \textbf{models/fine\_model\_paths/5000\_fineAEdeepmodel\_20250116\_rlight.pth}
+    \item \textbf{models/fine\_model\_paths/5000\_fineAEdeepmodel\_20250116\_rwhite.pth}
+\end{itemize}
+
+\subsubsection{MSEの推移の確認}
+以下に、学習枚数を減らしたモデルによる物体画像のMSEの推移を確認する。
+
+\paragraph{使用プログラム}
+\begin{itemize}
+    \item \textbf{AE\_deep\_check\_suii.ipynb}
+\end{itemize}
+
+\paragraph{使用モデル}
+\begin{itemize}
+    \item \textbf{models/dmodels/100\_fineAEdeepmodel\_20250116\_dlight.pth}
+    \item \textbf{models/rmodels/100\_fineAEdeepmodel\_20250116\_rlight.pth}
+    \item \textbf{models/dmodels/1000\_fineAEdeepmodel\_20250116\_dlight.pth}
+    \item \textbf{models/rmodels/1000\_fineAEdeepmodel\_20250116\_rlight.pth}
+    \item \textbf{models/dmodels/2000\_fineAEdeepmodel\_20250116\_dlight.pth}
+    \item \textbf{models/rmodels/2000\_fineAEdeepmodel\_20250116\_rlight.pth}
+    \item \textbf{models/dmodels/3000\_fineAEdeepmodel\_20250116\_dlight.pth}
+    \item \textbf{models/rmodels/3000\_fineAEdeepmodel\_20250116\_rlight.pth}
+    \item \textbf{models/dmodels/4000\_fineAEdeepmodel\_20250116\_dlight.pth}
+    \item \textbf{models/rmodels/4000\_fineAEdeepmodel\_20250116\_rlight.pth}
+    \item \textbf{models/dmodels/5000\_fineAEdeepmodel\_20250116\_dlight.pth}
+    \item \textbf{models/rmodels/5000\_fineAEdeepmodel\_20250116\_rlight.pth}
+    \item \textbf{models/dmodels/6048\_fineAEdeepmodel\_20250115\_dlight.pth}
+    \item \textbf{models/rmodels/6048\_fineAEdeepmodel\_20250115\_rlight.pth}
+\end{itemize}
+
+\paragraph{出力}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/suii.png}
+    \caption{MSEの推移}
+    \label{fig:mse_transition}
 \end{figure}
 
 \bibliographystyle{unsrt}
