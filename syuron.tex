@@ -73,11 +73,11 @@
 昨年度、山形大学の先輩である梅津魁秀氏は、深層学習を用いたバードストライク調査プログラムの基礎的な研究を行った。彼の研究では、AutoEncoderを用いて物体検出モデルを作成し、ドローン画像から鳥の死骸を検出する手法を提案した。具体的には、ドローン画像を「物体が存在する画像」と「物体が存在しない画像」に分類し、「物体が存在する画像」とGUIを組み合わせることで手動で鳥の死骸を検出する方法を開発した。彼の研究により、物体画像に関してF2-scoreが0.83という高い精度で物体の有無を判定することができた。
 
 \subsection{引き継ぎの理由と目標}
-梅津氏の研究は有望な結果を示したが、実用化にはさらなる改良が必要である。特に、写りゆく四季に適応した汎用的なモデルを構築することと、物体画像から鳥の死骸の画像を自動で検出できるようにすることが挙げられる。本研究では、これらの課題に対処し、より実用的なバードストライク検出システムの開発を目指す。
+梅津氏の研究は有望な結果を示したが、実用化にはさらなる改良が必要である。特に、四季に適応した汎用的なモデルを構築することと、物体画像から鳥の死骸の画像を自動で検出できるようにすることが挙げられる。本研究では、これらの課題に対してモデルの自動アップデートとclipを用いる手法を用いて課題解決にアプローチした。
 
 \newpage
 \section{方法とアルゴリズム}
-ここからはバードストライク調査プログラムの作成に使用する方法やアルゴリズムを紹介する。なお、今年度は引継ぎのため、重複する部分は省略し、新規の内容や変更した内容のみ説明する。
+本章では、バードストライク調査プログラムの作成に使用する方法やアルゴリズムを紹介する。なお、今年度は引継ぎのため、重複する部分は省略し新規の内容や変更した内容のみを説明する。
 
 \subsection{科学用語の説明}
 本研究では、目標達成のために、さまざまな技術を使用している。以下に、研究の中で使用される主要な科学用語を説明する。
@@ -116,8 +116,38 @@ F2スコアは、精度（Precision）と再現率（Recall）の調和平均を
 \[
 F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \text{Precision}) + \text{Recall}}
 \]
-
 F2スコアは0から1の範囲で値を取り、1に近いほどモデルの性能が高いことを示す。F2スコアが高い場合、モデルは高い再現率を維持しつつ、精度も高いことを意味する。逆に、F2スコアが低い場合、モデルは再現率または精度のいずれか、または両方が低いことを示す。F2スコアは、特に不均衡データセットにおいて、モデルの性能を評価するために有用である。
+\subsubsection{正規化}
+正規化は、データのスケールを統一するための前処理手法であり、機械学習モデルの学習を安定させるために使用される。OpenCVライブラリでは、`cv2.normalize`関数を使用して画像の正規化を行うことができる。
+
+\begin{itemize}
+    \item \textbf{cv2.normalize}:
+        \texttt{cv2.normalize}関数は、画像のピクセル値を指定された範囲にスケーリングするために使用される。最も一般的に使用される正規化方法は\texttt{cv2.NORM\_MINMAX}であり、以下の式で計算される：
+        \[
+        \text{dst}(x, y) = \alpha + \frac{(\text{src}(x, y) - \text{min}_{\text{src}})}{(\text{max}_{\text{src}} - \text{min}_{\text{src}})} \cdot (\beta - \alpha)
+        \]
+        ここで、\texttt{min\_src}と\texttt{max\_src}は入力画像の最小値と最大値である。
+\end{itemize}
+正規化を行うことで、異なるスケールの特徴量が同等に扱われるようになり、勾配降下法などの最適化アルゴリズムが効率的に動作するようになる。これにより、モデルの収束が早まり、精度が向上することが期待される。
+\subsubsection{膨張と収縮}
+膨張と収縮は、画像処理における形態学的操作であり、ノイズ除去や形状の強調に使用される。OpenCVライブラリでは、`cv2.dilate`関数と`cv2.erode`関数を使用してこれらの操作を行うことができる。
+
+\begin{itemize}
+    \item \textbf{膨張（Dilation）}:
+        膨張は、画像中の白い領域（前景）を拡大する操作である。膨張は、特定の構造要素（カーネル）を使用して行われ、前景のピクセルが周囲のピクセルに広がる。これにより、小さな穴や隙間が埋められる。
+        \[
+        \text{dst}(x, y) = \max_{(i,j) \in \text{kernel}} \text{src}(x+i, y+j)
+        \]
+        ここで、`kernel`は膨張に使用される構造要素である。
+
+    \item \textbf{収縮（Erosion）}:
+        収縮は、画像中の白い領域（前景）を縮小する操作である。収縮は、特定の構造要素（カーネル）を使用して行われ、前景のピクセルが周囲のピクセルに侵食される。これにより、小さなノイズや細い線が除去される。
+        \[
+        \text{dst}(x, y) = \min_{(i,j) \in \text{kernel}} \text{src}(x+i, y+j)
+        \]
+        ここで、`kernel`は収縮に使用される構造要素である。
+\end{itemize}
+膨張と収縮を組み合わせることで、画像のノイズ除去や形状の強調が効果的に行える。例えば、膨張の後に収縮を行う「クロージング」操作や、収縮の後に膨張を行う「オープニング」操作がある。
 
 \subsection{検出方法}
 
@@ -149,18 +179,14 @@ F2スコアは0から1の範囲で値を取り、1に近いほどモデルの性
     \label{fig:birdstrike_detection}
 \end{figure}
 
-本研究では、ドローン画像からコンピュータビジョンを用いてバードストライク検出システムを製作した。具体的な流れは以下の通りである。
-
-始めに、ドローンで探索範囲意を撮影し、画像（3000×4000ピクセルが複数枚）を準備する。次に、それらの画像を224×224ピクセルに分割し、背景の種類が複数あるため、複数のモデルに入力する。
-
-出力画像と入力画像の差分画像を取ることで、物体部分だけが浮き彫りになった画像を得る。複数のモデルを使用しているため、モデル分の差分画像が生成される。最も適したモデルによる差分画像を選択するために、入力画像と出力画像の平均二乗誤差（MSE）の値が最も小さい画像を採用する。
-
-採用した差分画像に関して、2値化し、面積を算出して閾値と比較することで物体の有無を判断する。抽出できた物体画像に関しては、その画像が鳥の画像なのかを判定する必要があるが、現状では鳥の死骸の画像が少ないため、教師あり学習は困難である。そこで、ゼロショットで分類できるCLIPの導入を検討している。
-
+本研究では、ドローン画像からコンピュータビジョンを用いてバードストライクを検出するシステムを構築した。具体的な流れは以下の通りである。
+始めに、ドローンで探索範囲意を撮影し、画像（3000×4000ピクセルが複数枚）を準備する。次に、それらの画像を224×224ピクセルに分割し、複数のモデルに入力する。
+出力画像と入力画像の差分を取ることで、物体部分だけが浮き彫りになった差分画像を生成する。複数のモデルを使用しているため、モデル数分の差分画像が生成される。最も適したモデルによる差分画像を選択するために、入力画像と出力画像の平均二乗誤差（MSE）の値が最も小さい画像を選択する。
+選択した差分画像に関して、2値化し、面積を算出して閾値と比較することで物体の有無を判定する。抽出できた物体画像に関しては、その画像が鳥の画像なのかを判定する必要があるが、現状では鳥の死骸の画像が少ないため、教師あり学習は困難である。そこで、ゼロショットで分類できるCLIPの導入を検討している。
 ここまでは内部的な処理の話であり、実務での使用のためにさくらのVPSの導入やDjangoでのアプリケーション開発を学部生二人が行った。これについては巻末に付録として記載する。
 
 \subsection{AutoEncoderの改良}
-本研究では、以前のAutoEncoderモデルと比較して、構造をシンプルにすることで性能向上を図った。以下に、以前のモデルと現在のモデルの違い、およびその違いによる改善点について説明する。
+去年度使用していたAutoEncoderモデルと比較して、構造をシンプルにすることで性能向上を図った。以下に、以前のモデルと現在のモデルの違い、およびその違いによる改善点について説明する。
 
 \subsubsection{モデル用語の説明}
 
@@ -172,8 +198,8 @@ F2スコアは0から1の範囲で値を取り、1に近いほどモデルの性
     \item \textbf{ConvTranspose2d}: 2次元逆畳み込み層。畳み込み層の逆操作を行い、特徴マップの空間的なサイズを拡大する。アップサンプリングに使用される。
 \end{itemize}
 
-\subsubsection{以前のAutoEncoderモデル}
-以前のAutoEncoderモデルは、以下のような構造を持っていた。
+\subsubsection{去年度のAutoEncoderモデル}
+去年度のAutoEncoderモデルは、以下のような構造を持っていた。
 
 \begin{figure}[H]
     \centering
@@ -307,8 +333,8 @@ F2スコアは0から1の範囲で値を取り、1に近いほどモデルの性
 \end{figure}
 
 
-\subsubsection{現在のAutoEncoderモデル}
-現在のAutoEncoderモデルは、以前のモデルと比較して構造がシンプルになっている。以下に、現在のモデルの構造を示す。
+\subsubsection{今年度のAutoEncoderモデル}
+今年度のAutoEncoderモデルは、去年度のモデルと比較して構造がシンプルになっている。以下に、今年度のモデルの構造を示す。
 
 \begin{figure}[H]
     \centering
@@ -404,7 +430,7 @@ F2スコアは0から1の範囲で値を取り、1に近いほどモデルの性
         \draw[arrow] (deconv5) -- (relu14);
         \draw[arrow] (relu14) -- (output);
     \end{tikzpicture}
-    \caption{現在のAutoEncoderの構造}
+    \caption{今年度のAutoEncoderの構造}
     \label{fig:autoencoder}
 \end{figure}
 
@@ -424,11 +450,10 @@ F2スコアは0から1の範囲で値を取り、1に近いほどモデルの性
     \item \textbf{過学習の防止}: モデルのパラメータ数を減らすことで、過学習のリスクが低減された。これにより、テストデータに対する汎化性能が向上し、より安定した結果が得られるようになった。
     \item \textbf{モデルの解釈性の向上}: 構造をシンプルにすることで、モデルの挙動がより理解しやすくなった。これにより、モデルの改善点や問題点を特定しやすくなり、さらなる改良が容易になった。
 \end{itemize}
-
-以上のように、現在のAutoEncoderモデルは、以前のモデルと比較して構造がシンプルになり、計算コストの削減、過学習の防止、モデルの解釈性の向上といった改善点が見られた。
+以上のように、今年度のAutoEncoderモデルは、去年度のモデルと比較して構造がシンプルになり、計算コストの削減、過学習の防止、モデルの解釈性の向上といった改善点が見られた。
 
 \subsubsection{AutoEncoderモデルのアップデートの重要性}
-AutoEncoderモデルをアップデートすることは、モデルの性能向上や新しいデータへの適応において非常に重要だ。以下に、モデルをアップデートしないで使い続けることと、アップデートして使うことの差について説明する。
+AutoEncoderで製作したモデルをアップデートすることは、モデルの性能向上や新しいデータへの適応において非常に重要だ。以下に、モデルをアップデートしないで使い続けることと、アップデートして使うことの差について説明する。
 
 \paragraph{モデルをアップデートしない場合}
 モデルをアップデートしないで使い続けると、以下のような問題が発生する可能性がある。
@@ -447,12 +472,9 @@ AutoEncoderモデルをアップデートすることは、モデルの性能向
 \end{itemize}
 
 \subsection{モデルのアップデート方法}
-本研究では、検出に使用した画像を用いてモデルのアップデートを行う。目標は自動アップデートである。アップデート用学習データを自動で作成するためには、以下の二つのステップが必要である。
-
+検出に使用した画像を用いてモデルのアップデートを行う。目標は自動アップデートである。アップデート用学習データを自動で作成するためには、以下の二つのステップが必要である。
 始めに、全体の画像を背景ごとにクラスタリングする。これはAutoEncoderで特徴抽出を行い、その後主成分分析で次元削減し、k-meansクラスタリングを用いることで可能であることがわかった。
-
 次に、画像の中から物体画像を取り除く。これはCLIPを使用することで効果的に行うことができる。CLIPを用いることで、画像内の物体をある程度の精度で検出し、物体が存在しない画像を抽出することができる。
-
 これらのステップに関しては、以降の章で詳しく説明する。
 
 \begin{figure}[H]
@@ -477,146 +499,11 @@ AutoEncoderモデルをアップデートすることは、モデルの性能向
     \label{fig:model_update_flow}
 \end{figure}
 
-\section{使用したデータの説明}
-
-本章では、本研究で使用したデータについて説明する。まず、実験に使用したプログラミング環境とライブラリについて述べ、その後、実験に使用したファイルとディレクトリの構造を示す。さらに、使用した画像データとモデルデータについて詳細に説明する。
-
-\subsection{プログラミング環境と使用したライブラリ}
-実験はPythonを用いて行った。主なプログラミング環境と使用したライブラリは以下の通りである。
-
-\begin{itemize}
-    \item \textbf{Python 3.10.12}: プログラミング言語として使用。
-    \item \textbf{collections.defaultdict} (標準ライブラリ): デフォルト値を持つ辞書に使用。
-    \item \textbf{csv} (標準ライブラリ): CSVファイルの操作に使用。
-    \item \textbf{cv2} (4.10.0.84): 画像処理に使用。
-    \item \textbf{datetime} (標準ライブラリ): 日付と時間の操作に使用。
-    \item \textbf{deep\_translator} (1.11.4): テキストの翻訳に使用。
-    \item \textbf{glob} (標準ライブラリ): ファイルパスのパターンマッチングに使用。
-    \item \textbf{matplotlib.pyplot} (3.10.0): グラフの描画に使用。
-    \item \textbf{numpy} (1.26.3): 数値計算に使用。
-    \item \textbf{open\_clip} (2.29.0): CLIPモデルの使用。
-    \item \textbf{open\_clip.tokenizer} (2.29.0): テキストのトークン化に使用。
-    \item \textbf{os} (標準ライブラリ): OS機能へのアクセスに使用。
-    \item \textbf{PIL.Image} (11.0.0): 画像操作に使用。
-    \item \textbf{PIL.ImageDraw} (11.0.0): 画像に描画するために使用。
-    \item \textbf{PIL.ImageFont} (11.0.0): 画像にフォントを使用するために使用。
-    \item \textbf{PIL.ImageOps} (11.0.0): 画像の操作に使用。
-    \item \textbf{random} (標準ライブラリ): 乱数生成に使用。
-    \item \textbf{re} (標準ライブラリ): 正規表現操作に使用。
-    \item \textbf{shutil} (標準ライブラリ): 高レベルのファイル操作に使用。
-    \item \textbf{sklearn.cluster.KMeans} (1.6.0): K-meansクラスタリングに使用。
-    \item \textbf{sklearn.decomposition.PCA} (1.6.0): 主成分分析に使用。
-    \item \textbf{sklearn.preprocessing.LabelEncoder} (1.6.0): ラベルエンコーディングに使用。
-    \item \textbf{torch} (2.5.1+cu118): 深層学習モデルの構築と訓練に使用。
-    \item \textbf{torch.nn} (2.5.1+cu118): ニューラルネットワークの構築に使用。
-    \item \textbf{torch.optim} (2.5.1+cu118): 最適化アルゴリズムに使用。
-    \item \textbf{torch.utils.data.DataLoader} (2.5.1+cu118): データローダーの操作に使用。
-    \item \textbf{torch.utils.data.Dataset} (2.5.1+cu118): データセットの操作に使用。
-    \item \textbf{torchvision.transforms} (0.20.1+cu118): 画像の前処理に使用。
-    \item \textbf{tqdm} (4.67.1): プログレスバーの表示に使用。
-\end{itemize}
-
-\subsection{想定環境}
-
-\begin{verbatim}
-        /
-    ├── 2023_main.py
-    ├── 2024_main.py
-    ├── AE_clip.ipynb
-    ├── AE_deep_check.ipynb
-    ├── AE_deep_check_change.ipynb
-    ├── AE_deep_finetrain_matomete.py
-    ├── AE_deep_main_search.ipynb
-    ├── AE_deep_train_matomete.py
-    ├── AE_for_newmodel.ipynb
-    ├── AE_score_check_labels.ipynb
-    ├── imgs/
-    └── models/
-    \end{verbatim}
-
-
-\subsection{画像データ}
-
-\begin{itemize}
-    \item \textbf{imgs/for\_update\_img}:
-    \begin{itemize}
-        \item 説明: 2024年9月3日に撮影した3000×4000ピクセルの画像が156枚含まれている。
-    \end{itemize}
-
-    \item \textbf{imgs/old\_all\_img/train\_img\_6048/6048/A\_train\_img}:
-    \begin{itemize}
-        \item 説明: 去年使用した224×224ピクセルの画像が背景ごとに分類されずに1512枚ずつ、計6048枚含まれている。
-    \end{itemize}
-
-    \item \textbf{imgs/make\_pca\_img1000}:
-    \begin{itemize}
-        \item 説明: A\_train\_imgと重複しない画像が1000枚ずつ、計4000枚含まれている。
-    \end{itemize}
-
-    \item \textbf{imgs/old\_train\_img3/train\_img\_6048/6048}:
-    \begin{itemize}
-        \item \textbf{new\_dark/}: jpgが6048枚
-        \item \textbf{new\_light/}: jpgが6048枚
-        \item \textbf{new\_white/}: jpgが6048枚
-        \item 説明: 去年学習に使用した背景ごとに分類された224×224ピクセルの画像がそれぞれ含まれている。
-    \end{itemize}
-
-    \item \textbf{imgs/test\_img}:
-    \begin{itemize}
-        \item 説明: 2024年9月3日に撮影したfor\_update\_imgには含まれていない3000×4000ピクセルの画像が4枚含まれている。
-    \end{itemize}
-
-    \item \textbf{imgs/test\_objects}:
-    \begin{itemize}
-        \item 説明: test\_imgを224×224ピクセルに分割した画像の中から、物体が存在する画像
-    \end{itemize}
-
-    \item \textbf{imgs/test\_img2/}:
-    \begin{itemize}
-        \item \textbf{yes/}:
-        \begin{itemize}
-            \item \textbf{dark/}: jpgが100枚
-            \item \textbf{light/}: jpgが100枚
-            \item \textbf{white/}: jpgが100枚
-        \end{itemize}
-        \item \textbf{no/}:
-        \begin{itemize}
-            \item \textbf{dark/}: jpgが100枚
-            \item \textbf{light/}: jpgが100枚
-            \item \textbf{white/}: jpgが100枚
-        \end{itemize}
-        \item 説明: test\_imgとは別の2024年9月3日に撮影したfor\_update\_imgには含まれていない画像の中から、テスト用に背景ごとの物体が存在する画像と存在しない画像に分類したもの。
-    \end{itemize}
-
-    \item \textbf{imgs/update\_img\_remove/}:
-    \begin{itemize}
-        \item \textbf{dark\_object/}: jpgが306枚
-        \item \textbf{dark/}: jpgが4973枚
-        \item \textbf{light\_object/}: jpgが1703枚
-        \item \textbf{light/}: jpgが7518枚
-        \item \textbf{white\_object/}: jpgが1925枚
-        \item \textbf{white/}: jpgが3064枚
-        \item 説明: update\_img（今後製作される）を背景ごとに物体が存在する画像としない画像に分けたもの。
-    \end{itemize}
-\end{itemize}
-
-\subsection{モデルデータ}
-
-\begin{itemize}
-    \item \textbf{models/2023models/}:
-    \begin{itemize}
-        \item \textbf{AEmodel\_dark\_green20230927.pth}
-        \item \textbf{AEmodel\_light\_green20230927.pth}
-        \item \textbf{AEmodel\_white20230927.pth}
-        \item \textbf{AEmodel\_paved\_ground20230927.pth}
-        \item 説明: 去年製作した背景ごとに224×224ピクセルの画像を6048枚学習させたモデル。
-    \end{itemize}
-\end{itemize}
-
 \section{実験}
-本章では、物体検出を試みたうえでモデルアップデートの有用性について論じる。
+本章では、従来の方法で物体検出を試みたうえでモデルアップデートの有用性について論じる。なお、使用した環境等に関しては付録を参照してほしい。
+
 \subsection{物体検出の試み}
-本研究では、物体検出を行うために以下のプログラムファイルを使用した。
+物体検出を行うために以下のプログラムファイルを使用した。
 
 \paragraph{使用プログラム}
 \begin{itemize}
@@ -639,7 +526,7 @@ AutoEncoderモデルをアップデートすることは、モデルの性能向
 \subsubsection{出力}
 
 \subsubsection{出力}
-プログラムの実行結果として、\texttt{imgs/AE\_2023\_result}フォルダが作成され、物体だと思った画像が保存される。また、答えの画像も渡しているため、F2スコアが計算される。
+プログラムの実行結果として、\texttt{imgs/AE\_2023\_result}フォルダが作成され、物体と判定された画像が保存される。また、答えの画像も渡しているため、F2スコアが計算される。
 \subsubsection{出力までの流れ}
 \begin{enumerate}
     \item \textbf{データの準備}: 画像データを前処理し、訓練データとテストデータに分割した。
@@ -650,21 +537,20 @@ AutoEncoderモデルをアップデートすることは、モデルの性能向
             \item 再構築された画像と元の画像の差分を計算し、差分画像を生成する。
             \item 再構築された画像と元の画像のMSE（平均二乗誤差）を計算し、MSEが最も小さいモデルの差分画像を採用する。
             \item 差分画像から輪郭を抽出し、最大面積の輪郭を計算する。
-            \item 最大面積がしきい値を超える場合、物体が存在すると判定する。
+            \item 最大面積が閾値(1200)を超える場合、物体が存在すると判定する。
         \end{itemize}
         \item \textbf{結果の保存}: 物体が存在すると判定された画像を保存した。
-        \item \textbf{評価指標の計算}: 混合行列を作成し、F2スコアを計算した（以降で詳細を説明）。
+        \item \textbf{評価指標の計算}: 混合行列を作成し、F2スコアを計算した。
     \end{enumerate}
 
 \subsubsection{f2スコアの計算}
-AEが物体だと思った画像の枚数は366枚で、その中に入っていた物体画像の枚数は25枚である。testフォルダの画像を分割した画像が884枚で、その中に入っていいた物体画像の枚数が50枚である。混合行列の要素は以下の通りである。
-
+システムが画像と判定した画像の枚数は366枚で、その中に入っていた物体画像の枚数は25枚である。testフォルダの画像を分割した画像が884枚で、その中に入っていいた物体画像の枚数が50枚である。混合行列の要素は以下の通りである。
 \begin{itemize}
     \item 混合行列の要素:
         \begin{itemize}
             \item True Positives (TP): 25枚
             \item False Positives (FP): 341枚
-            \item True Negatives (TN): 493枚
+            \item True Negatives (TN): 518枚
             \item False Negatives (FN): 25枚
         \end{itemize}
     \item 精度（Precision）と再現率（Recall）を計算する。
@@ -701,7 +587,7 @@ AEが物体だと思った画像の枚数は366枚で、その中に入ってい
 
 \paragraph{使用プログラム}
 \begin{itemize}
-    \item \textbf{AE\_deep\_train\_matomete.py}
+    \item \textbf{AE\_train.py}
 \end{itemize}
 
 \paragraph{使用画像}
@@ -711,7 +597,7 @@ AEが物体だと思った画像の枚数は366枚で、その中に入ってい
 
 \paragraph{出力モデル名}
 \begin{itemize}
-    \item \textbf{models/old\_models6048/20241224\_A\_train\_model.pth}
+    \item \textbf{models/20241224\_A\_train\_model.pth}
 \end{itemize}
 
 \subsubsection{出力までの流れ}
@@ -738,7 +624,7 @@ AEが物体だと思った画像の枚数は366枚で、その中に入ってい
 
 \paragraph{使用プログラム}
 \begin{itemize}
-    \item \textbf{AE\_score\_check\_labels.ipynb}
+    \item \textbf{AE\_pca\_kmeans.ipynb}
 \end{itemize}
 
 \paragraph{使用画像}
@@ -748,7 +634,7 @@ AEが物体だと思った画像の枚数は366枚で、その中に入ってい
 
 \paragraph{使用モデル}
 \begin{itemize}
-    \item \textbf{models/old\_models6048/6048\_AEdeepmodel\_20241224\_A\_train\_img.pth}
+    \item \textbf{models/6048\_AEdeepmodel\_20241224\_A\_train\_img.pth}
 \end{itemize}
 \subsubsection{出力}
 プログラムと画像とモデルを用いて画像の圧縮、ベクトルの主成分分析、寄与度の確認、二次元へのプロット、クラスター数10でのk-meansを行った。
@@ -799,9 +685,8 @@ AEが物体だと思った画像の枚数は366枚で、その中に入ってい
 
 \paragraph{使用プログラム}
 \begin{itemize}
-    \item \textbf{AE\_for\_newmodel.ipynb}
+    \item \textbf{AE\_make\_dataset.ipynb}
 \end{itemize}
-
 \paragraph{使用画像}
 \begin{itemize}
     \item \textbf{imgs/for\_update\_img}
@@ -809,7 +694,7 @@ AEが物体だと思った画像の枚数は366枚で、その中に入ってい
 
 \paragraph{使用モデル}
 \begin{itemize}
-    \item \textbf{models/old\_models6048/6048\_AEdeepmodel\_20241224\_A\_train\_img.pth}
+    \item \textbf{models/6048\_AEdeepmodel\_20241224\_A\_train\_img.pth}
 \end{itemize}
 
 \subsubsection{出力}
@@ -971,7 +856,7 @@ RN50x64モデルとRN50モデルの結果を比較すると、RN50x64モデル�
 
 \paragraph{使用プログラム}
 \begin{itemize}
-    \item \textbf{AE\_deep\_train\_matomete.py}
+    \item \textbf{AE\_train.py}
 \end{itemize}
 
 \paragraph{使用画像}
@@ -1015,7 +900,7 @@ RN50x64モデルとRN50モデルの結果を比較すると、RN50x64モデル�
 
 \paragraph{使用プログラム}
 \begin{itemize}
-    \item \textbf{AE\_deep\_finetrain\_matomete.py}
+    \item \textbf{AE\_fine\_train.py}
 \end{itemize}
 
 \paragraph{使用画像}
@@ -1123,6 +1008,19 @@ RN50x64モデルとRN50モデルの結果を比較すると、RN50x64モデル�
     \item \textbf{imgs/test\_objects}
 \end{itemize}
 
+\paragraph{使用モデル}
+\begin{itemize}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_ddark.pth}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_dlight.pth}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_dwhite.pth}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rdark.pth}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rlight.pth}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rwhite.pth}
+\end{itemize}
+
+\subsubsection{出力までの流れ}
+2024\_main.pyとモデルの読み込み以外同じため省略
+
 \subsubsection{f2スコアの計算}
 以下に、dモデルとrモデルのF2スコアを示す。
 
@@ -1205,8 +1103,11 @@ rモデルが物体だと思った画像の枚数は289枚で、その中に入�
 
 \paragraph{使用プログラム}
 \begin{itemize}
-    \item \textbf{AE\_deep\_check\_tex.ipynb}
+    \item \textbf{AE\_inference.ipynb}
 \end{itemize}
+
+\paragraph{出力}
+このプログラムではコード内の引数に応じて、各ステップの結果を出力する。なお、推論のために制作したため出力やそれまでの流れは引数によって異なるため省略する。詳しくは付録のコードを参照してほしい。
 
 \subsubsection{使用画像}
 以下に、物体検出を行い両方のモデルで失敗した画像を示す。
@@ -1417,7 +1318,7 @@ rモデルが物体だと思った画像の枚数は289枚で、その中に入�
 
 \paragraph{使用プログラム}
 \begin{itemize}
-    \item \textbf{AE\_deep\_finetrain\_matomete.py}
+    \item \textbf{AE\_deep\_finetrain.py}
 \end{itemize}
 
 \paragraph{使用画像}
@@ -1481,7 +1382,7 @@ rモデルが物体だと思った画像の枚数は289枚で、その中に入�
 
 \paragraph{使用プログラム}
 \begin{itemize}
-    \item \textbf{AE\_deep\_check\_suii.ipynb}
+    \item \textbf{AE\_deep\_check\_transition.ipynb}
 \end{itemize}
 
 \paragraph{使用モデル}
@@ -1509,6 +1410,139 @@ rモデルが物体だと思った画像の枚数は289枚で、その中に入�
     \caption{MSEの推移}
     \label{fig:mse_transition}
 \end{figure}
+
+\section{使用したデータの説明}
+本章では、研究で使用したデータについて説明する。始めに実験に使用したプログラミング環境とライブラリについて述べ、その後、実験に使用したファイルとディレクトリの構造を示す。さらに、使用した画像データとモデルデータについて詳細に説明する。
+
+\subsection{プログラミング環境と使用したライブラリ}
+実験はPythonを用いて行った。主なプログラミング環境と使用したライブラリは以下の通りである。
+
+\begin{itemize}
+    \item \textbf{Python 3.10.12}: プログラミング言語として使用。
+    \item \textbf{collections.defaultdict} (標準ライブラリ): デフォルト値を持つ辞書に使用。
+    \item \textbf{csv} (標準ライブラリ): CSVファイルの操作に使用。
+    \item \textbf{cv2} (4.10.0.84): 画像処理に使用。
+    \item \textbf{datetime} (標準ライブラリ): 日付と時間の操作に使用。
+    \item \textbf{deep\_translator} (1.11.4): テキストの翻訳に使用。
+    \item \textbf{glob} (標準ライブラリ): ファイルパスのパターンマッチングに使用。
+    \item \textbf{matplotlib.pyplot} (3.10.0): グラフの描画に使用。
+    \item \textbf{numpy} (1.26.3): 数値計算に使用。
+    \item \textbf{open\_clip} (2.29.0): CLIPモデルの使用。
+    \item \textbf{open\_clip.tokenizer} (2.29.0): テキストのトークン化に使用。
+    \item \textbf{os} (標準ライブラリ): OS機能へのアクセスに使用。
+    \item \textbf{PIL.Image} (11.0.0): 画像操作に使用。
+    \item \textbf{PIL.ImageDraw} (11.0.0): 画像に描画するために使用。
+    \item \textbf{PIL.ImageFont} (11.0.0): 画像にフォントを使用するために使用。
+    \item \textbf{PIL.ImageOps} (11.0.0): 画像の操作に使用。
+    \item \textbf{random} (標準ライブラリ): 乱数生成に使用。
+    \item \textbf{re} (標準ライブラリ): 正規表現操作に使用。
+    \item \textbf{shutil} (標準ライブラリ): 高レベルのファイル操作に使用。
+    \item \textbf{sklearn.cluster.KMeans} (1.6.0): K-meansクラスタリングに使用。
+    \item \textbf{sklearn.decomposition.PCA} (1.6.0): 主成分分析に使用。
+    \item \textbf{sklearn.preprocessing.LabelEncoder} (1.6.0): ラベルエンコーディングに使用。
+    \item \textbf{torch} (2.5.1+cu118): 深層学習モデルの構築と訓練に使用。
+    \item \textbf{torch.nn} (2.5.1+cu118): ニューラルネットワークの構築に使用。
+    \item \textbf{torch.optim} (2.5.1+cu118): 最適化アルゴリズムに使用。
+    \item \textbf{torch.utils.data.DataLoader} (2.5.1+cu118): データローダーの操作に使用。
+    \item \textbf{torch.utils.data.Dataset} (2.5.1+cu118): データセットの操作に使用。
+    \item \textbf{torchvision.transforms} (0.20.1+cu118): 画像の前処理に使用。
+    \item \textbf{tqdm} (4.67.1): プログレスバーの表示に使用。
+\end{itemize}
+
+\subsection{想定環境}
+
+\begin{verbatim}
+    　 /
+    ├── 2023_main.py
+    ├── 2024_main.py
+    ├── AE_clip.ipynb
+    ├── AE_deep_check.ipynb
+    ├── AE_deep_check_change.ipynb
+    ├── AE_deep_finetrain_matomete.py
+    ├── AE_deep_main_search.ipynb
+    ├── AE_deep_train_matomete.py
+    ├── AE_for_newmodel.ipynb
+    ├── AE_score_check_labels.ipynb
+    ├── imgs/
+    └── models/
+    \end{verbatim}
+
+
+\subsection{画像データ}
+
+\begin{itemize}
+    \item \textbf{imgs/for\_update\_img}
+        
+    説明: 2024年9月3日に撮影した3000×4000ピクセルの画像が156枚含まれている。
+
+    \item \textbf{imgs/old\_all\_img/train\_img\_6048/6048/A\_train\_img}
+    
+    説明: 去年使用した224×224ピクセルの画像が背景ごとに分類されずに1512枚ずつ、計6048枚含まれている。
+
+    \item \textbf{imgs/make\_pca\_img1000}
+
+    説明: A\_train\_imgと重複しない画像が1000枚ずつ、計4000枚含まれている。
+
+    \item \textbf{imgs/old\_train\_img3/train\_img\_6048/6048}
+    \begin{itemize}
+        \item \textbf{new\_dark/}: jpgが6048枚
+        \item \textbf{new\_light/}: jpgが6048枚
+        \item \textbf{new\_white/}: jpgが6048枚
+    \end{itemize}
+
+    説明: 去年学習に使用した背景ごとに分類された224×224ピクセルの画像がそれぞれ含まれている。
+    \item \textbf{imgs/test\_img}
+    
+    説明: 2024年9月3日に撮影したfor\_update\_imgには含まれていない3000×4000ピクセルの画像が4枚含まれている。
+
+    \item \textbf{imgs/test\_objects}
+    
+    説明: test\_imgを224×224ピクセルに分割した画像の中から、物体が存在する画像
+
+    \item \textbf{imgs/test\_img2/}
+    \begin{itemize}
+        \item \textbf{yes/}:
+        \begin{itemize}
+            \item \textbf{dark/}: jpgが100枚
+            \item \textbf{light/}: jpgが100枚
+            \item \textbf{white/}: jpgが100枚
+        \end{itemize}
+        \item \textbf{no/}:
+        \begin{itemize}
+            \item \textbf{dark/}: jpgが100枚
+            \item \textbf{light/}: jpgが100枚
+            \item \textbf{white/}: jpgが100枚
+        \end{itemize}
+    \end{itemize}
+
+    説明: test\_imgとは別の2024年9月3日に撮影したfor\_update\_imgには含まれていない画像の中から、テスト用に背景ごとの物体が存在する画像と存在しない画像に分類したもの。
+    
+    \item \textbf{imgs/update\_img\_remove/}
+    \begin{itemize}
+        \item \textbf{dark\_object/}: jpgが306枚
+        \item \textbf{dark/}: jpgが4973枚
+        \item \textbf{light\_object/}: jpgが1703枚
+        \item \textbf{light/}: jpgが7518枚
+        \item \textbf{white\_object/}: jpgが1925枚
+        \item \textbf{white/}: jpgが3064枚
+    \end{itemize}
+
+    説明: update\_img（今後製作される）を背景ごとに物体が存在する画像としない画像に分けたもの。
+\end{itemize}
+
+\subsection{モデルデータ}
+
+\begin{itemize}
+    \item \textbf{models/2023models/}
+    \begin{itemize}
+        \item \textbf{AEmodel\_dark\_green20230927.pth}
+        \item \textbf{AEmodel\_light\_green20230927.pth}
+        \item \textbf{AEmodel\_white20230927.pth}
+        \item \textbf{AEmodel\_paved\_ground20230927.pth}
+    \end{itemize}
+
+    説明: 去年製作した背景ごとに224×224ピクセルの画像を6048枚学習させたモデル。
+\end{itemize}
 
 \bibliographystyle{unsrt}
 \bibliography{references}

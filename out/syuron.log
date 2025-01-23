@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.3)  22 JAN 2025 18:30
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.3)  23 JAN 2025 17:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -862,21 +862,28 @@ LaTeX Font Warning: Font shape `TU/MSMincho(0)/b/n' undefined
 
 [3]
 
+Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
+(xeCJK)                
+(xeCJK)                Try to use `\setCJKmonofont[<...>]{<...>}' to define
+(xeCJK)                it.
+
+
+
 [4]
 
 [5]
-Overfull \hbox (45.40201pt too wide) in paragraph at lines 304--305
+
+[6]
+Overfull \hbox (45.40201pt too wide) in paragraph at lines 330--331
  [][] 
  []
 
 
 
-[6]
+[7]
 Overfull \vbox (36.30841pt too high) has occurred while \output is active []
 
 
-
-[7]
 
 [8]
 
@@ -886,11 +893,395 @@ Overfull \vbox (36.30841pt too high) has occurred while \output is active []
 
 [11]
 
-Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
-(xeCJK)                
-(xeCJK)                Try to use `\setCJKmonofont[<...>]{<...>}' to define
-(xeCJK)                it.
+[12]
 
+[13]
+File: imgs/loss_plot_20241224_A_train_img.png Graphic file (type bmp)
+<imgs/loss_plot_20241224_A_train_img.png>
+
+
+[14]
+
+[15]
+File: imgs/kiyodo.png Graphic file (type bmp)
+<imgs/kiyodo.png>
+File: imgs/pca.png Graphic file (type bmp)
+<imgs/pca.png>
+
+
+[16]
+File: imgs/pca_k-means.png Graphic file (type bmp)
+<imgs/pca_k-means.png>
+
+
+[17]
+
+[18]
+File: imgs/k-means2.png Graphic file (type bmp)
+<imgs/k-means2.png>
+
+
+[19]
+
+[20]
+
+[21]
+File: imgs/test1.png Graphic file (type bmp)
+<imgs/test1.png>
+
+
+[22]
+File: imgs/test2.png Graphic file (type bmp)
+<imgs/test2.png>
+
+
+[23]
+File: imgs/loss_plot_20241225_new_dark.png Graphic file (type bmp)
+<imgs/loss_plot_20241225_new_dark.png>
+
+
+[24]
+File: imgs/loss_plot_20241225_new_light.png Graphic file (type bmp)
+<imgs/loss_plot_20241225_new_light.png>
+File: imgs/loss_plot_20241225_new_white.png Graphic file (type bmp)
+<imgs/loss_plot_20241225_new_white.png>
+
+
+[25]
+Overfull \hbox (14.38414pt too wide) in paragraph at lines 913--914
+[]\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_ddark.pth 
+ []
+
+
+Overfull \hbox (14.32413pt too wide) in paragraph at lines 914--915
+[]\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_dlight.pth 
+ []
+
+
+Overfull \hbox (20.09613pt too wide) in paragraph at lines 915--916
+[]\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_dwhite.pth 
+ []
+
+
+
+[26]
+File: imgs/loss_plot_20250115_fine6048_ddark.png Graphic file (type bmp)
+<imgs/loss_plot_20250115_fine6048_ddark.png>
+File: imgs/loss_plot_20250115_fine6048_dlight.png Graphic file (type bmp)
+<imgs/loss_plot_20250115_fine6048_dlight.png>
+
+
+[27]
+File: imgs/loss_plot_20250115_fine6048_dwhite.png Graphic file (type bmp)
+<imgs/loss_plot_20250115_fine6048_dwhite.png>
+
+
+[28]
+Overfull \hbox (12.40413pt too wide) in paragraph at lines 967--968
+[]\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rdark.pth 
+ []
+
+
+Overfull \hbox (12.34413pt too wide) in paragraph at lines 968--969
+[]\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rlight.pth 
+ []
+
+
+Overfull \hbox (18.11613pt too wide) in paragraph at lines 969--970
+[]\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rwhite.pth 
+ []
+
+File: imgs/loss_plot_20250115_fine6048_rdark.png Graphic file (type bmp)
+<imgs/loss_plot_20250115_fine6048_rdark.png>
+File: imgs/loss_plot_20250115_fine6048_rlight.png Graphic file (type bmp)
+<imgs/loss_plot_20250115_fine6048_rlight.png>
+
+
+[29]
+File: imgs/loss_plot_20250115_fine6048_rwhite.png Graphic file (type bmp)
+<imgs/loss_plot_20250115_fine6048_rwhite.png>
+
+
+[30]
+Overfull \hbox (14.38414pt too wide) in paragraph at lines 1013--1014
+[]\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_ddark.pth 
+ []
+
+
+Overfull \hbox (14.32413pt too wide) in paragraph at lines 1014--1015
+[]\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_dlight.pth 
+ []
+
+
+Overfull \hbox (20.09613pt too wide) in paragraph at lines 1015--1016
+[]\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_dwhite.pth 
+ []
+
+
+Overfull \hbox (12.40413pt too wide) in paragraph at lines 1016--1017
+[]\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rdark.pth 
+ []
+
+
+Overfull \hbox (12.34413pt too wide) in paragraph at lines 1017--1018
+[]\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rlight.pth 
+ []
+
+
+Overfull \hbox (18.11613pt too wide) in paragraph at lines 1018--1019
+[]\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rwhite.pth 
+ []
+
+
+
+[31]
+
+[32]
+File: imgs/65.png Graphic file (type bmp)
+<imgs/65.png>
+
+
+[33]
+File: imgs/65ddiff.png Graphic file (type bmp)
+<imgs/65ddiff.png>
+File: imgs/65rdiff.png Graphic file (type bmp)
+<imgs/65rdiff.png>
+
+
+[34]
+File: imgs/65dbin.png Graphic file (type bmp)
+<imgs/65dbin.png>
+File: imgs/65rbin.png Graphic file (type bmp)
+<imgs/65rbin.png>
+File: imgs/65seid.png Graphic file (type bmp)
+<imgs/65seid.png>
+File: imgs/65seir.png Graphic file (type bmp)
+<imgs/65seir.png>
+File: imgs/65seid2.png Graphic file (type bmp)
+<imgs/65seid2.png>
+File: imgs/65seir2.png Graphic file (type bmp)
+<imgs/65seir2.png>
+
+
+[35]
+File: imgs/65dnasinasi.png Graphic file (type bmp)
+<imgs/65dnasinasi.png>
+File: imgs/65darinasi.png Graphic file (type bmp)
+<imgs/65darinasi.png>
+
+
+[36]
+File: imgs/65rnasinasi.png Graphic file (type bmp)
+<imgs/65rnasinasi.png>
+File: imgs/65rarinasi.png Graphic file (type bmp)
+<imgs/65rarinasi.png>
+File: imgs/65dnasiari.png Graphic file (type bmp)
+<imgs/65dnasiari.png>
+File: imgs/65dariari.png Graphic file (type bmp)
+<imgs/65dariari.png>
+
+
+[37]
+File: imgs/65rnasiari.png Graphic file (type bmp)
+<imgs/65rnasiari.png>
+File: imgs/65rariari.png Graphic file (type bmp)
+<imgs/65rariari.png>
+
+
+[38]
+
+[39]
+Overfull \hbox (7.62814pt too wide) in paragraph at lines 1342--1343
+[]\TU/lmr/bx/n/12 models/fine_model_paths/100_fineAEdeepmodel_20250116_ddark.pth 
+ []
+
+
+Overfull \hbox (7.56813pt too wide) in paragraph at lines 1343--1344
+[]\TU/lmr/bx/n/12 models/fine_model_paths/100_fineAEdeepmodel_20250116_dlight.pth 
+ []
+
+
+Overfull \hbox (13.34013pt too wide) in paragraph at lines 1344--1345
+[]\TU/lmr/bx/n/12 models/fine_model_paths/100_fineAEdeepmodel_20250116_dwhite.pth 
+ []
+
+
+Overfull \hbox (5.64813pt too wide) in paragraph at lines 1345--1346
+[]\TU/lmr/bx/n/12 models/fine_model_paths/100_fineAEdeepmodel_20250116_rdark.pth 
+ []
+
+
+Overfull \hbox (5.58813pt too wide) in paragraph at lines 1346--1347
+[]\TU/lmr/bx/n/12 models/fine_model_paths/100_fineAEdeepmodel_20250116_rlight.pth 
+ []
+
+
+Overfull \hbox (11.36014pt too wide) in paragraph at lines 1347--1348
+[]\TU/lmr/bx/n/12 models/fine_model_paths/100_fineAEdeepmodel_20250116_rwhite.pth 
+ []
+
+
+Overfull \hbox (14.38414pt too wide) in paragraph at lines 1348--1349
+[]\TU/lmr/bx/n/12 models/fine_model_paths/1000_fineAEdeepmodel_20250116_ddark.pth 
+ []
+
+
+Overfull \hbox (14.32413pt too wide) in paragraph at lines 1349--1350
+[]\TU/lmr/bx/n/12 models/fine_model_paths/1000_fineAEdeepmodel_20250116_dlight.pth 
+ []
+
+
+Overfull \hbox (20.09613pt too wide) in paragraph at lines 1350--1351
+[]\TU/lmr/bx/n/12 models/fine_model_paths/1000_fineAEdeepmodel_20250116_dwhite.pth 
+ []
+
+
+Overfull \hbox (12.40413pt too wide) in paragraph at lines 1351--1352
+[]\TU/lmr/bx/n/12 models/fine_model_paths/1000_fineAEdeepmodel_20250116_rdark.pth 
+ []
+
+
+Overfull \hbox (12.34413pt too wide) in paragraph at lines 1352--1353
+[]\TU/lmr/bx/n/12 models/fine_model_paths/1000_fineAEdeepmodel_20250116_rlight.pth 
+ []
+
+
+Overfull \hbox (18.11613pt too wide) in paragraph at lines 1353--1354
+[]\TU/lmr/bx/n/12 models/fine_model_paths/1000_fineAEdeepmodel_20250116_rwhite.pth 
+ []
+
+
+Overfull \hbox (14.38414pt too wide) in paragraph at lines 1354--1355
+[]\TU/lmr/bx/n/12 models/fine_model_paths/2000_fineAEdeepmodel_20250116_ddark.pth 
+ []
+
+
+Overfull \hbox (14.32413pt too wide) in paragraph at lines 1355--1356
+[]\TU/lmr/bx/n/12 models/fine_model_paths/2000_fineAEdeepmodel_20250116_dlight.pth 
+ []
+
+
+Overfull \hbox (20.09613pt too wide) in paragraph at lines 1356--1357
+[]\TU/lmr/bx/n/12 models/fine_model_paths/2000_fineAEdeepmodel_20250116_dwhite.pth 
+ []
+
+
+Overfull \hbox (12.40413pt too wide) in paragraph at lines 1357--1358
+[]\TU/lmr/bx/n/12 models/fine_model_paths/2000_fineAEdeepmodel_20250116_rdark.pth 
+ []
+
+
+Overfull \hbox (12.34413pt too wide) in paragraph at lines 1358--1359
+[]\TU/lmr/bx/n/12 models/fine_model_paths/2000_fineAEdeepmodel_20250116_rlight.pth 
+ []
+
+
+Overfull \hbox (18.11613pt too wide) in paragraph at lines 1359--1360
+[]\TU/lmr/bx/n/12 models/fine_model_paths/2000_fineAEdeepmodel_20250116_rwhite.pth 
+ []
+
+
+
+[40]
+Overfull \hbox (14.38414pt too wide) in paragraph at lines 1360--1361
+[]\TU/lmr/bx/n/12 models/fine_model_paths/3000_fineAEdeepmodel_20250116_ddark.pth 
+ []
+
+
+Overfull \hbox (14.32413pt too wide) in paragraph at lines 1361--1362
+[]\TU/lmr/bx/n/12 models/fine_model_paths/3000_fineAEdeepmodel_20250116_dlight.pth 
+ []
+
+
+Overfull \hbox (20.09613pt too wide) in paragraph at lines 1362--1363
+[]\TU/lmr/bx/n/12 models/fine_model_paths/3000_fineAEdeepmodel_20250116_dwhite.pth 
+ []
+
+
+Overfull \hbox (12.40413pt too wide) in paragraph at lines 1363--1364
+[]\TU/lmr/bx/n/12 models/fine_model_paths/3000_fineAEdeepmodel_20250116_rdark.pth 
+ []
+
+
+Overfull \hbox (12.34413pt too wide) in paragraph at lines 1364--1365
+[]\TU/lmr/bx/n/12 models/fine_model_paths/3000_fineAEdeepmodel_20250116_rlight.pth 
+ []
+
+
+Overfull \hbox (18.11613pt too wide) in paragraph at lines 1365--1366
+[]\TU/lmr/bx/n/12 models/fine_model_paths/3000_fineAEdeepmodel_20250116_rwhite.pth 
+ []
+
+
+Overfull \hbox (14.38414pt too wide) in paragraph at lines 1366--1367
+[]\TU/lmr/bx/n/12 models/fine_model_paths/4000_fineAEdeepmodel_20250116_ddark.pth 
+ []
+
+
+Overfull \hbox (14.32413pt too wide) in paragraph at lines 1367--1368
+[]\TU/lmr/bx/n/12 models/fine_model_paths/4000_fineAEdeepmodel_20250116_dlight.pth 
+ []
+
+
+Overfull \hbox (20.09613pt too wide) in paragraph at lines 1368--1369
+[]\TU/lmr/bx/n/12 models/fine_model_paths/4000_fineAEdeepmodel_20250116_dwhite.pth 
+ []
+
+
+Overfull \hbox (12.40413pt too wide) in paragraph at lines 1369--1370
+[]\TU/lmr/bx/n/12 models/fine_model_paths/4000_fineAEdeepmodel_20250116_rdark.pth 
+ []
+
+
+Overfull \hbox (12.34413pt too wide) in paragraph at lines 1370--1371
+[]\TU/lmr/bx/n/12 models/fine_model_paths/4000_fineAEdeepmodel_20250116_rlight.pth 
+ []
+
+
+Overfull \hbox (18.11613pt too wide) in paragraph at lines 1371--1372
+[]\TU/lmr/bx/n/12 models/fine_model_paths/4000_fineAEdeepmodel_20250116_rwhite.pth 
+ []
+
+
+Overfull \hbox (14.38414pt too wide) in paragraph at lines 1372--1373
+[]\TU/lmr/bx/n/12 models/fine_model_paths/5000_fineAEdeepmodel_20250116_ddark.pth 
+ []
+
+
+Overfull \hbox (14.32413pt too wide) in paragraph at lines 1373--1374
+[]\TU/lmr/bx/n/12 models/fine_model_paths/5000_fineAEdeepmodel_20250116_dlight.pth 
+ []
+
+
+Overfull \hbox (20.09613pt too wide) in paragraph at lines 1374--1375
+[]\TU/lmr/bx/n/12 models/fine_model_paths/5000_fineAEdeepmodel_20250116_dwhite.pth 
+ []
+
+
+Overfull \hbox (12.40413pt too wide) in paragraph at lines 1375--1376
+[]\TU/lmr/bx/n/12 models/fine_model_paths/5000_fineAEdeepmodel_20250116_rdark.pth 
+ []
+
+
+Overfull \hbox (12.34413pt too wide) in paragraph at lines 1376--1377
+[]\TU/lmr/bx/n/12 models/fine_model_paths/5000_fineAEdeepmodel_20250116_rlight.pth 
+ []
+
+
+Overfull \hbox (18.11613pt too wide) in paragraph at lines 1377--1378
+[]\TU/lmr/bx/n/12 models/fine_model_paths/5000_fineAEdeepmodel_20250116_rwhite.pth 
+ []
+
+
+
+[41]
+File: imgs/suii.png Graphic file (type bmp)
+<imgs/suii.png>
+
+
+[42]
+
+[43]
 Missing character: There is no ├ (U+251C) in font [lmmono12-regular]:!
 Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
 Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
@@ -929,379 +1320,11 @@ Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
 Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
 
 
-[12]
+[44] (out/syuron.bbl
 
-[13]
+[45])
 
-[14]
-
-[15]
-
-[16]
-File: imgs/loss_plot_20241224_A_train_img.png Graphic file (type bmp)
-<imgs/loss_plot_20241224_A_train_img.png>
-
-Overfull \hbox (26.8401pt too wide) in paragraph at lines 751--752
-[]\TU/lmr/bx/n/12 models/old_models6048/6048_AEdeepmodel_20241224_A_train_img.pth 
- []
-
-
-
-[17]
-File: imgs/kiyodo.png Graphic file (type bmp)
-<imgs/kiyodo.png>
-
-
-[18]
-File: imgs/pca.png Graphic file (type bmp)
-<imgs/pca.png>
-File: imgs/pca_k-means.png Graphic file (type bmp)
-<imgs/pca_k-means.png>
-
-
-[19]
-Overfull \hbox (26.8401pt too wide) in paragraph at lines 812--813
-[]\TU/lmr/bx/n/12 models/old_models6048/6048_AEdeepmodel_20241224_A_train_img.pth 
- []
-
-
-
-[20]
-File: imgs/k-means2.png Graphic file (type bmp)
-<imgs/k-means2.png>
-
-
-[21]
-
-[22]
-
-[23]
-File: imgs/test1.png Graphic file (type bmp)
-<imgs/test1.png>
-
-
-[24]
-File: imgs/test2.png Graphic file (type bmp)
-<imgs/test2.png>
-
-
-[25]
-File: imgs/loss_plot_20241225_new_dark.png Graphic file (type bmp)
-<imgs/loss_plot_20241225_new_dark.png>
-
-
-[26]
-File: imgs/loss_plot_20241225_new_light.png Graphic file (type bmp)
-<imgs/loss_plot_20241225_new_light.png>
-File: imgs/loss_plot_20241225_new_white.png Graphic file (type bmp)
-<imgs/loss_plot_20241225_new_white.png>
-
-
-[27]
-Overfull \hbox (14.38414pt too wide) in paragraph at lines 1028--1029
-[]\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_ddark.pth 
- []
-
-
-Overfull \hbox (14.32413pt too wide) in paragraph at lines 1029--1030
-[]\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_dlight.pth 
- []
-
-
-Overfull \hbox (20.09613pt too wide) in paragraph at lines 1030--1031
-[]\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_dwhite.pth 
- []
-
-
-
-[28]
-File: imgs/loss_plot_20250115_fine6048_ddark.png Graphic file (type bmp)
-<imgs/loss_plot_20250115_fine6048_ddark.png>
-File: imgs/loss_plot_20250115_fine6048_dlight.png Graphic file (type bmp)
-<imgs/loss_plot_20250115_fine6048_dlight.png>
-
-
-[29]
-File: imgs/loss_plot_20250115_fine6048_dwhite.png Graphic file (type bmp)
-<imgs/loss_plot_20250115_fine6048_dwhite.png>
-
-
-[30]
-Overfull \hbox (12.40413pt too wide) in paragraph at lines 1082--1083
-[]\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rdark.pth 
- []
-
-
-Overfull \hbox (12.34413pt too wide) in paragraph at lines 1083--1084
-[]\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rlight.pth 
- []
-
-
-Overfull \hbox (18.11613pt too wide) in paragraph at lines 1084--1085
-[]\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rwhite.pth 
- []
-
-File: imgs/loss_plot_20250115_fine6048_rdark.png Graphic file (type bmp)
-<imgs/loss_plot_20250115_fine6048_rdark.png>
-File: imgs/loss_plot_20250115_fine6048_rlight.png Graphic file (type bmp)
-<imgs/loss_plot_20250115_fine6048_rlight.png>
-
-
-[31]
-File: imgs/loss_plot_20250115_fine6048_rwhite.png Graphic file (type bmp)
-<imgs/loss_plot_20250115_fine6048_rwhite.png>
-
-
-[32]
-
-[33]
-
-[34]
-File: imgs/65.png Graphic file (type bmp)
-<imgs/65.png>
-
-
-[35]
-File: imgs/65ddiff.png Graphic file (type bmp)
-<imgs/65ddiff.png>
-File: imgs/65rdiff.png Graphic file (type bmp)
-<imgs/65rdiff.png>
-
-
-[36]
-File: imgs/65dbin.png Graphic file (type bmp)
-<imgs/65dbin.png>
-File: imgs/65rbin.png Graphic file (type bmp)
-<imgs/65rbin.png>
-File: imgs/65seid.png Graphic file (type bmp)
-<imgs/65seid.png>
-File: imgs/65seir.png Graphic file (type bmp)
-<imgs/65seir.png>
-File: imgs/65seid2.png Graphic file (type bmp)
-<imgs/65seid2.png>
-File: imgs/65seir2.png Graphic file (type bmp)
-<imgs/65seir2.png>
-
-
-[37]
-File: imgs/65dnasinasi.png Graphic file (type bmp)
-<imgs/65dnasinasi.png>
-File: imgs/65darinasi.png Graphic file (type bmp)
-<imgs/65darinasi.png>
-
-
-[38]
-File: imgs/65rnasinasi.png Graphic file (type bmp)
-<imgs/65rnasinasi.png>
-File: imgs/65rarinasi.png Graphic file (type bmp)
-<imgs/65rarinasi.png>
-File: imgs/65dnasiari.png Graphic file (type bmp)
-<imgs/65dnasiari.png>
-File: imgs/65dariari.png Graphic file (type bmp)
-<imgs/65dariari.png>
-
-
-[39]
-File: imgs/65rnasiari.png Graphic file (type bmp)
-<imgs/65rnasiari.png>
-File: imgs/65rariari.png Graphic file (type bmp)
-<imgs/65rariari.png>
-
-
-[40]
-
-[41]
-Overfull \hbox (7.62814pt too wide) in paragraph at lines 1441--1442
-[]\TU/lmr/bx/n/12 models/fine_model_paths/100_fineAEdeepmodel_20250116_ddark.pth 
- []
-
-
-Overfull \hbox (7.56813pt too wide) in paragraph at lines 1442--1443
-[]\TU/lmr/bx/n/12 models/fine_model_paths/100_fineAEdeepmodel_20250116_dlight.pth 
- []
-
-
-Overfull \hbox (13.34013pt too wide) in paragraph at lines 1443--1444
-[]\TU/lmr/bx/n/12 models/fine_model_paths/100_fineAEdeepmodel_20250116_dwhite.pth 
- []
-
-
-Overfull \hbox (5.64813pt too wide) in paragraph at lines 1444--1445
-[]\TU/lmr/bx/n/12 models/fine_model_paths/100_fineAEdeepmodel_20250116_rdark.pth 
- []
-
-
-Overfull \hbox (5.58813pt too wide) in paragraph at lines 1445--1446
-[]\TU/lmr/bx/n/12 models/fine_model_paths/100_fineAEdeepmodel_20250116_rlight.pth 
- []
-
-
-Overfull \hbox (11.36014pt too wide) in paragraph at lines 1446--1447
-[]\TU/lmr/bx/n/12 models/fine_model_paths/100_fineAEdeepmodel_20250116_rwhite.pth 
- []
-
-
-Overfull \hbox (14.38414pt too wide) in paragraph at lines 1447--1448
-[]\TU/lmr/bx/n/12 models/fine_model_paths/1000_fineAEdeepmodel_20250116_ddark.pth 
- []
-
-
-Overfull \hbox (14.32413pt too wide) in paragraph at lines 1448--1449
-[]\TU/lmr/bx/n/12 models/fine_model_paths/1000_fineAEdeepmodel_20250116_dlight.pth 
- []
-
-
-Overfull \hbox (20.09613pt too wide) in paragraph at lines 1449--1450
-[]\TU/lmr/bx/n/12 models/fine_model_paths/1000_fineAEdeepmodel_20250116_dwhite.pth 
- []
-
-
-Overfull \hbox (12.40413pt too wide) in paragraph at lines 1450--1451
-[]\TU/lmr/bx/n/12 models/fine_model_paths/1000_fineAEdeepmodel_20250116_rdark.pth 
- []
-
-
-Overfull \hbox (12.34413pt too wide) in paragraph at lines 1451--1452
-[]\TU/lmr/bx/n/12 models/fine_model_paths/1000_fineAEdeepmodel_20250116_rlight.pth 
- []
-
-
-Overfull \hbox (18.11613pt too wide) in paragraph at lines 1452--1453
-[]\TU/lmr/bx/n/12 models/fine_model_paths/1000_fineAEdeepmodel_20250116_rwhite.pth 
- []
-
-
-Overfull \hbox (14.38414pt too wide) in paragraph at lines 1453--1454
-[]\TU/lmr/bx/n/12 models/fine_model_paths/2000_fineAEdeepmodel_20250116_ddark.pth 
- []
-
-
-Overfull \hbox (14.32413pt too wide) in paragraph at lines 1454--1455
-[]\TU/lmr/bx/n/12 models/fine_model_paths/2000_fineAEdeepmodel_20250116_dlight.pth 
- []
-
-
-Overfull \hbox (20.09613pt too wide) in paragraph at lines 1455--1456
-[]\TU/lmr/bx/n/12 models/fine_model_paths/2000_fineAEdeepmodel_20250116_dwhite.pth 
- []
-
-
-Overfull \hbox (12.40413pt too wide) in paragraph at lines 1456--1457
-[]\TU/lmr/bx/n/12 models/fine_model_paths/2000_fineAEdeepmodel_20250116_rdark.pth 
- []
-
-
-Overfull \hbox (12.34413pt too wide) in paragraph at lines 1457--1458
-[]\TU/lmr/bx/n/12 models/fine_model_paths/2000_fineAEdeepmodel_20250116_rlight.pth 
- []
-
-
-Overfull \hbox (18.11613pt too wide) in paragraph at lines 1458--1459
-[]\TU/lmr/bx/n/12 models/fine_model_paths/2000_fineAEdeepmodel_20250116_rwhite.pth 
- []
-
-
-
-[42]
-Overfull \hbox (14.38414pt too wide) in paragraph at lines 1459--1460
-[]\TU/lmr/bx/n/12 models/fine_model_paths/3000_fineAEdeepmodel_20250116_ddark.pth 
- []
-
-
-Overfull \hbox (14.32413pt too wide) in paragraph at lines 1460--1461
-[]\TU/lmr/bx/n/12 models/fine_model_paths/3000_fineAEdeepmodel_20250116_dlight.pth 
- []
-
-
-Overfull \hbox (20.09613pt too wide) in paragraph at lines 1461--1462
-[]\TU/lmr/bx/n/12 models/fine_model_paths/3000_fineAEdeepmodel_20250116_dwhite.pth 
- []
-
-
-Overfull \hbox (12.40413pt too wide) in paragraph at lines 1462--1463
-[]\TU/lmr/bx/n/12 models/fine_model_paths/3000_fineAEdeepmodel_20250116_rdark.pth 
- []
-
-
-Overfull \hbox (12.34413pt too wide) in paragraph at lines 1463--1464
-[]\TU/lmr/bx/n/12 models/fine_model_paths/3000_fineAEdeepmodel_20250116_rlight.pth 
- []
-
-
-Overfull \hbox (18.11613pt too wide) in paragraph at lines 1464--1465
-[]\TU/lmr/bx/n/12 models/fine_model_paths/3000_fineAEdeepmodel_20250116_rwhite.pth 
- []
-
-
-Overfull \hbox (14.38414pt too wide) in paragraph at lines 1465--1466
-[]\TU/lmr/bx/n/12 models/fine_model_paths/4000_fineAEdeepmodel_20250116_ddark.pth 
- []
-
-
-Overfull \hbox (14.32413pt too wide) in paragraph at lines 1466--1467
-[]\TU/lmr/bx/n/12 models/fine_model_paths/4000_fineAEdeepmodel_20250116_dlight.pth 
- []
-
-
-Overfull \hbox (20.09613pt too wide) in paragraph at lines 1467--1468
-[]\TU/lmr/bx/n/12 models/fine_model_paths/4000_fineAEdeepmodel_20250116_dwhite.pth 
- []
-
-
-Overfull \hbox (12.40413pt too wide) in paragraph at lines 1468--1469
-[]\TU/lmr/bx/n/12 models/fine_model_paths/4000_fineAEdeepmodel_20250116_rdark.pth 
- []
-
-
-Overfull \hbox (12.34413pt too wide) in paragraph at lines 1469--1470
-[]\TU/lmr/bx/n/12 models/fine_model_paths/4000_fineAEdeepmodel_20250116_rlight.pth 
- []
-
-
-Overfull \hbox (18.11613pt too wide) in paragraph at lines 1470--1471
-[]\TU/lmr/bx/n/12 models/fine_model_paths/4000_fineAEdeepmodel_20250116_rwhite.pth 
- []
-
-
-Overfull \hbox (14.38414pt too wide) in paragraph at lines 1471--1472
-[]\TU/lmr/bx/n/12 models/fine_model_paths/5000_fineAEdeepmodel_20250116_ddark.pth 
- []
-
-
-Overfull \hbox (14.32413pt too wide) in paragraph at lines 1472--1473
-[]\TU/lmr/bx/n/12 models/fine_model_paths/5000_fineAEdeepmodel_20250116_dlight.pth 
- []
-
-
-Overfull \hbox (20.09613pt too wide) in paragraph at lines 1473--1474
-[]\TU/lmr/bx/n/12 models/fine_model_paths/5000_fineAEdeepmodel_20250116_dwhite.pth 
- []
-
-
-Overfull \hbox (12.40413pt too wide) in paragraph at lines 1474--1475
-[]\TU/lmr/bx/n/12 models/fine_model_paths/5000_fineAEdeepmodel_20250116_rdark.pth 
- []
-
-
-Overfull \hbox (12.34413pt too wide) in paragraph at lines 1475--1476
-[]\TU/lmr/bx/n/12 models/fine_model_paths/5000_fineAEdeepmodel_20250116_rlight.pth 
- []
-
-
-Overfull \hbox (18.11613pt too wide) in paragraph at lines 1476--1477
-[]\TU/lmr/bx/n/12 models/fine_model_paths/5000_fineAEdeepmodel_20250116_rwhite.pth 
- []
-
-
-
-[43]
-File: imgs/suii.png Graphic file (type bmp)
-<imgs/suii.png>
- (out/syuron.bbl
-
-[44])
-
-[45
+[46
 
 ] (out/syuron.aux)
  ***********
@@ -1316,15 +1339,15 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `syuron.out' has not changed.
-(rerunfilecheck)             Checksum: 683CC5CF14B1E4B160EFF9DD79266A48;2808.
+(rerunfilecheck)             Checksum: 4F4965B246E4F08D992AF91815DB6B9C;2808.
  ) 
 Here is how much of TeX's memory you used:
  37050 strings out of 473889
  917918 string characters out of 5734826
- 1458500 words of memory out of 5000000
+ 1457511 words of memory out of 5000000
  59502 multiletter control sequences out of 15000+600000
  562581 words of font info for 74 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  84i,8n,93p,751b,851s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on out/syuron.pdf (47 pages).
+Output written on out/syuron.pdf (48 pages).
