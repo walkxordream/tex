@@ -70,17 +70,17 @@
 \\詳しい内容は昨年度の論文で詳細に説明しているので、そちらを参照して欲しい。
 
 \subsection{先行研究の概要}
-昨年度、山形大学の先輩である梅津魁秀氏は、深層学習を用いたバードストライク調査プログラムの基礎的な研究を行った。彼の研究では、AutoEncoderを用いて物体検出モデルを作成し、ドローン画像から鳥の死骸を検出する手法を提案した。具体的には、ドローン画像を「物体が存在する画像」と「物体が存在しない画像」に分類し、「物体が存在する画像」とGUIを組み合わせることで手動で鳥の死骸を検出する方法を開発した。彼の研究により、物体画像に関してF2-scoreが0.83という高い精度で物体の有無を判定することができた。
+昨年度、山形大学の先輩である梅津魁秀氏は、深層学習を用いたバードストライク調査プログラムの基礎的な研究を行った。彼の研究では、AutoEncoderを用いて物体検出モデルを作成し、ドローン画像から鳥の死骸を検出する手法を提案した。具体的には、ドローンで撮影した画像を「物体が存在する画像」と「物体が存在しない画像」に分類し、「物体が存在する画像」とGUIを組み合わせることで手動で鳥の死骸を検出する方法を開発した。彼の研究により、物体画像に関してF2-scoreが0.83という高い精度で物体の有無を判定することができた。
 
 \subsection{引き継ぎの理由と目標}
-梅津氏の研究は有望な結果を示したが、実用化にはさらなる改良が必要である。特に、四季に適応した汎用的なモデルを構築することと、物体画像から鳥の死骸の画像を自動で検出できるようにすることが挙げられる。本研究では、これらの課題に対してモデルの自動アップデートとclipを用いる手法を用いて課題解決にアプローチした。
+梅津氏の研究は有望な結果を示したが、実用化にはさらなる改良が必要である。特に、去年度は限られた画像において高精度な結果を残したため、汎用的なモデルを構築することと、物体画像から鳥の死骸の画像を自動で検出することが挙げられる。本研究では、これらの課題に対してモデルの自動アップデートとclipを用いる手法を用いて課題解決にアプローチした。
 
 \newpage
-\section{方法とアルゴリズム}
-本章では、バードストライク調査プログラムの作成に使用する方法やアルゴリズムを紹介する。なお、今年度は引継ぎのため、重複する部分は省略し新規の内容や変更した内容のみを説明する。
+\section{検出方法とアルゴリズム}
+本章では、検出方法やアルゴリズムを説明する。なお、今年度は引継ぎのため、重複する部分は省略し新規の内容や変更した内容のみを説明する。
 
 \subsection{科学用語の説明}
-本研究では、目標達成のために、さまざまな技術を使用している。以下に、研究の中で使用される主要な科学用語を説明する。
+本研究では、目標達成のためにさまざまな技術を使用している。以下に、研究の中で使用される主要な科学用語を説明する。
 
 \subsubsection{AutoEncoder（オートエンコーダ）}
 AutoEncoderは、入力データを圧縮し、その圧縮されたデータから元のデータを再構築することを目的としたニューラルネットワークの一種である。主にデータの次元削減や特徴抽出に使用される。AutoEncoderはエンコーダとデコーダの2つの部分から構成され、エンコーダは入力データを低次元の潜在空間にマッピングし、デコーダはその潜在空間から元のデータを再構築する。
@@ -110,19 +110,36 @@ K-meansクラスタリングは、データをK個のクラスタに分割する
 \subsubsection{ゼロショット学習（Zero-Shot Learning）}
 ゼロショット学習は、トレーニング時に見たことのないクラスのデータを分類する能力を持つ機械学習手法である。ゼロショット学習では、事前に学習した知識を利用して、新しいクラスのデータを認識する。これにより、少ないデータで新しいクラスを分類することが可能となる。
 
-\subsubsection{F2スコア}
-F2スコアは、精度（Precision）と再現率（Recall）の調和平均を計算するための指標であり、再現率をより重視する場合に使用される。F2スコアは以下の式で計算される：
+\subsubsection{混合行列}
+混合行列（Confusion Matrix）は、分類モデルの性能を評価するための表であり、以下の4つの要素から構成される。
+\begin{itemize}
+    \item True Positives (TP): 正しく物体が存在すると判定された画像の数
+    \item False Positives (FP): 誤って物体が存在すると判定された画像の数
+    \item True Negatives (TN): 正しく物体が存在しないと判定された画像の数
+    \item False Negatives (FN): 誤って物体が存在しないと判定された画像の数
+\end{itemize}
+
+\subsubsection{F2-score}
+F2-scoreは、精度（Precision）と再現率（Recall）の調和平均を計算するための指標であり、再現率をより重視する場合に使用される。F2スコアは以下の式で計算される：
 
 \[
 F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \text{Precision}) + \text{Recall}}
 \]
-F2スコアは0から1の範囲で値を取り、1に近いほどモデルの性能が高いことを示す。F2スコアが高い場合、モデルは高い再現率を維持しつつ、精度も高いことを意味する。逆に、F2スコアが低い場合、モデルは再現率または精度のいずれか、または両方が低いことを示す。F2スコアは、特に不均衡データセットにおいて、モデルの性能を評価するために有用である。
+
+ここで、精度（Precision）と再現率（Recall）は以下のように計算される。
+\begin{itemize}
+    \item 精度（Precision）: \(\frac{TP}{TP + FP}\)
+    \item 再現率（Recall）: \(\frac{TP}{TP + FN}\)
+\end{itemize}
+
+F2-scoreは0から1の範囲で値を取り、1に近いほどモデルの性能が高いことを示す。F2-scoreが高い場合、モデルは高い再現率を維持しつつ、精度も高いことを意味する。逆に、F2-scoreが低い場合、モデルは再現率または精度のいずれか、または両方が低いことを示す。F2-scoreは、特に不均衡データセットにおいて、モデルの性能を評価するために有用である。
+
 \subsubsection{正規化}
 正規化は、データのスケールを統一するための前処理手法であり、機械学習モデルの学習を安定させるために使用される。OpenCVライブラリでは、`cv2.normalize`関数を使用して画像の正規化を行うことができる。
 
 \begin{itemize}
     \item \textbf{cv2.normalize}:
-        \texttt{cv2.normalize}関数は、画像のピクセル値を指定された範囲にスケーリングするために使用される。最も一般的に使用される正規化方法は\texttt{cv2.NORM\_MINMAX}であり、以下の式で計算される：
+        \texttt{cv2.normalize}関数は、画像のピクセル値を指定された範囲にスケーリングするために使用される。最も一般的に使用される正規化方法は\texttt{cv2.NORM\_MINMAX}であり、以下の式で計算される。
         \[
         \text{dst}(x, y) = \alpha + \frac{(\text{src}(x, y) - \text{min}_{\text{src}})}{(\text{max}_{\text{src}} - \text{min}_{\text{src}})} \cdot (\beta - \alpha)
         \]
@@ -155,35 +172,70 @@ F2スコアは0から1の範囲で値を取り、1に近いほどモデルの性
     \centering
     \begin{tikzpicture}[node distance=1.5cm, auto]
         % Nodes
-        \node (start) [startstop] {ドローンで画像撮影};
+        \node (start) [startstop] {ドローンで撮影};
         \node (prepare) [process, below of=start] {画像を224×224ピクセルに分割};
         \node (model) [process, below of=prepare] {複数のモデルに入力して出力画像を生成};
         \node (diff) [process, below of=model] {入力画像と出力画像の差分画像を取得};
-        \node (select) [process, below of=diff] {入力画像と出力画像のMSEが最も小さい出力画像を選択};
-        \node (binarize) [process, below of=select] {差分画像を2値化};
-        \node (area) [process, below of=binarize] {面積を算出し閾値と比較し物体の有無を判断};
-        \node (clip) [process, below of=area] {CLIPでゼロショット分類};
-        \node (end) [startstop, below of=clip] {結果出力};
+        \node (binarize) [process, below of=diff] {差分画像を2値化};
+        \node (area) [process, below of=binarize] {差分画像から最大面積を算出};
+        \node (select) [process, below of=area] {入力画像と出力画像のMSEが最も小さい画像の面積を選択};
+        \node (threshold) [process, below of=select] {閾値と比較し物体の有無を判断};
+        \node (clip) [process, below of=threshold] {物体画像をCLIPでゼロショット分類};
+        \node (end) [startstop, below of=clip] {バードストライク検出結果を出力};
 
         % Arrows
         \draw [arrow] (start) -- (prepare);
         \draw [arrow] (prepare) -- (model);
         \draw [arrow] (model) -- (diff);
-        \draw [arrow] (diff) -- (select);
-        \draw [arrow] (select) -- (binarize);
+        \draw [arrow] (diff) -- (binarize);
         \draw [arrow] (binarize) -- (area);
-        \draw [arrow] (area) -- (clip);
+        \draw [arrow] (area) -- (select);
+        \draw [arrow] (select) -- (threshold);
+        \draw [arrow] (threshold) -- (clip);
         \draw [arrow] (clip) -- (end);
     \end{tikzpicture}
     \caption{バードストライク検出システムの流れ}
     \label{fig:birdstrike_detection}
 \end{figure}
 
-本研究では、ドローン画像からコンピュータビジョンを用いてバードストライクを検出するシステムを構築した。具体的な流れは以下の通りである。
-始めに、ドローンで探索範囲意を撮影し、画像（3000×4000ピクセルが複数枚）を準備する。次に、それらの画像を224×224ピクセルに分割し、複数のモデルに入力する。
-出力画像と入力画像の差分を取ることで、物体部分だけが浮き彫りになった差分画像を生成する。複数のモデルを使用しているため、モデル数分の差分画像が生成される。最も適したモデルによる差分画像を選択するために、入力画像と出力画像の平均二乗誤差（MSE）の値が最も小さい画像を選択する。
-選択した差分画像に関して、2値化し、面積を算出して閾値と比較することで物体の有無を判定する。抽出できた物体画像に関しては、その画像が鳥の画像なのかを判定する必要があるが、現状では鳥の死骸の画像が少ないため、教師あり学習は困難である。そこで、ゼロショットで分類できるCLIPの導入を検討している。
+ドローン画像からコンピュータビジョンを用いてバードストライクを検出するシステムを構築した。具体的な流れは上図の通りである。
+始めに、ドローンで探索範囲意を撮影し、画像（3000×4000ピクセルが複数枚）を準備する。次に、それらの画像を224×224ピクセルに分割し、複数のモデルに入力し出力画像を生成する。
+出力画像と入力画像の差分を取ることで、物体部分だけが浮き彫りになった差分画像を生成する。差分画像の二値化を行い最大面積を算出する。複数のモデルを使用しているため、モデル数分の最大面積が算出される。最も適したモデルによる最大面積を選択するために、入力画像と出力画像の平均二乗誤差（MSE）の値が最も小さいモデルの最大面積を選択する。
+最大面積と閾値を比較することで物体の有無を判定する。抽出できた物体画像に関しては、その画像が鳥の画像なのかを判定する必要があるが、現状では鳥の死骸の画像が少ないため、教師あり学習は困難である。そこで、ゼロショットで分類できるCLIPの導入を検討している。
 ここまでは内部的な処理の話であり、実務での使用のためにさくらのVPSの導入やDjangoでのアプリケーション開発を学部生二人が行った。これについては巻末に付録として記載する。
+
+\subsection{閾値に関して}
+閾値は、物体の有無を判定するための重要なパラメータである。去年度は1200を閾値として使用していた。これは去年度のtestデータに対して設定していた値であり、今年度は新たに設定する必要がある。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{imgs/sigai.jpg}
+    \caption{ミズナギドリの死骸を撮影した画像}
+    \label{fig:mizunekidori}
+\end{figure}
+
+これはミズナギドリと呼ばれる鳥の死骸をドローンで撮影した画像である。経験上ではあるが、この鳥がバードストライクが起きる鳥の中間サイズである。この画像を基準に新たに閾値を設定する。
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/kijun.jpg}
+        \caption{物体画像}
+        \label{fig:mizunekidori}
+    \end{subfigure}
+    \begin{subfigure}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/kijunnuri.png}
+        \caption{面積画像}
+        \label{fig:door}
+    \end{subfigure}
+    \caption{物体画像と面積画像}
+\end{figure}
+
+上記の画像の面積は2100である。ミズナギドリが中間サイズであることを踏まえて、閾値を800に設定する。
+
+\newpage
 
 \subsection{AutoEncoderの改良}
 去年度使用していたAutoEncoderモデルと比較して、構造をシンプルにすることで性能向上を図った。以下に、以前のモデルと現在のモデルの違い、およびその違いによる改善点について説明する。
@@ -198,12 +250,14 @@ F2スコアは0から1の範囲で値を取り、1に近いほどモデルの性
     \item \textbf{ConvTranspose2d}: 2次元逆畳み込み層。畳み込み層の逆操作を行い、特徴マップの空間的なサイズを拡大する。アップサンプリングに使用される。
 \end{itemize}
 
+\newpage
+
 \subsubsection{去年度のAutoEncoderモデル}
 去年度のAutoEncoderモデルは、以下のような構造を持っていた。
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[
+    \begin{tikzpicture}[scale=0.8, transform shape,
         encoder/.style={rectangle, draw, fill=blue!20, minimum height=0.5cm, minimum width=1.5cm},
         decoder/.style={rectangle, draw, fill=red!20, minimum height=0.5cm, minimum width=1.5cm},
         norm/.style={rectangle, draw, fill=green!20, minimum height=0.5cm, minimum width=1.5cm},
@@ -338,7 +392,7 @@ F2スコアは0から1の範囲で値を取り、1に近いほどモデルの性
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[
+    \begin{tikzpicture}[scale=0.8, transform shape,
         encoder/.style={rectangle, draw, fill=blue!20, minimum height=0.5cm, minimum width=1.5cm},
         decoder/.style={rectangle, draw, fill=red!20, minimum height=0.5cm, minimum width=1.5cm},
         relu/.style={rectangle, draw, fill=yellow!20, minimum height=0.5cm, minimum width=1.5cm},
@@ -452,11 +506,11 @@ F2スコアは0から1の範囲で値を取り、1に近いほどモデルの性
 \end{itemize}
 以上のように、今年度のAutoEncoderモデルは、去年度のモデルと比較して構造がシンプルになり、計算コストの削減、過学習の防止、モデルの解釈性の向上といった改善点が見られた。
 
-\subsubsection{AutoEncoderモデルのアップデートの重要性}
-AutoEncoderで製作したモデルをアップデートすることは、モデルの性能向上や新しいデータへの適応において非常に重要だ。以下に、モデルをアップデートしないで使い続けることと、アップデートして使うことの差について説明する。
+\subsection{AutoEncoderモデルのアップデートの重要性}
+AutoEncoderで構築したモデルをアップデートすることは、モデルの性能向上や新しいデータへの適応において非常に重要だ。以下に、モデルをアップデートせずに使い続けることと、アップデートして使うことの差について説明する。
 
 \paragraph{モデルをアップデートしない場合}
-モデルをアップデートしないで使い続けると、以下のような問題が発生する可能性がある。
+モデルをアップデートせずに使い続けると、以下のような問題が発生する可能性がある。
 
 \begin{itemize}
     \item \textbf{性能の劣化}: 新しいデータや環境に適応できず、モデルの性能が徐々に劣化する可能性がある。例えば、\cite{goodfellow2016deep}では、モデルの性能がデータの変化に対して敏感であることが示されている。
@@ -472,14 +526,14 @@ AutoEncoderで製作したモデルをアップデートすることは、モデ
 \end{itemize}
 
 \subsection{モデルのアップデート方法}
-検出に使用した画像を用いてモデルのアップデートを行う。目標は自動アップデートである。アップデート用学習データを自動で作成するためには、以下の二つのステップが必要である。
-始めに、全体の画像を背景ごとにクラスタリングする。これはAutoEncoderで特徴抽出を行い、その後主成分分析で次元削減し、k-meansクラスタリングを用いることで可能であることがわかった。
+検出に使用した画像を用いてモデルのアップデートを行う。実用化のために自動アップデートを行いたい。アップデートには学習データを自動で作成する必要があり、以下の二つのステップで作成できることがわかった。
+始めに、全体の画像を背景ごとにクラスタリングする。これはAutoEncoderで特徴抽出を行い、特徴量を主成分分析で次元削減し、k-meansクラスタリングを用いることで可能であることがわかった。
 次に、画像の中から物体画像を取り除く。これはCLIPを使用することで効果的に行うことができる。CLIPを用いることで、画像内の物体をある程度の精度で検出し、物体が存在しない画像を抽出することができる。
 これらのステップに関しては、以降の章で詳しく説明する。
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[node distance=2cm, auto]
+    \begin{tikzpicture}[node distance=1.5cm, auto]
         % Nodes
         \node (start) [startstop] {検出に使用した画像};
         \node (ae) [process, below of=start] {AEで特徴抽出};
@@ -499,8 +553,10 @@ AutoEncoderで製作したモデルをアップデートすることは、モデ
     \label{fig:model_update_flow}
 \end{figure}
 
+\newpage
+
 \section{実験}
-本章では、従来の方法で物体検出を試みたうえでモデルアップデートの有用性について論じる。なお、使用した環境等に関しては付録を参照してほしい。
+本章では、従来の方法で物体検出を試みたうえでモデルアップデートの有用性について論じる。なお、使用した環境等に関してはn章を参照してほしい。
 
 \subsection{物体検出の試み}
 物体検出を行うために以下のプログラムファイルを使用した。
@@ -523,67 +579,70 @@ AutoEncoderで製作したモデルをアップデートすることは、モデ
     \item \textbf{models/2023models/AEmodel\_white20230927.pth}
     \item \textbf{models/2023models/AEmodel\_paved\_ground20230927.pth}
 \end{itemize}
-\subsubsection{出力}
 
 \subsubsection{出力}
-プログラムの実行結果として、\texttt{imgs/AE\_2023\_result}フォルダが作成され、物体と判定された画像が保存される。また、答えの画像も渡しているため、F2スコアが計算される。
+プログラムの実行結果として、\texttt{imgs/AE\_2023\_result}フォルダが作成され、物体と判定された画像が保存される。また、答えの画像も渡しているため、F2-scoreが計算される。
 \subsubsection{出力までの流れ}
 \begin{enumerate}
-    \item \textbf{データの準備}: 画像データを前処理し、訓練データとテストデータに分割した。
-    \item \textbf{画像の分割}: 入力画像を224×224ピクセルの小さな画像に分割した。分割後の枚数は881枚である。
-    \item \textbf{物体検出の実行}: 分割された画像をオートエンコーダーモデルに通し、物体が存在するかどうかを判定した。
+    \item \textbf{画像の分割}: 入力画像を224×224ピクセルの小さな画像に分割した。
+    \item \textbf{物体検出の実行}: 分割された画像をAutoencoderを使用して、物体が存在するかどうかを判定した。
         \begin{itemize}
             \item オートエンコーダーモデルを使用して、入力画像を再構築する。
             \item 再構築された画像と元の画像の差分を計算し、差分画像を生成する。
             \item 再構築された画像と元の画像のMSE（平均二乗誤差）を計算し、MSEが最も小さいモデルの差分画像を採用する。
             \item 差分画像から輪郭を抽出し、最大面積の輪郭を計算する。
-            \item 最大面積が閾値(1200)を超える場合、物体が存在すると判定する。
+            \item 最大面積が閾値を超える場合、物体が存在すると判定する。
         \end{itemize}
         \item \textbf{結果の保存}: 物体が存在すると判定された画像を保存した。
         \item \textbf{評価指標の計算}: 混合行列を作成し、F2スコアを計算した。
     \end{enumerate}
 
-\subsubsection{f2スコアの計算}
-システムが画像と判定した画像の枚数は366枚で、その中に入っていた物体画像の枚数は25枚である。testフォルダの画像を分割した画像が884枚で、その中に入っていいた物体画像の枚数が50枚である。混合行列の要素は以下の通りである。
+\subsubsection{F2-scoreの計算}
+システムが物体画像と判定した画像の枚数は459枚で、その中に入っていた物体画像の枚数は12枚である。testフォルダの画像を分割した画像の枚数が884枚で、その中に入っていいた物体画像の枚数が13枚である。混合行列の要素は以下の通りである。
 \begin{itemize}
     \item 混合行列の要素:
         \begin{itemize}
-            \item True Positives (TP): 25枚
-            \item False Positives (FP): 341枚
-            \item True Negatives (TN): 518枚
-            \item False Negatives (FN): 25枚
+            \item True Positives (TP): 12枚
+            \item False Positives (FP): 447枚
+            \item True Negatives (TN): 424枚
+            \item False Negatives (FN): 1枚
         \end{itemize}
-    \item 精度（Precision）と再現率（Recall）を計算する。
+        \item 精度（Precision）と再現率（Recall）を計算する。
         \begin{itemize}
-            \item Precision = \(\frac{TP}{TP + FP} = \frac{25}{25 + 341} \approx 0.068\)
-            \item Recall = \(\frac{TP}{TP + FN} = \frac{25}{25 + 25} = 0.5\)
+            \item Precision = \(\frac{TP}{TP + FP} = \frac{12}{12 + 447} \approx 0.026\)
+            \item Recall = \(\frac{TP}{TP + FN} = \frac{12}{12 + 1} \approx 0.923\)
         \end{itemize}
     \item F2スコアを計算する。
         \begin{itemize}
-            \item F2 = \(\frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \text{Precision}) + \text{Recall}} = \frac{5 \cdot (0.068 \cdot 0.5)}{4 \cdot 0.068 + 0.5} \approx 0.221\)
+            \item F2 = \(\frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \text{Precision}) + \text{Recall}} = \frac{5 \cdot (0.026 \cdot 0.923)}{4 \cdot 0.026 + 0.923} \approx 0.117\)
         \end{itemize}
 \end{itemize}
-これにより、従来のモデルと方法では物体検出の精度が十分でないことがわかった。そのため、モデルのアップデートを行うことが必要である。
-また、実際に活用することをふまえ、モデルのアップデートを自動化することが重要であると考えられる。
+従来のモデルでは物体検出の精度が十分でないことがわかった。特にFNが1以上だと、見落としてしまう可能性があるため確実に避けたい。そのためにもモデルのアップデートを行うことが必要である。
 
 \subsection{モデルアップデートの有用性}
 本研究では、モデルアップデートの有用性を検証するために、以下のプログラムファイルを使用した。また、これは自動でアップデートを行うという前提の上での検証であることを留意してほしい。
 
 \begin{itemize}
-    \item \textbf{AE\_clip.ipynb}: CLIPモデルを使用して画像内の物体を検出し、物体が存在しない画像を抽出するためのプログラム。
-    \item \textbf{AE\_deep\_check.ipynb}: 物体画像が全く入っていないモデルと若干入っているモデルの精度を比較するためのプログラム。
-    \item \textbf{AE\_deep\_check\_change.ipynb}: 学習枚数を変化させたときの 物体画像が全く入っていないモデルと若干入っているモデルの精度を比較するためのプログラム。
-    \item \textbf{AE\_deep\_finetrain\_matomete.py}: 古い画像を学習させたモデルを新しい画像でアップデートするためのプログラム。
-    \item \textbf{AE\_deep\_main\_search.ipynb}: 差分画像から物体画像を検出する精度向上を試みるプログラム。
-    \item \textbf{AE\_deep\_train\_matomete.py}: 0からモデルを学習するプログラム。
-    \item \textbf{AE\_for\_newmodel.ipynb}: 新しいモデルを学習するための画像を分類するプログラム。
-    \item \textbf{AE\_score\_check\_labels.ipynb}: 背景画像の自動分類を検証するプログラム。
+    \item \textbf{AE\_clip.ipynb}
+    \item \textbf{AE\_deep\_check.ipynb}
+    \item \textbf{AE\_deep\_check\_change.ipynb}
+    \item \textbf{AE\_deep\_finetrain\_matomete.py}
+    \item \textbf{AE\_deep\_main\_search.ipynb}
+    \item \textbf{AE\_deep\_train\_matomete.py}
+    \item \textbf{AE\_for\_newmodel.ipynb}
+    \item \textbf{AE\_score\_check\_labels.ipynb}
 \end{itemize}
 
 これらのプログラムファイルを用いて、モデルの自動アップデートを行い、その有用性を検証した。
 
 \subsection{背景画像の分類}
-初めに、AEの性能を最大限発揮するために、全体画像から背景ごとに画像を分類することが重要である。これから、背景ごとに画像を分類する方法を説明する。通常、AEモデルを作成するときは画像の特徴の圧縮と再構築を行い入力画像と出力画像をなるべく一致させようとする性質を利用するために学習画像は似た画像を使う。しかし、今回は4種類の異なった画像を均一な枚数学習させることによって、それぞれの特徴を学習したモデルを作成する。このAEモデルで分類したい画像を圧縮し、再構築する前のベクトルを取り出し主成分分析を行い、次元削減を行う。その後、k-meansクラスタリングを行い、背景ごとに画像を分類する。
+初めに、AEの性能を最大限発揮するためにモデルの対象ごとに画像を分類することが必要である。これから、背景ごとに画像を分類する方法を説明する。
+通常、AEモデルを構築するときは画像の特徴の圧縮と再構築を行い入力画像と出力画像の一致率(MSE)を高めようとする性質を利用するために学習画像は類似した画像を使用する。
+しかし、今回は4種類の異なった画像を均一な枚数学習させることによって、それぞれの特徴を学習したモデルを構築する。
+このAEモデルで対象とする画像に対して一番圧縮された箇所のベクトルを抽出し、主成分分析を行うことで次元削減を行う。
+その後、k-meansクラスタリングを行うことで背景ごとに画像を分類することができる。
+
+\subsubsection{検証}
 
 \paragraph{使用プログラム}
 \begin{itemize}
@@ -594,6 +653,9 @@ AutoEncoderで製作したモデルをアップデートすることは、モデ
 \begin{itemize}
     \item \textbf{imgs/old\_all\_img/train\_img\_6048/6048/A\_train\_img}
 \end{itemize}
+
+\subsubsection{出力}
+AEモデルが構築される。
 
 \paragraph{出力モデル名}
 \begin{itemize}
@@ -664,7 +726,9 @@ AutoEncoderで製作したモデルをアップデートすることは、モデ
     \caption{主成分分析の寄与度}
     \label{fig:contribution_plot}
 \end{figure}
-主成分分析の寄与度を示すグラフである。このグラフにより、各主成分がデータの分散にどの程度寄与しているかを確認することができる。ほとんどの寄与度が第一主成分と第二主成分で占められていることがわかる。したがって、二次元にプロットしてもデータの重要な情報を保持できることがわかる。
+
+図\ref{fig:contribution_plot}は、主成分分析の寄与度を示すグラフである。結果より、各主成分がデータの分散にどの程度寄与しているかを確認することができる。
+ほとんどの寄与度が第一主成分と第二主成分で占められていることがわかる。したがって、二次元にプロットすることで十分にデータの特徴を表現できると考えられる。
 
 \paragraph{二次元プロット}
 \begin{figure}[H]
@@ -673,7 +737,9 @@ AutoEncoderで製作したモデルをアップデートすることは、モデ
     \caption{主成分分析による二次元プロット}
     \label{fig:two_dimensional_plot}
 \end{figure}
-主成分分析によって次元削減されたデータの二次元プロットである。このプロットにより、データの分布やクラスタリングの傾向を視覚的に確認することができる。結果より、aroundとlightが近く、その他は離れていることがわかる。このことから、aroundとlightは似た特徴を持っていることが示唆されるため、合わせて1種類の背景としlightと扱うことにする。そのため、以降は背景画像は3種類とする。
+図\ref{fig:two_dimensional_plot}は、主成分分析によって次元削減されたデータの二次元プロットである。このプロットにより、データの分布やクラスタリングの傾向を視覚的に確認することができる。
+結果より、aroundとlightが近く、その他は離れていることがわかる。このことから、aroundとlightは似た特徴を持っていることが示唆されるため、合わせて1種類の背景としlightと扱うことにする。そのため、以降は背景画像は3種類とする。
+
 \paragraph{k-meansクラスタリング}
 \begin{figure}[H]
     \centering
@@ -681,12 +747,16 @@ AutoEncoderで製作したモデルをアップデートすることは、モデ
     \caption{k-meansクラスタリングの結果}
     \label{fig:kmeans_plot}
 \end{figure}
-クラスター数10のk-meansクラスタリングの結果を示すプロットである。このプロットにより、データがどのようにクラスタに分割されたかを視覚的に確認することができる。横軸の値が小さいクラスターから順に数字を0から9まで振ることで結果が固定される。この結果をもとに、0と1はwhite、4と5はlight、8と9はdarkとすることで曖昧な境界部分は除かれつつ画像を背景ごとに分類することができる。
+図\ref{fig:kmeans_plot}は、主成分分析による次元削減結果に対してクラスター数10のk-meansクラスタリングの結果を示すプロットである。このプロットにより、データがどのようにクラスタに分割されたかを視覚的に確認することができる。横軸の値が小さいクラスターから順に数字を0から9まで振ることで結果が固定される。
+結果より、0と1はwhite、4と5はlight、8と9はdarkとすることで曖昧な境界部分は除かれ、画像を背景ごとに分類することができる。
+
+\subsubsection{実証}
 
 \paragraph{使用プログラム}
 \begin{itemize}
     \item \textbf{AE\_make\_dataset.ipynb}
 \end{itemize}
+
 \paragraph{使用画像}
 \begin{itemize}
     \item \textbf{imgs/for\_update\_img}
@@ -698,7 +768,8 @@ AutoEncoderで製作したモデルをアップデートすることは、モデ
 \end{itemize}
 
 \subsubsection{出力}
-プログラムと画像とモデルを用いて、画像の圧縮、ベクトルの主成分分析、二次元へのプロット、クラスター数10でのk-meansを行い、以下の流れで入力画像を背景ごとに分類した。この時、主成分分析に使用したモデルは\texttt{AE\_score\_check\_labels.ipynb}で使用したモデルと同じことに注意する。
+プログラムと画像とモデルを用いて、画像の圧縮、ベクトルの主成分分析、二次元へのプロット、クラスター数10でのk-meansを行い、背景ごとに分類した。
+この時、主成分分析に使用したモデルは\texttt{AE\_score\_check\_labels.ipynb}で使用したモデルと同じことに注意する。
 
 \paragraph{保存先}
 \begin{itemize}
@@ -743,6 +814,8 @@ AutoEncoderで製作したモデルをアップデートすることは、モデ
 
 \subsection{物体画像の抽出}
 次に、背景ごとに分類された画像から物体画像を抽出する。これは、CLIPモデルを使用して画像内の物体を検出し、物体が存在する画像を抽出することで行う。
+また、ここで抽出したい物体画像は最終的に検出したい物体画像よりも小さい物体画像が含まれていることに注意する。
+これは、最終的に検出したい物体画像は閾値を越える大きさの物体を想定しているが、今回抽出したい画像はAEの性能を十分に発揮するために大きさは問わないためである。
 
 \paragraph{使用プログラム}
 \begin{itemize}
@@ -750,10 +823,9 @@ AutoEncoderで製作したモデルをアップデートすることは、モデ
 \end{itemize}
 
 \paragraph{使用モデル}
-本研究で使用したモデルは以下の通りである。
 \begin{itemize}
-    \item \textbf{RN50}
-    \item \textbf{RN50x64}
+    \item \textbf{RN50x64(High Model)}
+    \item \textbf{RN50(Low Model)}
 \end{itemize}
 
 \subsubsection{使用した言葉}
@@ -784,7 +856,10 @@ AutoEncoderで製作したモデルをアップデートすることは、モデ
 \end{itemize}
 
 \paragraph{出力}
-プログラムとモデルと画像を用いて、物体画像を抽出した。また、予め物体画像を抽出しておくことで二つのモデルにおける精度比較も行った。100％物体画像を取り除くことは出来なかったたため、物体画像を完全に取り除いた画像も保存し、それぞれの画像で学習を行いモデルの精度比較に使用する。また、物体を取り除いて学習データを作成する際に、ランダムに上下反転、左右反転、回転を行い、データ拡張を行った。保存先は以下の通りである。
+プログラムとモデルと画像を用いて物体画像を抽出し、学習データを作成した。
+また、物体画像を抽出したデータを用意することで二つのモデルにおける精度比較も行った。
+100％物体画像を取り除くことは出来なかったたため、手動で物体画像を完全に取り除いた画像も保存し、それぞれの画像で学習を行いモデルの精度比較に使用する。
+また、学習データを作成する際に、ランダムに上下反転、左右反転、回転を行い、データ拡張を行った。保存先は以下の通りである。
 
 \paragraph{保存先}
 \begin{itemize}
@@ -808,8 +883,9 @@ AutoEncoderで製作したモデルをアップデートすることは、モデ
     \item \textbf{画像のコピーと反転処理}: 画像をコピーし、6048枚になるように、必要に応じて反転や回転処理を行う。
 \end{enumerate}
 
-\subsubsection{テスト画像の結果}
-以下に、テスト画像の予測結果を示す。
+\subsubsection{テストデータの結果}
+精度を向上させるためにテストデータを用いて、入力する言葉の微調整を行った。
+以下に、最終的に使用した言葉によるテストデータの予測結果を示す。
 
 \begin{figure}[H]
     \centering
@@ -825,8 +901,8 @@ AutoEncoderで製作したモデルをアップデートすることは、モデ
     \label{fig:test_image_2_result}
 \end{figure}
 
-\subsubsection{物体を含んでいる割合}
-以下に、物体を含んでいる割合を示す。
+\subsubsection{抽出結果}
+以下に、モデルごとの抽出結果を示す。
 
 \begin{table}[H]
     \centering
@@ -846,11 +922,13 @@ AutoEncoderで製作したモデルをアップデートすることは、モデ
 \end{table}
 
 \paragraph{RN50x64モデルとRN50モデルの比較}
-RN50x64モデルとRN50モデルの結果を比較すると、RN50x64モデルの方が物体を含んでいる割合が低いことがわかる。特に、物体を含んでいる割合において、RN50x64モデルは全てのカテゴリでRN50モデルよりも優れている。
-結果から、RN50x64モデルを使用して物体画像を抽出することが適していると言えるため以降はRN50x64モデルを使用した画像を用いて実験を進める。なお、上記の表からもわかるように、完全に物体を取り除くことは出来なかったため、以降の章で若干物体の画像が入った画像でモデルのアップデートを行った場合と全く物体が入っていない画像でモデルのアップデートを行った場合の精度の比較を行う。
+RN50x64モデルとRN50モデルの結果を比較すると、RN50x64モデルの方が物体を含んでいる割合が全てのカテゴリで低いことがわかる。
+結果から、RN50x64モデルを使用して物体画像を抽出することが適していると言えるため以降はRN50x64モデルを使用した学習データを用いて実験を進める。
+なお、上記の表からもわかるように、完全に物体を取り除くことは出来なかったため、以降で若干物体の画像が入った画像でモデルのアップデートを行った場合と全く物体が入っていない画像でモデルのアップデートを行った場合の精度の比較を行う。
 
 \subsection{モデルのアップデート}
-次に、物体画像を含んでいる割合が低いRN50x64モデルを使用して、モデルのアップデートを行う。モデルのアップデートは、古い画像を学習させたモデルを新しい画像でアップデートすることで行う。また、ここまでで4分類ではなく3分類の方が適していることがわかったため、アップデートをするモデルも作り直す。
+作成した学習データでモデルのアップデートを行う。モデルのアップデートは、古い画像を学習させたモデルを新しい画像でアップデートすることで行う。
+また、背景画像は4分類ではなく3分類の方が適していることがわかったため、アップデートをするモデルも作り直す。
 
 \subsubsection{旧モデルの再学習}
 
@@ -1025,54 +1103,62 @@ RN50x64モデルとRN50モデルの結果を比較すると、RN50x64モデル�
 以下に、dモデルとrモデルのF2スコアを示す。
 
 \paragraph{dモデルのF2スコア}
-dモデルが物体だと思った画像の枚数は278枚で、その中に入っていた物体画像の枚数は19枚である。testフォルダの画像を分割した画像が903枚で、その中に入っていた物体画像の枚数が50枚である。混合行列の要素は以下の通りである。
+dモデルが物体だと思った画像の枚数は348枚で、その中に入っていた物体画像の枚数は12枚である。testフォルダの画像を分割した画像が884枚で、その中に入っていた物体画像の枚数が13枚である。混合行列の要素は以下の通りである。
 
 \begin{itemize}
     \item 混合行列の要素:
         \begin{itemize}
-            \item True Positives (TP): 19枚
-            \item False Positives (FP): 259枚
-            \item True Negatives (TN): 594枚
-            \item False Negatives (FN): 31枚
+            \item True Positives (TP): 12枚
+            \item False Positives (FP): 336枚
+            \item True Negatives (TN): 535枚
+            \item False Negatives (FN): 1枚
         \end{itemize}
     \item 精度（Precision）と再現率（Recall）を計算する。
         \begin{itemize}
-            \item Precision = \(\frac{TP}{TP + FP} = \frac{19}{19 + 259} \approx 0.068\)
-            \item Recall = \(\frac{TP}{TP + FN} = \frac{19}{19 + 31} \approx 0.38\)
+            \item Precision = \(\frac{TP}{TP + FP} = \frac{12}{12 + 336} \approx 0.034\)
+            \item Recall = \(\frac{TP}{TP + FN} = \frac{12}{12 + 1} \approx 0.923\)
         \end{itemize}
     \item F2スコアを計算する。
         \begin{itemize}
-            \item F2 = \(\frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \text{Precision}) + \text{Recall}} = \frac{5 \cdot (0.068 \cdot 0.38)}{4 \cdot 0.068 + 0.38} \approx 0.199\)
+            \item F2 = \(\frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \text{Precision}) + \text{Recall}} = \frac{5 \cdot (0.034 \cdot 0.923)}{4 \cdot 0.034 + 0.923} \approx 0.15\)
         \end{itemize}
 \end{itemize}
 
 \paragraph{rモデルのF2スコア}
-rモデルが物体だと思った画像の枚数は289枚で、その中に入っていた物体画像の枚数は22枚である。testフォルダの画像を分割した画像が906枚で、その中に入っていた物体画像の枚数が50枚である。混合行列の要素は以下の通りである。
+rモデルが物体だと思った画像の枚数は345枚で、その中に入っていた物体画像の枚数は11枚である。testフォルダの画像を分割した画像が884枚で、その中に入っていた物体画像の枚数が13枚である。混合行列の要素は以下の通りである。
 
 \begin{itemize}
     \item 混合行列の要素:
         \begin{itemize}
-            \item True Positives (TP): 22枚
-            \item False Positives (FP): 267枚
-            \item True Negatives (TN): 589枚
-            \item False Negatives (FN): 28枚
+            \item True Positives (TP): 11枚
+            \item False Positives (FP): 334枚
+            \item True Negatives (TN): 537枚
+            \item False Negatives (FN): 2枚
         \end{itemize}
     \item 精度（Precision）と再現率（Recall）を計算する。
         \begin{itemize}
-            \item Precision = \(\frac{TP}{TP + FP} = \frac{22}{22 + 267} \approx 0.076\)
-            \item Recall = \(\frac{TP}{TP + FN} = \frac{22}{22 + 28} \approx 0.44\)
+            \item Precision = \(\frac{TP}{TP + FP} = \frac{11}{11 + 334} \approx 0.032\)
+            \item Recall = \(\frac{TP}{TP + FN} = \frac{11}{11 + 2} \approx 0.846\)
         \end{itemize}
     \item F2スコアを計算する。
         \begin{itemize}
-            \item F2 = \(\frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \text{Precision}) + \text{Recall}} = \frac{5 \cdot (0.076 \cdot 0.44)}{4 \cdot 0.076 + 0.44} \approx 0.224\)
+            \item F2 = \(\frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \text{Precision}) + \text{Recall}} = \frac{5 \cdot (0.032 \cdot 0.846)}{4 \cdot 0.032 + 0.846} \approx 0.139\)
         \end{itemize}
 \end{itemize}
 
-両者ともにF2スコアは低いが、rモデルの方がdモデルよりもF2スコアが高いことがわかる。これは、物体画像を含んでいる割合が低いモデルを使用して学習を行ったため、物体画像を含んでいる割合が低い画像をより正確に検出できることが示唆される。
-しかし、あまりに低すぎるため、何故このような結果になったのかを考察する。
+アップデート前のf2スコアが1.17であったため、若干だが性能が向上していることがわかる。しかし前提としてF2スコアよりもFNがあることが問題であるため、それをなくすために物体が検出される流れを、共通で検出できなかった画像と共に確認する。
 
 \subsection{物体検出の仕組み}
-モデルのアップデートを行っても物体検出をすることはできなかった。ここで着目したいのは、どの段階で物体を見失っているかである。
+物体検出の仕組みを確認するために、物体検出に失敗した画像を用いて、物体検出の流れを確認する。共通して検出に失敗した画像は以下の画像である。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/65.png}
+    \caption{物体検出に失敗した画像}
+    \label{fig:failed_image}
+\end{figure}
+
+ここで着目したいのは、どの段階で物体を見失っているかである。
 
 \begin{figure}[H]
     \centering
@@ -1109,15 +1195,6 @@ rモデルが物体だと思った画像の枚数は289枚で、その中に入�
 \paragraph{出力}
 このプログラムではコード内の引数に応じて、各ステップの結果を出力する。なお、推論のために制作したため出力やそれまでの流れは引数によって異なるため省略する。詳しくは付録のコードを参照してほしい。
 
-\subsubsection{使用画像}
-以下に、物体検出を行い両方のモデルで失敗した画像を示す。
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{imgs/65.png}
-    \caption{物体検出に失敗した画像}
-    \label{fig:failed_image}
-\end{figure}
 
 \subsubsection{グレースケールに変換}
 物体検出に失敗した画像をグレースケールに変換した結果を示す。
@@ -1287,7 +1364,7 @@ rモデルが物体だと思った画像の枚数は289枚で、その中に入�
     \label{fig:failed_images_dilate_erode}
 
 \end{figure}
-それぞれ3枚の画像が並んでいるが、左から順に入力画像、面積を検出する直前の画像、確認した最大面積の画像である。入力画像の左上にはYESorNOと書かれており、その下には正規化を行ったかどうか、膨張収縮を行ったかどうかが書かれている。また、面積を検出する直前の画像の左上にはYESorNOと書かれており、その下には検出した最大面積の大きさ、一番下にはmseの値が一番小さくなったモデルの名前が書かれている。最大面積が閾値（今回は1200）を超えるとYESと表示される。
+それぞれ3枚の画像が並んでいるが、左から順に入力画像、面積を検出する直前の画像、確認した最大面積の画像である。入力画像の左上にはYESorNOと書かれており、その下には正規化を行ったかどうか、膨張収縮を行ったかどうかが書かれている。また、面積を検出する直前の画像の左上にはYESorNOと書かれており、その下には検出した最大面積の大きさ、一番下にはmseの値が一番小さくなったモデルの名前が書かれている。最大面積が閾値を超えるとYESと表示される。
 全ての画像に共通して、物体部分の面積を適切に検出できていないことが確認できる。特に膨張収縮を行った画像に関しては物体ではない部分の面積を検出してしまっている。これはAEが再現した画像の再現性が低い部分を膨張収縮により繋げてしまったためである。また、正規化を行っても結果が改善されていないことから、正規化は必要ないことがわかる。以上の結果から、差分画像に対してアプローチを行うのではなく、出力画像の精度向上にアプローチを行うことがより良い結果を得られると考えられる。
 
 \subsection{出力画像の精度向上}

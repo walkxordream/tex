@@ -9,7 +9,7 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.1.2}先行研究の概要}{2}{subsection.1.1.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.1.3}引き継ぎの理由と目標}{2}{subsection.1.1.3}\protected@file@percent }
 \citation{he2016deep}
-\@writefile{toc}{\contentsline {section}{\numberline {1.2}方法とアルゴリズム}{3}{section.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.2}検出方法とアルゴリズム}{3}{section.1.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.2.1}科学用語の説明}{3}{subsection.1.2.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{AutoEncoder（オートエンコーダ）}{3}{section*.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{CLIP（Contrastive Language-Image Pre-Training）}{3}{section*.3}\protected@file@percent }
@@ -20,219 +20,229 @@
 \@writefile{toc}{\contentsline {subsubsection}{コサイン類似度}{4}{section*.8}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{シード（Seed）}{4}{section*.9}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{ゼロショット学習（Zero-Shot Learning）}{4}{section*.10}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{F2スコア}{4}{section*.11}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{正規化}{4}{section*.12}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{膨張と収縮}{5}{section*.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{混合行列}{4}{section*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{F2-score}{4}{section*.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{正規化}{5}{section*.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{膨張と収縮}{5}{section*.14}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.2.2}検出方法}{6}{subsection.1.2.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.1}{\ignorespaces バードストライク検出システムの流れ}}{6}{figure.caption.14}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.1}{\ignorespaces バードストライク検出システムの流れ}}{6}{figure.caption.15}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:birdstrike_detection}{{1.1}{6}{バードストライク検出システムの流れ}{figure.caption.14}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.3}AutoEncoderの改良}{7}{subsection.1.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{モデル用語の説明}{7}{section*.15}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{去年度のAutoEncoderモデル}{7}{section*.16}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.2}{\ignorespaces AutoEncoderの構造}}{8}{figure.caption.17}\protected@file@percent }
-\newlabel{fig:autoencoder_structure}{{1.2}{8}{AutoEncoderの構造}{figure.caption.17}{}}
-\@writefile{toc}{\contentsline {subsubsection}{今年度のAutoEncoderモデル}{9}{section*.18}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.3}{\ignorespaces 今年度のAutoEncoderの構造}}{9}{figure.caption.19}\protected@file@percent }
-\newlabel{fig:autoencoder}{{1.3}{9}{今年度のAutoEncoderの構造}{figure.caption.19}{}}
+\newlabel{fig:birdstrike_detection}{{1.1}{6}{バードストライク検出システムの流れ}{figure.caption.15}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.3}閾値に関して}{7}{subsection.1.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.2}{\ignorespaces ミズナギドリの死骸を撮影した画像}}{7}{figure.caption.16}\protected@file@percent }
+\newlabel{fig:mizunekidori}{{1.2}{7}{ミズナギドリの死骸を撮影した画像}{figure.caption.16}{}}
+\newlabel{fig:mizunekidori}{{1.3a}{7}{物体画像}{figure.caption.17}{}}
+\newlabel{sub@fig:mizunekidori}{{a}{7}{物体画像}{figure.caption.17}{}}
+\newlabel{fig:door}{{1.3b}{7}{面積画像}{figure.caption.17}{}}
+\newlabel{sub@fig:door}{{b}{7}{面積画像}{figure.caption.17}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.3}{\ignorespaces 物体画像と面積画像}}{7}{figure.caption.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.4}AutoEncoderの改良}{8}{subsection.1.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{モデル用語の説明}{8}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{去年度のAutoEncoderモデル}{9}{section*.19}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.4}{\ignorespaces AutoEncoderの構造}}{9}{figure.caption.20}\protected@file@percent }
+\newlabel{fig:autoencoder_structure}{{1.4}{9}{AutoEncoderの構造}{figure.caption.20}{}}
+\@writefile{toc}{\contentsline {subsubsection}{今年度のAutoEncoderモデル}{10}{section*.21}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.5}{\ignorespaces 今年度のAutoEncoderの構造}}{10}{figure.caption.22}\protected@file@percent }
+\newlabel{fig:autoencoder}{{1.5}{10}{今年度のAutoEncoderの構造}{figure.caption.22}{}}
+\@writefile{toc}{\contentsline {subsubsection}{変更点}{10}{section*.23}\protected@file@percent }
 \citation{goodfellow2016deep}
 \citation{bishop2006pattern}
 \citation{he2016deep}
 \citation{lecun2015deep}
-\@writefile{toc}{\contentsline {subsubsection}{変更点}{10}{section*.20}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{改良の効果}{10}{section*.21}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{AutoEncoderモデルのアップデートの重要性}{10}{section*.22}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{モデルをアップデートしない場合}{10}{section*.23}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{モデルをアップデートする場合}{10}{section*.24}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.4}モデルのアップデート方法}{11}{subsection.1.2.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.4}{\ignorespaces モデルのアップデート方法の流れ}}{11}{figure.caption.25}\protected@file@percent }
-\newlabel{fig:model_update_flow}{{1.4}{11}{モデルのアップデート方法の流れ}{figure.caption.25}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {1.3}実験}{11}{section.1.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.1}物体検出の試み}{11}{subsection.1.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{12}{section*.26}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用画像}{12}{section*.27}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用モデル}{12}{section*.28}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{出力}{12}{section*.29}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{出力}{12}{section*.30}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{出力までの流れ}{12}{section*.31}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{f2スコアの計算}{13}{section*.32}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.2}モデルアップデートの有用性}{13}{subsection.1.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.3}背景画像の分類}{14}{subsection.1.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{14}{section*.33}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用画像}{14}{section*.34}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{出力モデル名}{14}{section*.35}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{出力までの流れ}{14}{section*.36}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.5}{\ignorespaces 学習推移のグラフ}}{15}{figure.caption.38}\protected@file@percent }
-\newlabel{fig:learning_curve}{{1.5}{15}{学習推移のグラフ}{figure.caption.38}{}}
-\@writefile{toc}{\contentsline {paragraph}{}{15}{figure.caption.38}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{15}{section*.39}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用画像}{15}{section*.40}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用モデル}{15}{section*.41}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{出力}{15}{section*.42}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{出力までの流れ}{15}{section*.43}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.6}{\ignorespaces 主成分分析の寄与度}}{16}{figure.caption.45}\protected@file@percent }
-\newlabel{fig:contribution_plot}{{1.6}{16}{主成分分析の寄与度}{figure.caption.45}{}}
-\@writefile{toc}{\contentsline {paragraph}{寄与度の確認}{16}{figure.caption.45}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.7}{\ignorespaces 主成分分析による二次元プロット}}{17}{figure.caption.47}\protected@file@percent }
-\newlabel{fig:two_dimensional_plot}{{1.7}{17}{主成分分析による二次元プロット}{figure.caption.47}{}}
-\@writefile{toc}{\contentsline {paragraph}{二次元プロット}{17}{figure.caption.47}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.8}{\ignorespaces k-meansクラスタリングの結果}}{18}{figure.caption.49}\protected@file@percent }
-\newlabel{fig:kmeans_plot}{{1.8}{18}{k-meansクラスタリングの結果}{figure.caption.49}{}}
-\@writefile{toc}{\contentsline {paragraph}{k-meansクラスタリング}{18}{figure.caption.49}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{18}{section*.50}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用画像}{18}{section*.51}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用モデル}{18}{section*.52}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{出力}{19}{section*.53}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{保存先}{19}{section*.54}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{出力までの流れ}{19}{section*.55}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.9}{\ignorespaces k-meansクラスタリングの結果}}{20}{figure.caption.57}\protected@file@percent }
-\newlabel{fig:kmeans_plot2}{{1.9}{20}{k-meansクラスタリングの結果}{figure.caption.57}{}}
-\@writefile{toc}{\contentsline {paragraph}{}{20}{figure.caption.57}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.4}物体画像の抽出}{20}{subsection.1.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{20}{section*.58}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用モデル}{20}{section*.59}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{使用した言葉}{20}{section*.60}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用画像}{21}{section*.61}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{出力}{22}{section*.62}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{保存先}{22}{section*.63}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{出力までの流れ}{22}{section*.64}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{テスト画像の結果}{23}{section*.65}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.10}{\ignorespaces テスト画像1の予測結果}}{23}{figure.caption.66}\protected@file@percent }
-\newlabel{fig:test_image_1_result}{{1.10}{23}{テスト画像1の予測結果}{figure.caption.66}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.11}{\ignorespaces テスト画像2の予測結果}}{23}{figure.caption.67}\protected@file@percent }
-\newlabel{fig:test_image_2_result}{{1.11}{23}{テスト画像2の予測結果}{figure.caption.67}{}}
-\@writefile{toc}{\contentsline {subsubsection}{物体を含んでいる割合}{23}{section*.68}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {1.1}{\ignorespaces RN50x64モデルとRN50モデルの物体を含んでいる割合の比較}}{23}{table.caption.69}\protected@file@percent }
-\newlabel{tab:model_comparison}{{1.1}{23}{RN50x64モデルとRN50モデルの物体を含んでいる割合の比較}{table.caption.69}{}}
-\@writefile{toc}{\contentsline {paragraph}{RN50x64モデルとRN50モデルの比較}{23}{section*.70}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.5}モデルのアップデート}{24}{subsection.1.3.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{旧モデルの再学習}{24}{section*.71}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{24}{section*.72}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用画像}{24}{section*.73}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{出力モデル名}{24}{section*.74}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{出力までの流れ}{24}{section*.75}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.12}{\ignorespaces 20241225\_new\_dark}}{25}{figure.caption.77}\protected@file@percent }
-\newlabel{fig:learning_curve1}{{1.12}{25}{20241225\_new\_dark}{figure.caption.77}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.13}{\ignorespaces 20241225\_new\_light}}{25}{figure.caption.78}\protected@file@percent }
-\newlabel{fig:learning_curve2}{{1.13}{25}{20241225\_new\_light}{figure.caption.78}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.14}{\ignorespaces 20241225\_new\_white}}{26}{figure.caption.79}\protected@file@percent }
-\newlabel{fig:learning_curve3}{{1.14}{26}{20241225\_new\_white}{figure.caption.79}{}}
-\@writefile{toc}{\contentsline {paragraph}{}{26}{figure.caption.79}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{モデルのアップデート}{26}{section*.80}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{26}{section*.81}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用画像}{26}{section*.82}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{出力モデル名}{26}{section*.83}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{出力までの流れ}{26}{section*.84}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.15}{\ignorespaces 20250115\_fine6048\_ddark}}{27}{figure.caption.86}\protected@file@percent }
-\newlabel{fig:learning_curve1}{{1.15}{27}{20250115\_fine6048\_ddark}{figure.caption.86}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.16}{\ignorespaces 20250115\_fine6048\_dlight}}{28}{figure.caption.87}\protected@file@percent }
-\newlabel{fig:learning_curve2}{{1.16}{28}{20250115\_fine6048\_dlight}{figure.caption.87}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.17}{\ignorespaces 20250115\_fine6048\_dwhite}}{28}{figure.caption.88}\protected@file@percent }
-\newlabel{fig:learning_curve3}{{1.17}{28}{20250115\_fine6048\_dwhite}{figure.caption.88}{}}
-\@writefile{toc}{\contentsline {paragraph}{}{28}{figure.caption.88}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{28}{section*.89}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用画像}{29}{section*.90}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{出力モデル名}{29}{section*.91}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{出力までの流れ}{29}{section*.92}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.18}{\ignorespaces 20250115\_fine6048\_rdark}}{29}{figure.caption.94}\protected@file@percent }
-\newlabel{fig:learning_curve1}{{1.18}{29}{20250115\_fine6048\_rdark}{figure.caption.94}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.19}{\ignorespaces 20250115\_fine6048\_rlight}}{30}{figure.caption.95}\protected@file@percent }
-\newlabel{fig:learning_curve2}{{1.19}{30}{20250115\_fine6048\_rlight}{figure.caption.95}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.20}{\ignorespaces 20250115\_fine6048\_rwhite}}{30}{figure.caption.96}\protected@file@percent }
-\newlabel{fig:learning_curve3}{{1.20}{30}{20250115\_fine6048\_rwhite}{figure.caption.96}{}}
-\@writefile{toc}{\contentsline {paragraph}{}{30}{figure.caption.96}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.6}物体検出の試み}{31}{subsection.1.3.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{31}{section*.97}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用画像}{31}{section*.98}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用モデル}{31}{section*.99}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{出力までの流れ}{31}{section*.100}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{f2スコアの計算}{31}{section*.101}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{dモデルのF2スコア}{31}{section*.102}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{rモデルのF2スコア}{32}{section*.103}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.7}物体検出の仕組み}{32}{subsection.1.3.7}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.21}{\ignorespaces 差分画像の処理フロー}}{33}{figure.caption.104}\protected@file@percent }
-\newlabel{fig:diff_image_processing_flow}{{1.21}{33}{差分画像の処理フロー}{figure.caption.104}{}}
-\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{33}{section*.105}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{出力}{33}{section*.106}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{使用画像}{33}{section*.107}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.22}{\ignorespaces 物体検出に失敗した画像}}{34}{figure.caption.108}\protected@file@percent }
-\newlabel{fig:failed_image}{{1.22}{34}{物体検出に失敗した画像}{figure.caption.108}{}}
-\@writefile{toc}{\contentsline {subsubsection}{グレースケールに変換}{34}{section*.109}\protected@file@percent }
-\newlabel{fig:failed_image_modeld_diff}{{1.23a}{34}{dモデルによるグレースケール画像}{figure.caption.110}{}}
-\newlabel{sub@fig:failed_image_modeld_diff}{{a}{34}{dモデルによるグレースケール画像}{figure.caption.110}{}}
-\newlabel{fig:failed_image_modelr_diff}{{1.23b}{34}{rモデルによるグレースケール画像}{figure.caption.110}{}}
-\newlabel{sub@fig:failed_image_modelr_diff}{{b}{34}{rモデルによるグレースケール画像}{figure.caption.110}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.23}{\ignorespaces 物体検出に失敗した画像のグレースケール変換結果}}{34}{figure.caption.110}\protected@file@percent }
-\newlabel{fig:failed_images_gray}{{1.23}{34}{物体検出に失敗した画像のグレースケール変換結果}{figure.caption.110}{}}
-\@writefile{toc}{\contentsline {subsubsection}{二値化}{35}{section*.111}\protected@file@percent }
-\newlabel{fig:failed_image_modeld_bin}{{1.24a}{35}{dモデルによる二値化画像}{figure.caption.112}{}}
-\newlabel{sub@fig:failed_image_modeld_bin}{{a}{35}{dモデルによる二値化画像}{figure.caption.112}{}}
-\newlabel{fig:failed_image_modelr_bin}{{1.24b}{35}{rモデルによる二値化画像}{figure.caption.112}{}}
-\newlabel{sub@fig:failed_image_modelr_bin}{{b}{35}{rモデルによる二値化画像}{figure.caption.112}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.24}{\ignorespaces 物体検出に失敗した画像の二値化結果}}{35}{figure.caption.112}\protected@file@percent }
-\newlabel{fig:failed_images_bin}{{1.24}{35}{物体検出に失敗した画像の二値化結果}{figure.caption.112}{}}
-\@writefile{toc}{\contentsline {subsubsection}{正規化をして二値化}{35}{section*.113}\protected@file@percent }
-\newlabel{fig:failed_image_modeld_normalize}{{1.25a}{35}{dモデルによる正規化画像}{figure.caption.114}{}}
-\newlabel{sub@fig:failed_image_modeld_normalize}{{a}{35}{dモデルによる正規化画像}{figure.caption.114}{}}
-\newlabel{fig:failed_image_modelr_normalize}{{1.25b}{35}{rモデルによる正規化画像}{figure.caption.114}{}}
-\newlabel{sub@fig:failed_image_modelr_normalize}{{b}{35}{rモデルによる正規化画像}{figure.caption.114}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.25}{\ignorespaces 物体検出に失敗した画像の正規化}}{35}{figure.caption.114}\protected@file@percent }
-\newlabel{fig:failed_images_normalize}{{1.25}{35}{物体検出に失敗した画像の正規化}{figure.caption.114}{}}
-\newlabel{fig:failed_image_modeld_bin2}{{1.26a}{36}{dモデルによる二値化画像}{figure.caption.115}{}}
-\newlabel{sub@fig:failed_image_modeld_bin2}{{a}{36}{dモデルによる二値化画像}{figure.caption.115}{}}
-\newlabel{fig:failed_image_modelr_bin2}{{1.26b}{36}{rモデルによる二値化画像}{figure.caption.115}{}}
-\newlabel{sub@fig:failed_image_modelr_bin2}{{b}{36}{rモデルによる二値化画像}{figure.caption.115}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.26}{\ignorespaces 物体検出に失敗した画像の正規化と二値化}}{36}{figure.caption.115}\protected@file@percent }
-\newlabel{fig:failed_images_normalize_bin}{{1.26}{36}{物体検出に失敗した画像の正規化と二値化}{figure.caption.115}{}}
-\@writefile{toc}{\contentsline {subsubsection}{ノイズ除去及び膨張収縮}{36}{section*.116}\protected@file@percent }
-\newlabel{fig:failed_image_modeld_dilate_erode}{{1.27a}{37}{dモデルによるノイズ除去後膨張収縮を行っていない画像}{figure.caption.117}{}}
-\newlabel{sub@fig:failed_image_modeld_dilate_erode}{{a}{37}{dモデルによるノイズ除去後膨張収縮を行っていない画像}{figure.caption.117}{}}
-\newlabel{fig:failed_image_modelr_dilate_erode}{{1.27b}{37}{dモデルによるノイズ除去及び膨張収縮画像}{figure.caption.117}{}}
-\newlabel{sub@fig:failed_image_modelr_dilate_erode}{{b}{37}{dモデルによるノイズ除去及び膨張収縮画像}{figure.caption.117}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.27}{\ignorespaces 物体検出に失敗した画像のノイズ除去及び膨張収縮}}{37}{figure.caption.117}\protected@file@percent }
-\newlabel{fig:failed_images_dilate_erode}{{1.27}{37}{物体検出に失敗した画像のノイズ除去及び膨張収縮}{figure.caption.117}{}}
-\newlabel{fig:failed_image_modeld_dilate_erode}{{1.28a}{37}{rモデルによるノイズ除去後膨張収縮を行っていない画像}{figure.caption.118}{}}
-\newlabel{sub@fig:failed_image_modeld_dilate_erode}{{a}{37}{rモデルによるノイズ除去後膨張収縮を行っていない画像}{figure.caption.118}{}}
-\newlabel{fig:failed_image_modelr_dilate_erode}{{1.28b}{37}{rモデルによるノイズ除去及び膨張収縮画像}{figure.caption.118}{}}
-\newlabel{sub@fig:failed_image_modelr_dilate_erode}{{b}{37}{rモデルによるノイズ除去及び膨張収縮画像}{figure.caption.118}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.28}{\ignorespaces 物体検出に失敗した画像のノイズ除去及び膨張収縮}}{37}{figure.caption.118}\protected@file@percent }
-\newlabel{fig:failed_images_dilate_erode}{{1.28}{37}{物体検出に失敗した画像のノイズ除去及び膨張収縮}{figure.caption.118}{}}
-\newlabel{fig:failed_image_modeld_dilate_erode}{{1.29a}{38}{dモデルによる正規化行いノイズ除去後膨張収縮を行っていない画像}{figure.caption.119}{}}
-\newlabel{sub@fig:failed_image_modeld_dilate_erode}{{a}{38}{dモデルによる正規化行いノイズ除去後膨張収縮を行っていない画像}{figure.caption.119}{}}
-\newlabel{fig:failed_image_modelr_dilate_erode}{{1.29b}{38}{dモデルによる正規化を行いノイズ除去及び膨張収縮画像}{figure.caption.119}{}}
-\newlabel{sub@fig:failed_image_modelr_dilate_erode}{{b}{38}{dモデルによる正規化を行いノイズ除去及び膨張収縮画像}{figure.caption.119}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.29}{\ignorespaces 物体検出に失敗した画像のノイズ除去及び膨張収縮}}{38}{figure.caption.119}\protected@file@percent }
-\newlabel{fig:failed_images_dilate_erode}{{1.29}{38}{物体検出に失敗した画像のノイズ除去及び膨張収縮}{figure.caption.119}{}}
-\newlabel{fig:failed_image_modeld_dilate_erode}{{1.30a}{38}{rモデルによる正規化行いノイズ除去後膨張収縮を行っていない画像}{figure.caption.120}{}}
-\newlabel{sub@fig:failed_image_modeld_dilate_erode}{{a}{38}{rモデルによる正規化行いノイズ除去後膨張収縮を行っていない画像}{figure.caption.120}{}}
-\newlabel{fig:failed_image_modelr_dilate_erode}{{1.30b}{38}{rモデルによる正規化を行いノイズ除去及び膨張収縮画像}{figure.caption.120}{}}
-\newlabel{sub@fig:failed_image_modelr_dilate_erode}{{b}{38}{rモデルによる正規化を行いノイズ除去及び膨張収縮画像}{figure.caption.120}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.30}{\ignorespaces 物体検出に失敗した画像のノイズ除去及び膨張収縮}}{38}{figure.caption.120}\protected@file@percent }
-\newlabel{fig:failed_images_dilate_erode}{{1.30}{38}{物体検出に失敗した画像のノイズ除去及び膨張収縮}{figure.caption.120}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.8}出力画像の精度向上}{39}{subsection.1.3.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{学習枚数の変更}{39}{section*.121}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{39}{section*.122}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用画像}{39}{section*.123}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{出力}{39}{section*.124}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{モデルの作成}{39}{section*.125}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{39}{section*.126}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用画像}{40}{section*.127}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{出力モデル名}{40}{section*.128}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{MSEの推移の確認}{41}{section*.129}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{41}{section*.130}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{使用モデル}{42}{section*.131}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.31}{\ignorespaces MSEの推移}}{42}{figure.caption.133}\protected@file@percent }
-\newlabel{fig:mse_transition}{{1.31}{42}{MSEの推移}{figure.caption.133}{}}
-\@writefile{toc}{\contentsline {paragraph}{出力}{42}{figure.caption.133}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {1.4}使用したデータの説明}{43}{section.1.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.1}プログラミング環境と使用したライブラリ}{43}{subsection.1.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.2}想定環境}{44}{subsection.1.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.3}画像データ}{44}{subsection.1.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{改良の効果}{11}{section*.24}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.5}AutoEncoderモデルのアップデートの重要性}{11}{subsection.1.2.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{モデルをアップデートしない場合}{11}{section*.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{モデルをアップデートする場合}{11}{section*.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.6}モデルのアップデート方法}{12}{subsection.1.2.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.6}{\ignorespaces モデルのアップデート方法の流れ}}{12}{figure.caption.27}\protected@file@percent }
+\newlabel{fig:model_update_flow}{{1.6}{12}{モデルのアップデート方法の流れ}{figure.caption.27}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.3}実験}{13}{section.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.1}物体検出の試み}{13}{subsection.1.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{13}{section*.28}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用画像}{13}{section*.29}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用モデル}{13}{section*.30}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{出力}{13}{section*.31}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{出力までの流れ}{13}{section*.32}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{F2-scoreの計算}{14}{section*.33}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.2}モデルアップデートの有用性}{14}{subsection.1.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.3}背景画像の分類}{15}{subsection.1.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{検証}{15}{section*.34}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{15}{section*.35}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用画像}{15}{section*.36}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{出力}{15}{section*.37}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{出力モデル名}{15}{section*.38}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{出力までの流れ}{15}{section*.39}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.7}{\ignorespaces 学習推移のグラフ}}{16}{figure.caption.41}\protected@file@percent }
+\newlabel{fig:learning_curve}{{1.7}{16}{学習推移のグラフ}{figure.caption.41}{}}
+\@writefile{toc}{\contentsline {paragraph}{}{16}{figure.caption.41}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{16}{section*.42}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用画像}{16}{section*.43}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用モデル}{16}{section*.44}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{出力}{16}{section*.45}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{出力までの流れ}{16}{section*.46}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.8}{\ignorespaces 主成分分析の寄与度}}{17}{figure.caption.48}\protected@file@percent }
+\newlabel{fig:contribution_plot}{{1.8}{17}{主成分分析の寄与度}{figure.caption.48}{}}
+\@writefile{toc}{\contentsline {paragraph}{寄与度の確認}{17}{figure.caption.48}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.9}{\ignorespaces 主成分分析による二次元プロット}}{18}{figure.caption.50}\protected@file@percent }
+\newlabel{fig:two_dimensional_plot}{{1.9}{18}{主成分分析による二次元プロット}{figure.caption.50}{}}
+\@writefile{toc}{\contentsline {paragraph}{二次元プロット}{18}{figure.caption.50}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.10}{\ignorespaces k-meansクラスタリングの結果}}{19}{figure.caption.52}\protected@file@percent }
+\newlabel{fig:kmeans_plot}{{1.10}{19}{k-meansクラスタリングの結果}{figure.caption.52}{}}
+\@writefile{toc}{\contentsline {paragraph}{k-meansクラスタリング}{19}{figure.caption.52}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{実証}{19}{section*.53}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{19}{section*.54}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用画像}{19}{section*.55}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用モデル}{19}{section*.56}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{出力}{20}{section*.57}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{保存先}{20}{section*.58}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{出力までの流れ}{20}{section*.59}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.11}{\ignorespaces k-meansクラスタリングの結果}}{21}{figure.caption.61}\protected@file@percent }
+\newlabel{fig:kmeans_plot2}{{1.11}{21}{k-meansクラスタリングの結果}{figure.caption.61}{}}
+\@writefile{toc}{\contentsline {paragraph}{}{21}{figure.caption.61}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.4}物体画像の抽出}{21}{subsection.1.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{21}{section*.62}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用モデル}{21}{section*.63}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{使用した言葉}{22}{section*.64}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用画像}{22}{section*.65}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{出力}{23}{section*.66}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{保存先}{23}{section*.67}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{出力までの流れ}{23}{section*.68}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{テストデータの結果}{24}{section*.69}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.12}{\ignorespaces テスト画像1の予測結果}}{24}{figure.caption.70}\protected@file@percent }
+\newlabel{fig:test_image_1_result}{{1.12}{24}{テスト画像1の予測結果}{figure.caption.70}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.13}{\ignorespaces テスト画像2の予測結果}}{24}{figure.caption.71}\protected@file@percent }
+\newlabel{fig:test_image_2_result}{{1.13}{24}{テスト画像2の予測結果}{figure.caption.71}{}}
+\@writefile{toc}{\contentsline {subsubsection}{抽出結果}{24}{section*.72}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1.1}{\ignorespaces RN50x64モデルとRN50モデルの物体を含んでいる割合の比較}}{24}{table.caption.73}\protected@file@percent }
+\newlabel{tab:model_comparison}{{1.1}{24}{RN50x64モデルとRN50モデルの物体を含んでいる割合の比較}{table.caption.73}{}}
+\@writefile{toc}{\contentsline {paragraph}{RN50x64モデルとRN50モデルの比較}{24}{section*.74}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.5}モデルのアップデート}{25}{subsection.1.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{旧モデルの再学習}{25}{section*.75}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{25}{section*.76}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用画像}{25}{section*.77}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{出力モデル名}{25}{section*.78}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{出力までの流れ}{25}{section*.79}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.14}{\ignorespaces 20241225\_new\_dark}}{26}{figure.caption.81}\protected@file@percent }
+\newlabel{fig:learning_curve1}{{1.14}{26}{20241225\_new\_dark}{figure.caption.81}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.15}{\ignorespaces 20241225\_new\_light}}{26}{figure.caption.82}\protected@file@percent }
+\newlabel{fig:learning_curve2}{{1.15}{26}{20241225\_new\_light}{figure.caption.82}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.16}{\ignorespaces 20241225\_new\_white}}{27}{figure.caption.83}\protected@file@percent }
+\newlabel{fig:learning_curve3}{{1.16}{27}{20241225\_new\_white}{figure.caption.83}{}}
+\@writefile{toc}{\contentsline {paragraph}{}{27}{figure.caption.83}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{モデルのアップデート}{27}{section*.84}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{27}{section*.85}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用画像}{27}{section*.86}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{出力モデル名}{27}{section*.87}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{出力までの流れ}{27}{section*.88}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.17}{\ignorespaces 20250115\_fine6048\_ddark}}{28}{figure.caption.90}\protected@file@percent }
+\newlabel{fig:learning_curve1}{{1.17}{28}{20250115\_fine6048\_ddark}{figure.caption.90}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.18}{\ignorespaces 20250115\_fine6048\_dlight}}{29}{figure.caption.91}\protected@file@percent }
+\newlabel{fig:learning_curve2}{{1.18}{29}{20250115\_fine6048\_dlight}{figure.caption.91}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.19}{\ignorespaces 20250115\_fine6048\_dwhite}}{29}{figure.caption.92}\protected@file@percent }
+\newlabel{fig:learning_curve3}{{1.19}{29}{20250115\_fine6048\_dwhite}{figure.caption.92}{}}
+\@writefile{toc}{\contentsline {paragraph}{}{29}{figure.caption.92}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{29}{section*.93}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用画像}{30}{section*.94}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{出力モデル名}{30}{section*.95}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{出力までの流れ}{30}{section*.96}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.20}{\ignorespaces 20250115\_fine6048\_rdark}}{30}{figure.caption.98}\protected@file@percent }
+\newlabel{fig:learning_curve1}{{1.20}{30}{20250115\_fine6048\_rdark}{figure.caption.98}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.21}{\ignorespaces 20250115\_fine6048\_rlight}}{31}{figure.caption.99}\protected@file@percent }
+\newlabel{fig:learning_curve2}{{1.21}{31}{20250115\_fine6048\_rlight}{figure.caption.99}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.22}{\ignorespaces 20250115\_fine6048\_rwhite}}{31}{figure.caption.100}\protected@file@percent }
+\newlabel{fig:learning_curve3}{{1.22}{31}{20250115\_fine6048\_rwhite}{figure.caption.100}{}}
+\@writefile{toc}{\contentsline {paragraph}{}{31}{figure.caption.100}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.6}物体検出の試み}{32}{subsection.1.3.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{32}{section*.101}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用画像}{32}{section*.102}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用モデル}{32}{section*.103}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{出力までの流れ}{32}{section*.104}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{f2スコアの計算}{32}{section*.105}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{dモデルのF2スコア}{32}{section*.106}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{rモデルのF2スコア}{33}{section*.107}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.7}物体検出の仕組み}{33}{subsection.1.3.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.23}{\ignorespaces 物体検出に失敗した画像}}{34}{figure.caption.108}\protected@file@percent }
+\newlabel{fig:failed_image}{{1.23}{34}{物体検出に失敗した画像}{figure.caption.108}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.24}{\ignorespaces 差分画像の処理フロー}}{35}{figure.caption.109}\protected@file@percent }
+\newlabel{fig:diff_image_processing_flow}{{1.24}{35}{差分画像の処理フロー}{figure.caption.109}{}}
+\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{35}{section*.110}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{出力}{35}{section*.111}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{グレースケールに変換}{35}{section*.112}\protected@file@percent }
+\newlabel{fig:failed_image_modeld_diff}{{1.25a}{36}{dモデルによるグレースケール画像}{figure.caption.113}{}}
+\newlabel{sub@fig:failed_image_modeld_diff}{{a}{36}{dモデルによるグレースケール画像}{figure.caption.113}{}}
+\newlabel{fig:failed_image_modelr_diff}{{1.25b}{36}{rモデルによるグレースケール画像}{figure.caption.113}{}}
+\newlabel{sub@fig:failed_image_modelr_diff}{{b}{36}{rモデルによるグレースケール画像}{figure.caption.113}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.25}{\ignorespaces 物体検出に失敗した画像のグレースケール変換結果}}{36}{figure.caption.113}\protected@file@percent }
+\newlabel{fig:failed_images_gray}{{1.25}{36}{物体検出に失敗した画像のグレースケール変換結果}{figure.caption.113}{}}
+\@writefile{toc}{\contentsline {subsubsection}{二値化}{36}{section*.114}\protected@file@percent }
+\newlabel{fig:failed_image_modeld_bin}{{1.26a}{36}{dモデルによる二値化画像}{figure.caption.115}{}}
+\newlabel{sub@fig:failed_image_modeld_bin}{{a}{36}{dモデルによる二値化画像}{figure.caption.115}{}}
+\newlabel{fig:failed_image_modelr_bin}{{1.26b}{36}{rモデルによる二値化画像}{figure.caption.115}{}}
+\newlabel{sub@fig:failed_image_modelr_bin}{{b}{36}{rモデルによる二値化画像}{figure.caption.115}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.26}{\ignorespaces 物体検出に失敗した画像の二値化結果}}{36}{figure.caption.115}\protected@file@percent }
+\newlabel{fig:failed_images_bin}{{1.26}{36}{物体検出に失敗した画像の二値化結果}{figure.caption.115}{}}
+\@writefile{toc}{\contentsline {subsubsection}{正規化をして二値化}{36}{section*.116}\protected@file@percent }
+\newlabel{fig:failed_image_modeld_normalize}{{1.27a}{37}{dモデルによる正規化画像}{figure.caption.117}{}}
+\newlabel{sub@fig:failed_image_modeld_normalize}{{a}{37}{dモデルによる正規化画像}{figure.caption.117}{}}
+\newlabel{fig:failed_image_modelr_normalize}{{1.27b}{37}{rモデルによる正規化画像}{figure.caption.117}{}}
+\newlabel{sub@fig:failed_image_modelr_normalize}{{b}{37}{rモデルによる正規化画像}{figure.caption.117}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.27}{\ignorespaces 物体検出に失敗した画像の正規化}}{37}{figure.caption.117}\protected@file@percent }
+\newlabel{fig:failed_images_normalize}{{1.27}{37}{物体検出に失敗した画像の正規化}{figure.caption.117}{}}
+\newlabel{fig:failed_image_modeld_bin2}{{1.28a}{37}{dモデルによる二値化画像}{figure.caption.118}{}}
+\newlabel{sub@fig:failed_image_modeld_bin2}{{a}{37}{dモデルによる二値化画像}{figure.caption.118}{}}
+\newlabel{fig:failed_image_modelr_bin2}{{1.28b}{37}{rモデルによる二値化画像}{figure.caption.118}{}}
+\newlabel{sub@fig:failed_image_modelr_bin2}{{b}{37}{rモデルによる二値化画像}{figure.caption.118}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.28}{\ignorespaces 物体検出に失敗した画像の正規化と二値化}}{37}{figure.caption.118}\protected@file@percent }
+\newlabel{fig:failed_images_normalize_bin}{{1.28}{37}{物体検出に失敗した画像の正規化と二値化}{figure.caption.118}{}}
+\@writefile{toc}{\contentsline {subsubsection}{ノイズ除去及び膨張収縮}{37}{section*.119}\protected@file@percent }
+\newlabel{fig:failed_image_modeld_dilate_erode}{{1.29a}{38}{dモデルによるノイズ除去後膨張収縮を行っていない画像}{figure.caption.120}{}}
+\newlabel{sub@fig:failed_image_modeld_dilate_erode}{{a}{38}{dモデルによるノイズ除去後膨張収縮を行っていない画像}{figure.caption.120}{}}
+\newlabel{fig:failed_image_modelr_dilate_erode}{{1.29b}{38}{dモデルによるノイズ除去及び膨張収縮画像}{figure.caption.120}{}}
+\newlabel{sub@fig:failed_image_modelr_dilate_erode}{{b}{38}{dモデルによるノイズ除去及び膨張収縮画像}{figure.caption.120}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.29}{\ignorespaces 物体検出に失敗した画像のノイズ除去及び膨張収縮}}{38}{figure.caption.120}\protected@file@percent }
+\newlabel{fig:failed_images_dilate_erode}{{1.29}{38}{物体検出に失敗した画像のノイズ除去及び膨張収縮}{figure.caption.120}{}}
+\newlabel{fig:failed_image_modeld_dilate_erode}{{1.30a}{38}{rモデルによるノイズ除去後膨張収縮を行っていない画像}{figure.caption.121}{}}
+\newlabel{sub@fig:failed_image_modeld_dilate_erode}{{a}{38}{rモデルによるノイズ除去後膨張収縮を行っていない画像}{figure.caption.121}{}}
+\newlabel{fig:failed_image_modelr_dilate_erode}{{1.30b}{38}{rモデルによるノイズ除去及び膨張収縮画像}{figure.caption.121}{}}
+\newlabel{sub@fig:failed_image_modelr_dilate_erode}{{b}{38}{rモデルによるノイズ除去及び膨張収縮画像}{figure.caption.121}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.30}{\ignorespaces 物体検出に失敗した画像のノイズ除去及び膨張収縮}}{38}{figure.caption.121}\protected@file@percent }
+\newlabel{fig:failed_images_dilate_erode}{{1.30}{38}{物体検出に失敗した画像のノイズ除去及び膨張収縮}{figure.caption.121}{}}
+\newlabel{fig:failed_image_modeld_dilate_erode}{{1.31a}{39}{dモデルによる正規化行いノイズ除去後膨張収縮を行っていない画像}{figure.caption.122}{}}
+\newlabel{sub@fig:failed_image_modeld_dilate_erode}{{a}{39}{dモデルによる正規化行いノイズ除去後膨張収縮を行っていない画像}{figure.caption.122}{}}
+\newlabel{fig:failed_image_modelr_dilate_erode}{{1.31b}{39}{dモデルによる正規化を行いノイズ除去及び膨張収縮画像}{figure.caption.122}{}}
+\newlabel{sub@fig:failed_image_modelr_dilate_erode}{{b}{39}{dモデルによる正規化を行いノイズ除去及び膨張収縮画像}{figure.caption.122}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.31}{\ignorespaces 物体検出に失敗した画像のノイズ除去及び膨張収縮}}{39}{figure.caption.122}\protected@file@percent }
+\newlabel{fig:failed_images_dilate_erode}{{1.31}{39}{物体検出に失敗した画像のノイズ除去及び膨張収縮}{figure.caption.122}{}}
+\newlabel{fig:failed_image_modeld_dilate_erode}{{1.32a}{39}{rモデルによる正規化行いノイズ除去後膨張収縮を行っていない画像}{figure.caption.123}{}}
+\newlabel{sub@fig:failed_image_modeld_dilate_erode}{{a}{39}{rモデルによる正規化行いノイズ除去後膨張収縮を行っていない画像}{figure.caption.123}{}}
+\newlabel{fig:failed_image_modelr_dilate_erode}{{1.32b}{39}{rモデルによる正規化を行いノイズ除去及び膨張収縮画像}{figure.caption.123}{}}
+\newlabel{sub@fig:failed_image_modelr_dilate_erode}{{b}{39}{rモデルによる正規化を行いノイズ除去及び膨張収縮画像}{figure.caption.123}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.32}{\ignorespaces 物体検出に失敗した画像のノイズ除去及び膨張収縮}}{39}{figure.caption.123}\protected@file@percent }
+\newlabel{fig:failed_images_dilate_erode}{{1.32}{39}{物体検出に失敗した画像のノイズ除去及び膨張収縮}{figure.caption.123}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.8}出力画像の精度向上}{40}{subsection.1.3.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{学習枚数の変更}{40}{section*.124}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{40}{section*.125}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用画像}{40}{section*.126}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{出力}{40}{section*.127}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{モデルの作成}{40}{section*.128}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{40}{section*.129}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用画像}{41}{section*.130}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{出力モデル名}{41}{section*.131}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{MSEの推移の確認}{42}{section*.132}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用プログラム}{42}{section*.133}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{使用モデル}{43}{section*.134}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.33}{\ignorespaces MSEの推移}}{43}{figure.caption.136}\protected@file@percent }
+\newlabel{fig:mse_transition}{{1.33}{43}{MSEの推移}{figure.caption.136}{}}
+\@writefile{toc}{\contentsline {paragraph}{出力}{43}{figure.caption.136}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.4}使用したデータの説明}{44}{section.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.1}プログラミング環境と使用したライブラリ}{44}{subsection.1.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.2}想定環境}{45}{subsection.1.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.3}画像データ}{45}{subsection.1.4.3}\protected@file@percent }
 \bibstyle{unsrt}
 \bibdata{references}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.4}モデルデータ}{45}{subsection.1.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.4}モデルデータ}{46}{subsection.1.4.4}\protected@file@percent }
 \bibcite{he2016deep}{1}
 \bibcite{goodfellow2016deep}{2}
 \bibcite{bishop2006pattern}{3}
 \bibcite{lecun2015deep}{4}
-\gdef \@abspage@last{48}
+\gdef \@abspage@last{49}
