@@ -18,6 +18,10 @@
 \tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=orange!30]
 \tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
 \tikzstyle{arrow} = [thick,->,>=stealth]
+% セクション番号の設定
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
 
 
 \begin{document}
@@ -1243,7 +1247,7 @@ AEモデルのアップデートを行った。また、以降では出力され
 \end{itemize}
 
 \subsubsection{出力}
-指定の枚数にデータセットを作成する
+指定の枚数にデータセットを作成する。
 
 \paragraph{出力先}
 \begin{itemize}
@@ -1394,10 +1398,10 @@ AEモデルのアップデートを行った。また、以降では出力され
         \centering
         \includegraphics[width=\textwidth]{imgs/65dari.png}
         \caption{dモデルによるクロージング物体検出画像}
-        \label{fig:failed_image_modelr_dilate_erode}
+        \label{fig:failed_image_modeld_dilate_erode}
     \end{subfigure}
     \caption{3000dモデル検出結果}
-    \label{fig:failed_images_dilate_erode}
+    \label{fig:failed_images_dilate_eroded}
 \end{figure}
 
 \begin{figure}[H]
@@ -1406,7 +1410,7 @@ AEモデルのアップデートを行った。また、以降では出力され
         \centering
         \includegraphics[width=\textwidth]{imgs/65rnasi.png}
         \caption{rモデルによる物体検出画像}
-        \label{fig:failed_image_modeld_dilate_erode}
+        \label{fig:failed_image_modelr_dilate_erode}
     \end{subfigure}
     \vfill
     \begin{subfigure}{0.8\textwidth}
@@ -1416,13 +1420,43 @@ AEモデルのアップデートを行った。また、以降では出力され
         \label{fig:failed_image_modelr_dilate_erode}
     \end{subfigure}
     \caption{4000rモデル検出結果}
-    \label{fig:failed_images_dilate_erode}
+    \label{fig:failed_images_dilate_eroder}
 \end{figure}
 
-
+図\ref{fig:failed_images_dilate_eroded}は、3000枚学習したdモデルによる物体検出結果を示す。図\ref{fig:failed_images_dilate_eroder}は、4000枚学習したrモデルによる物体検出結果を示す。
+物体を検出することは出来なかった。これは、学習枚数を増やすことでMSEが下がることが確認できたが、物体検出の精度が向上することはなかったためである。
+また、失敗の一因として、アップデート前のモデルの学習に使用した画像に問題があると考えられる。特に学習データを16倍にデータ拡張したことが過剰であり、モデルが実際のデータ分布を適切に学習できなかった可能性がある。
 
 \subsection{物体から鳥の死骸を抽出}
+物体の検出は失敗に終わった。しかし、物体をうまく検出できたと仮定して、物体から鳥の死骸を抽出することを試みる。
 
+\paragraph{使用プログラム}
+\begin{itemize}
+    \item \textbf{AE\_clip.ipynb}
+\end{itemize}
+
+\paragraph{使用画像}
+\begin{itemize}
+    \item \textbf{imgs/test\_objects\_bird}:
+\end{itemize}
+
+\paragraph{使用モデル}
+\begin{itemize}
+    \item \textbf{RN50x64(High Model)}
+\end{itemize}
+
+\subsubsection{使用した言葉}
+本研究で使用した言葉は以下の通りである。これらの言葉はCLIPモデルに入力するためにGoogleTranslatorで英語に翻訳されて使用された。
+\begin{itemize}
+    \item \textbf{YES\_bird}: 鳥の死骸が落ちている
+    \item \textbf{NO\_bird}: 鳥の死骸が落ちていない
+    \item \textbf{NO\_bird2}: 鳥の死骸ではなく物体が落ちている
+    \item \textbf{NO\_bird3}: 何も落ちていない
+\end{itemize}
+
+\paragraph{出力}
+1枚の鳥の画像を含む100枚の画像を入力し、鳥の死骸を抽出する。
+結果として、鳥の画像が含まれる11枚の画像が抽出された。
 
 \section{結論}
 
@@ -1490,13 +1524,13 @@ AEモデルのアップデートを行った。また、以降では出力され
         
     説明: 2024年9月3日に撮影した3000×4000ピクセルの画像が156枚含まれている。
 
-    \item \textbf{imgs/old\_all\_img/train\_img\_6048/6048/A\_train\_img}
-    
-    説明: 去年使用した224×224ピクセルの画像が背景ごとに分類されずに1512枚ずつ、計6048枚含まれている。
-
     \item \textbf{imgs/make\_pca\_img1000}
 
     説明: A\_train\_imgと重複しない画像が1000枚ずつ、計4000枚含まれている。
+
+    \item \textbf{imgs/old\_all\_img/train\_img\_6048/6048/A\_train\_img}
+    
+    説明: 去年使用した224×224ピクセルの画像が背景ごとに分類されずに1512枚ずつ、計6048枚含まれている。
 
     \item \textbf{imgs/old\_train\_img3/train\_img\_6048/6048}
     \begin{itemize}
@@ -1512,26 +1546,12 @@ AEモデルのアップデートを行った。また、以降では出力され
 
     \item \textbf{imgs/test\_objects}
     
-    説明: test\_imgを224×224ピクセルに分割した画像の中から、物体が存在する画像
+    説明: test\_imgを224×224ピクセルに分割した画像の中から、物体が存在する画像13枚が含まれている。
 
-    \item \textbf{imgs/test\_img2/}
-    \begin{itemize}
-        \item \textbf{yes/}:
-        \begin{itemize}
-            \item \textbf{dark/}: jpgが100枚
-            \item \textbf{light/}: jpgが100枚
-            \item \textbf{white/}: jpgが100枚
-        \end{itemize}
-        \item \textbf{no/}:
-        \begin{itemize}
-            \item \textbf{dark/}: jpgが100枚
-            \item \textbf{light/}: jpgが100枚
-            \item \textbf{white/}: jpgが100枚
-        \end{itemize}
-    \end{itemize}
-
-    説明: test\_imgとは別の2024年9月3日に撮影したfor\_update\_imgには含まれていない画像の中から、テスト用に背景ごとの物体が存在する画像と存在しない画像に分類したもの。
+    \item \textbf{imgs/test\_objects\_bird}
     
+    説明: test\_objectsと鳥の死骸の画像1枚と無作為に抽出した画像86枚の計100枚が含まれている。
+   
     \item \textbf{imgs/update\_img\_remove/}
     \begin{itemize}
         \item \textbf{dark\_object/}: jpgが306枚
@@ -1581,68 +1601,11 @@ AEモデルのアップデートを行った。また、以降では出力され
 \end{enumerate}
 
 \begin{itemize}
-    \item \textbf{AE\_train.py}
+    \item \textbf{2024\_main.py}
 \end{itemize}
 
 \subsubsection{出力までの流れ}
-\begin{enumerate}
-    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
-    \item \textbf{データの準備}: 指定されたディレクトリから画像データを読み込み、学習用と評価用に分割する。
-    \item \textbf{データセットの作成}: 画像データを読み込み、PyTorchのデータセットとして準備する。
-    \item \textbf{データローダーの作成}: 学習用と評価用のデータローダーを作成する。
-    \item \textbf{モデルの定義}: 深層AEモデルを定義する。
-    \item \textbf{最適化手法と誤差関数の設定}: モデルの最適化手法としてAdamを使用し、誤差関数としてMSELossを設定する。
-    \item \textbf{学習の実行}: 指定されたエポック数だけモデルの学習を行う。学習中に最も良いモデルを保存する。
-    \item \textbf{評価の実行}: 学習後、評価用データを用いてモデルの性能を評価する。
-    \item \textbf{結果の保存}: 学習と評価の損失をプロットし、画像として保存する。また、損失の推移をCSVファイルに保存する。
-\end{enumerate}
-
-\begin{itemize}
-    \item \textbf{AE\_pca\_kmeans.ipynb}
-\end{itemize}
-\subsubsection{出力までの流れ}
-\begin{enumerate}
-    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
-    \item \textbf{モデルの読み込み}: 事前に訓練されたAEモデルを読み込む。
-    \item \textbf{画像の読み込み}: 指定されたディレクトリから画像を読み込む。
-    \item \textbf{AEによる特徴抽出}: 読み込んだ画像をAEモデルに通し、特徴ベクトルを抽出する。
-    \item \textbf{PCAによる次元削減}: 抽出された特徴ベクトルに対してPCA（主成分分析）を行い、次元削減を行う。
-        \begin{itemize}
-            \item PCAの寄与度を確認し、主成分の重要性を評価する（以降で寄与度の詳細を説明）。
-        \end{itemize}
-    \item \textbf{PCA結果のプロット}: PCAによる次元削減結果をプロットし、視覚的に確認する（以降でPCAのプロットの詳細を説明）。
-    \item \textbf{K-meansクラスタリング}: 次元削減された特徴ベクトルに対してK-meansクラスタリングを行い、画像をクラスタに分類する。
-        \begin{itemize}
-            \item クラスタ番号を再割り当てし、クラスタごとに画像を保存する。
-        \end{itemize}
-    \item \textbf{クラスタリング結果のプロット}: K-meansクラスタリングの結果をプロットし、各クラスタの分布を視覚的に確認する（以降でk-meansのプロットの詳細を説明）。
-\end{enumerate}
-
-\begin{itemize}
-    \item \textbf{AE\_make\_dataset.ipynb}
-\end{itemize}
-\subsubsection{出力までの流れ}
-\begin{enumerate}
-    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
-    \item \textbf{モデルの読み込み}: 事前に訓練されたAEモデルを読み込む。
-    \item \textbf{画像の読み込み}: 指定されたディレクトリから画像を読み込む。
-    \item \textbf{画像の分割}: 読み込んだ画像を224×224ピクセルの小さな画像に分割する。
-    \item \textbf{AEによる特徴抽出}: 分割された画像をAEモデルに通し、特徴ベクトルを抽出する。
-    \item \textbf{PCAによる次元削減}: 抽出された特徴ベクトルに対してPCA（主成分分析）を行い、次元削減を行う。
-        \begin{itemize}
-            \item PCAの寄与度を確認し、主成分の重要性を評価する。
-        \end{itemize}
-    \item \textbf{PCA結果のプロット}: PCAによる次元削減結果をプロットし、視覚的に確認する。
-    \item \textbf{K-meansクラスタリング}: 次元削減された特徴ベクトルに対してK-meansクラスタリングを行い、画像をクラスタに分類する。
-        \begin{itemize}
-            \item クラスタ番号を再割り当てし、クラスタごとに画像を保存する。
-        \end{itemize}
-    \item \textbf{クラスタリング結果のプロット}: K-meansクラスタリングの結果をプロットし、各クラスタの分布を視覚的に確認する（以降でk-meansのプロットの詳細を説明）。
-    \item \textbf{画像の移動}: クラスタリング結果に基づいて、画像を新しいフォルダに移動する。
-        \begin{itemize}
-            \item クラスタ番号に応じて、画像を`white`、`light`、`dark`のフォルダに分類する。
-        \end{itemize}
-\end{enumerate}
+2023\_main.pyとモデルの読み込み以外同じため省略
 
 \begin{itemize}
     \item \textbf{AE\_clip.ipynb}
@@ -1680,108 +1643,208 @@ AEモデルのアップデートを行った。また、以降では出力され
 \end{enumerate}
 
 \begin{itemize}
-    \item \textbf{2024\_main.py}
+    \item \textbf{AE\_inference.ipynb}
+\end{itemize}
+
+\subsubsection{出力までの流れ}
+\begin{enumerate}
+    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
+    \item \textbf{モデルの定義と読み込み}: 指定されたパスからモデルを読み込む。
+    \item \textbf{画像の分割}:入力画像を224×224ピクセルに分割する。
+    \item \textbf{差分画像の生成}: モデルを使用して入力画像と出力画像の差分画像を生成する。
+    \item \textbf{二値化とノイズ除去}: 差分画像を二値化し、ノイズ除去を行う。
+    \item \textbf{輪郭検出と最大面積の算出}: 二値化画像から輪郭を検出し、最大面積を算出する。
+    \item \textbf{結果の保存}: 差分画像、二値化画像、輪郭画像、入力画像、出力画像を保存し、結果をプロットして保存する。
+\end{enumerate}
+
+\begin{itemize}
+    \item \textbf{AE\_make\_dataset.ipynb}
 \end{itemize}
 \subsubsection{出力までの流れ}
-2023\_main.pyとモデルの読み込み以外同じため省略
+\begin{enumerate}
+    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
+    \item \textbf{モデルの読み込み}: 事前に訓練されたAEモデルを読み込む。
+    \item \textbf{画像の読み込み}: 指定されたディレクトリから画像を読み込む。
+    \item \textbf{画像の分割}: 読み込んだ画像を224×224ピクセルの小さな画像に分割する。
+    \item \textbf{AEによる特徴抽出}: 分割された画像をAEモデルに通し、特徴ベクトルを抽出する。
+    \item \textbf{PCAによる次元削減}: 抽出された特徴ベクトルに対してPCA（主成分分析）を行い、次元削減を行う。
+        \begin{itemize}
+            \item PCAの寄与度を確認し、主成分の重要性を評価する。
+        \end{itemize}
+    \item \textbf{PCA結果のプロット}: PCAによる次元削減結果をプロットし、視覚的に確認する。
+    \item \textbf{K-meansクラスタリング}: 次元削減された特徴ベクトルに対してK-meansクラスタリングを行い、画像をクラスタに分類する。
+        \begin{itemize}
+            \item クラスタ番号を再割り当てし、クラスタごとに画像を保存する。
+        \end{itemize}
+    \item \textbf{クラスタリング結果のプロット}: K-meansクラスタリングの結果をプロットし、各クラスタの分布を視覚的に確認する（以降でk-meansのプロットの詳細を説明）。
+    \item \textbf{画像の移動}: クラスタリング結果に基づいて、画像を新しいフォルダに移動する。
+        \begin{itemize}
+            \item クラスタ番号に応じて、画像を`white`、`light`、`dark`のフォルダに分類する。
+        \end{itemize}
+\end{enumerate}
 
+\begin{itemize}
+    \item \textbf{AE\_pca\_kmeans.ipynb}
+\end{itemize}
+\subsubsection{出力までの流れ}
+\begin{enumerate}
+    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
+    \item \textbf{モデルの読み込み}: 事前に訓練されたAEモデルを読み込む。
+    \item \textbf{画像の読み込み}: 指定されたディレクトリから画像を読み込む。
+    \item \textbf{AEによる特徴抽出}: 読み込んだ画像をAEモデルに通し、特徴ベクトルを抽出する。
+    \item \textbf{PCAによる次元削減}: 抽出された特徴ベクトルに対してPCA（主成分分析）を行い、次元削減を行う。
+        \begin{itemize}
+            \item PCAの寄与度を確認し、主成分の重要性を評価する（以降で寄与度の詳細を説明）。
+        \end{itemize}
+    \item \textbf{PCA結果のプロット}: PCAによる次元削減結果をプロットし、視覚的に確認する（以降でPCAのプロットの詳細を説明）。
+    \item \textbf{K-meansクラスタリング}: 次元削減された特徴ベクトルに対してK-meansクラスタリングを行い、画像をクラスタに分類する。
+        \begin{itemize}
+            \item クラスタ番号を再割り当てし、クラスタごとに画像を保存する。
+        \end{itemize}
+    \item \textbf{クラスタリング結果のプロット}: K-meansクラスタリングの結果をプロットし、各クラスタの分布を視覚的に確認する（以降でk-meansのプロットの詳細を説明）。
+\end{enumerate}
 
-\subsection{作成したモデルデータ}
+\begin{itemize}
+    \item \textbf{AE\_train\_img\_move.ipynb}
+\end{itemize}
 
+\subsubsection{出力までの流れ}
+\begin{enumerate}
+    \item \textbf{すべてのサブフォルダを取得}: `glob`を使用して、ソースディレクトリ内のすべてのサブフォルダを取得する。
+    \item \textbf{サブフォルダ内の画像ファイルを取得}: 各サブフォルダ内のすべての画像ファイルを取得する。
+    \item \textbf{画像ファイルをランダムに選択}: 指定された数の画像ファイルをランダムに選択する。
+    \item \textbf{コピー先のサブフォルダを作成}: 選択された画像ファイルをコピーするためのサブフォルダを作成する。
+    \item \textbf{画像ファイルをコピー}: 選択された画像ファイルをコピー先のサブフォルダにコピーする。
+    \item \textbf{データセットの作成}: 指定された数の画像ファイルを含むデータセットを作成する。
+    \item \textbf{異なるサイズのデータセットを作成}: 異なるサイズのデータセットを作成する。
+\end{enumerate}
+
+\begin{itemize}
+    \item \textbf{AE\_train.py}
+\end{itemize}
+
+\subsubsection{出力までの流れ}
+\begin{enumerate}
+    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
+    \item \textbf{データの準備}: 指定されたディレクトリから画像データを読み込み、学習用と評価用に分割する。
+    \item \textbf{データセットの作成}: 画像データを読み込み、PyTorchのデータセットとして準備する。
+    \item \textbf{データローダーの作成}: 学習用と評価用のデータローダーを作成する。
+    \item \textbf{モデルの定義}: 深層AEモデルを定義する。
+    \item \textbf{最適化手法と誤差関数の設定}: モデルの最適化手法としてAdamを使用し、誤差関数としてMSELossを設定する。
+    \item \textbf{学習の実行}: 指定されたエポック数だけモデルの学習を行う。学習中に最も良いモデルを保存する。
+    \item \textbf{評価の実行}: 学習後、評価用データを用いてモデルの性能を評価する。
+    \item \textbf{結果の保存}: 学習と評価の損失をプロットし、画像として保存する。また、損失の推移をCSVファイルに保存する。
+\end{enumerate}
+
+\begin{itemize}
+    \item \textbf{Clip\_bird.ipynb}
+\end{itemize}
+
+\subsubsection{出力までの流れ}
+\begin{enumerate}
+    \item \textbf{ライブラリのインポート}: 必要なライブラリをインポートする。
+    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
+    \item \textbf{デバイスの設定}: 使用するデバイス（CPUまたはGPU）を設定する。
+    \item \textbf{モデルの読み込み}: 高解像度モデル（RN50x64）を読み込む。
+    \item \textbf{翻訳辞書の作成}: GoogleTranslatorを使用して、説明文を日本語から英語に翻訳する。
+    \item \textbf{テキストのエンコーディング}: 説明文をトークン化し、モデルに入力できる形式に変換する。
+    \item \textbf{画像の分類}: 指定されたフォルダ内の画像をモデルに入力し、類似度を計算して分類する。
+    \item \textbf{結果の表示}: 分類結果を表示し、特定の条件に一致する画像の数をカウントする。
+\end{enumerate}
+
+\subsection{出力モデル名と学習曲線}
 \begin{itemize}
     \item \textbf{models/20241224\_A\_train\_model.pth}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20241224_A_train_img.png}
+        \caption{学習曲線}
+        \label{fig:learning_curve}
+    \end{figure}   
 \end{itemize}
-\paragraph{}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20241224_A_train_img.png}
-    \caption{学習推移のグラフ}
-    \label{fig:learning_curve}
-\end{figure}
-
-\paragraph{出力モデル名}
 \begin{itemize}
     \item \textbf{models/old\_models6048/20241225\_new\_dark.pth}
-    \item \textbf{models/old\_models6048/20241225\_new\_light.pth}
-    \item \textbf{models/old\_models6048/20241225\_new\_white.pth}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20241225_new_dark.png}
+        \caption{学習曲線}
+        \label{fig:learning_curve1}
+    \end{figure}
 \end{itemize}
-
-\paragraph{}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20241225_new_dark.png}
-    \caption{20241225\_new\_dark}
-    \label{fig:learning_curve1}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20241225_new_light.png}
-    \caption{20241225\_new\_light}
-    \label{fig:learning_curve2}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20241225_new_white.png}
-    \caption{20241225\_new\_white}
-    \label{fig:learning_curve3}
-\end{figure}
+\begin{itemize}
+    \item \textbf{models/old\_models6048/20241225\_new\_light.pth}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20241225_new_light.png}
+        \caption{学習曲線}
+        \label{fig:learning_curve2}
+    \end{figure}
+\end{itemize}
+\begin{itemize}
+    \item \textbf{models/old\_models6048/20241225\_new\_white.pth}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20241225_new_white.png}
+        \caption{学習曲線}
+        \label{fig:learning_curve3}
+    \end{figure}
+\end{itemize}
 
 \begin{itemize}
     \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_ddark.pth}
-    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_dlight.pth}
-    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_dwhite.pth}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_ddark.png}
+        \caption{学習曲線}
+        \label{fig:learning_curve4}
+    \end{figure}
 \end{itemize}
-
-\paragraph{}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_ddark.png}
-    \caption{20250115\_fine6048\_ddark}
-    \label{fig:learning_curve1}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_dlight.png}
-    \caption{20250115\_fine6048\_dlight}
-    \label{fig:learning_curve2}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_dwhite.png}
-    \caption{20250115\_fine6048\_dwhite}
-    \label{fig:learning_curve3}
-\end{figure}
+\begin{itemize}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_dlight.pth}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_dlight.png}
+        \caption{学習曲線}
+        \label{fig:learning_curve5}
+    \end{figure}
+\end{itemize}
+\begin{itemize}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_dwhite.pth}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_dwhite.png}
+        \caption{学習曲線}
+        \label{fig:learning_curve6}
+    \end{figure}
+\end{itemize}
 
 \begin{itemize}
     \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rdark.pth}
-    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rlight.pth}
-    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rwhite.pth}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_rdark.png}
+        \caption{学習曲線}
+        \label{fig:learning_curve7}
+    \end{figure}
 \end{itemize}
-\paragraph{}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_rdark.png}
-    \caption{20250115\_fine6048\_rdark}
-    \label{fig:learning_curve1}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_rlight.png}
-    \caption{20250115\_fine6048\_rlight}
-    \label{fig:learning_curve2}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_rwhite.png}
-    \caption{20250115\_fine6048\_rwhite}
-    \label{fig:learning_curve3}
-\end{figure}
+\begin{itemize}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rlight.pth}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_rlight.png}
+        \caption{学習曲線}
+        \label{fig:learning_curve8}
+    \end{figure}
+\end{itemize}
+\begin{itemize}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rwhite.pth}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_rwhite.png}
+        \caption{学習曲線}
+        \label{fig:learning_curve9}
+    \end{figure}
+\end{itemize}
 
 
 \bibliographystyle{unsrt}
