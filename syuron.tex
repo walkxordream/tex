@@ -70,7 +70,7 @@
 \\詳しい内容は昨年度の論文で詳細に説明しているので、そちらを参照して欲しい。
 
 \subsection{先行研究の概要}
-昨年度、山形大学の先輩である梅津魁秀氏は、深層学習を用いたバードストライク調査プログラムの基礎的な研究を行った。彼の研究では、AutoEncoderを用いて物体検出モデルを作成し、ドローン画像から鳥の死骸を検出する手法を提案した。具体的には、ドローンで撮影した画像を「物体が存在する画像」と「物体が存在しない画像」に分類し、「物体が存在する画像」とGUIを組み合わせることで手動で鳥の死骸を検出する方法を開発した。彼の研究により、物体画像に関してF2-scoreが0.83という高い精度で物体の有無を判定することができた。
+昨年度、山形大学の先輩である梅津魁秀氏は、深層学習を用いたバードストライク調査プログラムの基礎的な研究を行った。彼の研究では、AEを用いて物体検出モデルを作成し、ドローン画像から鳥の死骸を検出する手法を提案した。具体的には、ドローンで撮影した画像を「物体が存在する画像」と「物体が存在しない画像」に分類し、「物体が存在する画像」とGUIを組み合わせることで手動で鳥の死骸を検出する方法を開発した。彼の研究により、物体画像に関してF2-scoreが0.83という高い精度で物体の有無を判定することができた。
 
 \subsection{引き継ぎの理由と目標}
 梅津氏の研究は有望な結果を示したが、実用化にはさらなる改良が必要である。特に、去年度は限られた画像において高精度な結果を残したため、汎用的なモデルを構築することと、物体画像から鳥の死骸の画像を自動で検出することが挙げられる。本研究では、これらの課題に対してモデルの自動アップデートとclipを用いる手法を用いて課題解決にアプローチした。
@@ -82,8 +82,8 @@
 \subsection{科学用語の説明}
 本研究では、目標達成のためにさまざまな技術を使用している。以下に、研究の中で使用される主要な科学用語を説明する。
 
-\subsubsection{AutoEncoder（オートエンコーダ）}
-AutoEncoderは、入力データを圧縮し、その圧縮されたデータから元のデータを再構築することを目的としたニューラルネットワークの一種である。主にデータの次元削減や特徴抽出に使用される。AutoEncoderはエンコーダとデコーダの2つの部分から構成され、エンコーダは入力データを低次元の潜在空間にマッピングし、デコーダはその潜在空間から元のデータを再構築する。
+\subsubsection{AE（AE）}
+AEは、入力データを圧縮し、その圧縮されたデータから元のデータを再構築することを目的としたニューラルネットワークの一種である。主にデータの次元削減や特徴抽出に使用される。AEはエンコーダとデコーダの2つの部分から構成され、エンコーダは入力データを低次元の潜在空間にマッピングし、デコーダはその潜在空間から元のデータを再構築する。
 
 \subsubsection{CLIP（Contrastive Language-Image Pre-Training）}
 CLIPは、OpenAIによって開発されたモデルで、画像とテキストのペアを用いて学習することで、画像とテキストの間の関連性を高精度で捉えることができる。CLIPは、画像エンコーダとテキストエンコーダを用いて、それぞれの入力を高次元のベクトルに変換し、これらのベクトル間のコサイン類似度を最大化するように学習する。これにより、画像とテキストの間の関連性を高精度で捉えることができる。
@@ -198,9 +198,9 @@ F2-scoreは0から1の範囲で値を取り、1に近いほどモデルの性能
     \label{fig:birdstrike_detection}
 \end{figure}
 
-ドローン画像からコンピュータビジョンを用いてバードストライクを検出するシステムを構築した。具体的な流れは上図の通りである。
+ドローン画像からコンピュータビジョンを用いてバードストライクを検出するシステムを構築した。システムの流れは図\ref{fig:birdstrike_detection}の通りである。
 始めに、ドローンで探索範囲意を撮影し、画像（3000×4000ピクセルが複数枚）を準備する。次に、それらの画像を224×224ピクセルに分割し、複数のモデルに入力し出力画像を生成する。
-出力画像と入力画像の差分を取ることで、物体部分だけが浮き彫りになった差分画像を生成する。差分画像の二値化を行い最大面積を算出する。複数のモデルを使用しているため、モデル数分の最大面積が算出される。最も適したモデルによる最大面積を選択するために、入力画像と出力画像の平均二乗誤差（MSE）の値が最も小さいモデルの最大面積を選択する。
+出力画像と入力画像の差分を取ることで、物体部分だけが浮き彫りになった差分画像を生成する。差分画像の二値化を行い最大面積を算出する。複数のモデルを使用しているため、モデル数分の最大面積が算出される。最も適したモデルによる最大面積を選択するために、入力画像と出力画像のMSE(平均二乗誤差)の値が最も小さいモデルの最大面積を選択する。
 最大面積と閾値を比較することで物体の有無を判定する。抽出できた物体画像に関しては、その画像が鳥の画像なのかを判定する必要があるが、現状では鳥の死骸の画像が少ないため、教師あり学習は困難である。そこで、ゼロショットで分類できるCLIPの導入を検討している。
 ここまでは内部的な処理の話であり、実務での使用のためにさくらのVPSの導入やDjangoでのアプリケーション開発を学部生二人が行った。これについては巻末に付録として記載する。
 
@@ -214,7 +214,7 @@ F2-scoreは0から1の範囲で値を取り、1に近いほどモデルの性能
     \label{fig:mizunekidori}
 \end{figure}
 
-これはミズナギドリと呼ばれる鳥の死骸をドローンで撮影した画像である。経験上ではあるが、この鳥がバードストライクが起きる鳥の中間サイズである。この画像を基準に新たに閾値を設定する。
+図\ref{fig:mizunekidori}は、ミズナギドリと呼ばれる鳥の死骸をドローンで撮影した画像である。経験上ではあるが、この鳥がバードストライクが起きる鳥の中間サイズである。この画像を基準に新たに閾値を設定する。
 
 \begin{figure}[H]
     \centering
@@ -222,23 +222,24 @@ F2-scoreは0から1の範囲で値を取り、1に近いほどモデルの性能
         \centering
         \includegraphics[width=\textwidth]{imgs/kijun.jpg}
         \caption{物体画像}
-        \label{fig:mizunekidori}
+        \label{fig:object}
     \end{subfigure}
     \begin{subfigure}{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/kijunnuri.png}
         \caption{面積画像}
-        \label{fig:door}
+        \label{fig:object_area}
     \end{subfigure}
     \caption{物体画像と面積画像}
 \end{figure}
 
-上記の画像の面積は2100である。ミズナギドリが中間サイズであることを踏まえて、閾値を800に設定する。
+図\ref{fig:object}の面積を算出した画像が図\ref{fig:object_area}である。
+この画像の面積は2100である。ミズナギドリが中間サイズであることを踏まえて、閾値を800に設定する。
 
 \newpage
 
-\subsection{AutoEncoderの改良}
-去年度使用していたAutoEncoderモデルと比較して、構造をシンプルにすることで性能向上を図った。以下に、以前のモデルと現在のモデルの違い、およびその違いによる改善点について説明する。
+\subsection{AEの改良}
+去年度使用していたAEモデルと比較して、構造をシンプルにすることで性能向上を図った。以下に、以前のモデルと現在のモデルの違い、およびその違いによる改善点について説明する。
 
 \subsubsection{モデル用語の説明}
 
@@ -252,8 +253,7 @@ F2-scoreは0から1の範囲で値を取り、1に近いほどモデルの性能
 
 \newpage
 
-\subsubsection{去年度のAutoEncoderモデル}
-去年度のAutoEncoderモデルは、以下のような構造を持っていた。
+\subsubsection{去年度のAEモデル}
 
 \begin{figure}[H]
     \centering
@@ -382,13 +382,13 @@ F2-scoreは0から1の範囲で値を取り、1に近いほどモデルの性能
         \draw[arrow] (relu16) -- (deconv6);
         \draw[arrow] (deconv6) -- (output);
     \end{tikzpicture}
-    \caption{AutoEncoderの構造}
-    \label{fig:autoencoder_structure}
+    \caption{AEの構造}
+    \label{fig:AE_structure}
 \end{figure}
 
+図\ref{fig:AE_structure}は、去年度のAEモデルの構造を示している。
 
-\subsubsection{今年度のAutoEncoderモデル}
-今年度のAutoEncoderモデルは、去年度のモデルと比較して構造がシンプルになっている。以下に、今年度のモデルの構造を示す。
+\subsubsection{今年度のAEモデル}
 
 \begin{figure}[H]
     \centering
@@ -484,9 +484,11 @@ F2-scoreは0から1の範囲で値を取り、1に近いほどモデルの性能
         \draw[arrow] (deconv5) -- (relu14);
         \draw[arrow] (relu14) -- (output);
     \end{tikzpicture}
-    \caption{今年度のAutoEncoderの構造}
-    \label{fig:autoencoder}
+    \caption{今年度のAEの構造}
+    \label{fig:AE}
 \end{figure}
+
+図\ref{fig:AE}は、今年度のAEモデルの構造を示しており、去年度のモデルと比較して構造がシンプルになっている。
 
 \subsubsection{変更点}
 
@@ -500,14 +502,16 @@ F2-scoreは0から1の範囲で値を取り、1に近いほどモデルの性能
 \subsubsection{改良の効果}
 これらの変更により、以下のような改善点が見られた。
 \begin{itemize}
-    \item \textbf{計算コストの削減}: モデルの深さを浅くし、バッチ正規化層を削除することで、計算コストが大幅に削減された。これにより、学習速度が向上し、より短時間でモデルのトレーニングが完了するようになった。
+    %\item \textbf{計算コストの削減}: モデルの深さを浅くし、バッチ正規化層を削除することで、計算コストが大幅に削減された。これにより、学習速度が向上し、より短時間でモデルのトレーニングが完了するようになった。
     \item \textbf{過学習の防止}: モデルのパラメータ数を減らすことで、過学習のリスクが低減された。これにより、テストデータに対する汎化性能が向上し、より安定した結果が得られるようになった。
     \item \textbf{モデルの解釈性の向上}: 構造をシンプルにすることで、モデルの挙動がより理解しやすくなった。これにより、モデルの改善点や問題点を特定しやすくなり、さらなる改良が容易になった。
 \end{itemize}
-以上のように、今年度のAutoEncoderモデルは、去年度のモデルと比較して構造がシンプルになり、計算コストの削減、過学習の防止、モデルの解釈性の向上といった改善点が見られた。
+以上のように、今年度のAEモデルは、去年度のモデルと比較して構造がシンプルになり、
+%計算コストの削減、
+過学習の防止、モデルの解釈性の向上といった改善点が見られた。
 
-\subsection{AutoEncoderモデルのアップデートの重要性}
-AutoEncoderで構築したモデルをアップデートすることは、モデルの性能向上や新しいデータへの適応において非常に重要だ。以下に、モデルをアップデートせずに使い続けることと、アップデートして使うことの差について説明する。
+\subsection{AEモデルのアップデートの重要性}
+AEで構築したモデルをアップデートすることは、モデルの性能向上や新しいデータへの適応において非常に重要だ。以下に、モデルをアップデートせずに使い続けることと、アップデートして使うことの差について説明する。
 
 \paragraph{モデルをアップデートしない場合}
 モデルをアップデートせずに使い続けると、以下のような問題が発生する可能性がある。
@@ -526,10 +530,6 @@ AutoEncoderで構築したモデルをアップデートすることは、モデ
 \end{itemize}
 
 \subsection{モデルのアップデート方法}
-検出に使用した画像を用いてモデルのアップデートを行う。実用化のために自動アップデートを行いたい。アップデートには学習データを自動で作成する必要があり、以下の二つのステップで作成できることがわかった。
-始めに、全体の画像を背景ごとにクラスタリングする。これはAutoEncoderで特徴抽出を行い、特徴量を主成分分析で次元削減し、k-meansクラスタリングを用いることで可能であることがわかった。
-次に、画像の中から物体画像を取り除く。これはCLIPを使用することで効果的に行うことができる。CLIPを用いることで、画像内の物体をある程度の精度で検出し、物体が存在しない画像を抽出することができる。
-これらのステップに関しては、以降の章で詳しく説明する。
 
 \begin{figure}[H]
     \centering
@@ -552,6 +552,11 @@ AutoEncoderで構築したモデルをアップデートすることは、モデ
     \caption{モデルのアップデート方法の流れ}
     \label{fig:model_update_flow}
 \end{figure}
+
+検出に使用した画像を用いてモデルのアップデートを行う。実用化のために自動アップデートを行いたい。アップデートには学習データを自動で作成する必要があり、以下の二つのステップで作成できることが確認できた。
+始めに、全体の画像を背景ごとにクラスタリングする。これはAEで特徴抽出を行い、特徴量を主成分分析で次元削減し、k-meansクラスタリングを用いることで可能であることが確認できた。
+次に、画像の中から物体画像を取り除く。これはCLIPを使用することで効果的に行うことができる。CLIPを用いることで、画像内の物体をある程度の精度で検出し、物体が存在しない画像を抽出することができる。
+これらのステップに関しては、以降の章で詳しく説明する。
 
 \newpage
 
@@ -581,21 +586,7 @@ AutoEncoderで構築したモデルをアップデートすることは、モデ
 \end{itemize}
 
 \subsubsection{出力}
-プログラムの実行結果として、\texttt{imgs/AE\_2023\_result}フォルダが作成され、物体と判定された画像が保存される。また、答えの画像も渡しているため、F2-scoreが計算される。
-\subsubsection{出力までの流れ}
-\begin{enumerate}
-    \item \textbf{画像の分割}: 入力画像を224×224ピクセルの小さな画像に分割した。
-    \item \textbf{物体検出の実行}: 分割された画像をAutoencoderを使用して、物体が存在するかどうかを判定した。
-        \begin{itemize}
-            \item オートエンコーダーモデルを使用して、入力画像を再構築する。
-            \item 再構築された画像と元の画像の差分を計算し、差分画像を生成する。
-            \item 再構築された画像と元の画像のMSE（平均二乗誤差）を計算し、MSEが最も小さいモデルの差分画像を採用する。
-            \item 差分画像から輪郭を抽出し、最大面積の輪郭を計算する。
-            \item 最大面積が閾値を超える場合、物体が存在すると判定する。
-        \end{itemize}
-        \item \textbf{結果の保存}: 物体が存在すると判定された画像を保存した。
-        \item \textbf{評価指標の計算}: 混合行列を作成し、F2スコアを計算した。
-    \end{enumerate}
+物体画像の判定が行われ、F2-scoreが計算される。
 
 \subsubsection{F2-scoreの計算}
 システムが物体画像と判定した画像の枚数は459枚で、その中に入っていた物体画像の枚数は12枚である。testフォルダの画像を分割した画像の枚数が884枚で、その中に入っていいた物体画像の枚数が13枚である。混合行列の要素は以下の通りである。
@@ -617,23 +608,10 @@ AutoEncoderで構築したモデルをアップデートすることは、モデ
             \item F2 = \(\frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \text{Precision}) + \text{Recall}} = \frac{5 \cdot (0.026 \cdot 0.923)}{4 \cdot 0.026 + 0.923} \approx 0.117\)
         \end{itemize}
 \end{itemize}
-従来のモデルでは物体検出の精度が十分でないことがわかった。特にFNが1以上だと、見落としてしまう可能性があるため確実に避けたい。そのためにもモデルのアップデートを行うことが必要である。
+従来のモデルでは物体検出の精度が十分でないことが確認できた。特にFNが1以上だと、見落としてしまう可能性があるため確実に避けたい。そのためにもモデルのアップデートを行うことが必要である。
 
 \subsection{モデルアップデートの有用性}
-本研究では、モデルアップデートの有用性を検証するために、以下のプログラムファイルを使用した。また、これは自動でアップデートを行うという前提の上での検証であることを留意してほしい。
-
-\begin{itemize}
-    \item \textbf{AE\_clip.ipynb}
-    \item \textbf{AE\_deep\_check.ipynb}
-    \item \textbf{AE\_deep\_check\_change.ipynb}
-    \item \textbf{AE\_deep\_finetrain\_matomete.py}
-    \item \textbf{AE\_deep\_main\_search.ipynb}
-    \item \textbf{AE\_deep\_train\_matomete.py}
-    \item \textbf{AE\_for\_newmodel.ipynb}
-    \item \textbf{AE\_score\_check\_labels.ipynb}
-\end{itemize}
-
-これらのプログラムファイルを用いて、モデルの自動アップデートを行い、その有用性を検証した。
+モデルアップデートの有用性を検証するために、自動でモデルのアップデートを行うシステムを構築する。
 
 \subsection{背景画像の分類}
 初めに、AEの性能を最大限発揮するためにモデルの対象ごとに画像を分類することが必要である。これから、背景ごとに画像を分類する方法を説明する。
@@ -662,28 +640,6 @@ AEモデルが構築される。
     \item \textbf{models/20241224\_A\_train\_model.pth}
 \end{itemize}
 
-\subsubsection{出力までの流れ}
-プログラムと画像を用いて、以下の流れでモデルを作成した。
-\begin{enumerate}
-    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
-    \item \textbf{データの準備}: 指定されたディレクトリから画像データを読み込み、学習用と評価用に分割する。
-    \item \textbf{データセットの作成}: 画像データを読み込み、PyTorchのデータセットとして準備する。
-    \item \textbf{データローダーの作成}: 学習用と評価用のデータローダーを作成する。
-    \item \textbf{モデルの定義}: 深層オートエンコーダーモデルを定義する。
-    \item \textbf{最適化手法と誤差関数の設定}: モデルの最適化手法としてAdamを使用し、誤差関数としてMSELossを設定する。
-    \item \textbf{学習の実行}: 指定されたエポック数だけモデルの学習を行う。学習中に最も良いモデルを保存する。
-    \item \textbf{評価の実行}: 学習後、評価用データを用いてモデルの性能を評価する。
-    \item \textbf{結果の保存}: 学習と評価の損失をプロットし、画像として保存する。また、損失の推移をCSVファイルに保存する。
-\end{enumerate}
-
-\paragraph{}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20241224_A_train_img.png}
-    \caption{学習推移のグラフ}
-    \label{fig:learning_curve}
-\end{figure}
-
 \paragraph{使用プログラム}
 \begin{itemize}
     \item \textbf{AE\_pca\_kmeans.ipynb}
@@ -698,26 +654,9 @@ AEモデルが構築される。
 \begin{itemize}
     \item \textbf{models/6048\_AEdeepmodel\_20241224\_A\_train\_img.pth}
 \end{itemize}
-\subsubsection{出力}
-プログラムと画像とモデルを用いて画像の圧縮、ベクトルの主成分分析、寄与度の確認、二次元へのプロット、クラスター数10でのk-meansを行った。
 
-\subsubsection{出力までの流れ}
-\begin{enumerate}
-    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
-    \item \textbf{モデルの読み込み}: 事前に訓練されたオートエンコーダーモデルを読み込む。
-    \item \textbf{画像の読み込み}: 指定されたディレクトリから画像を読み込む。
-    \item \textbf{オートエンコーダーによる特徴抽出}: 読み込んだ画像をオートエンコーダーモデルに通し、特徴ベクトルを抽出する。
-    \item \textbf{PCAによる次元削減}: 抽出された特徴ベクトルに対してPCA（主成分分析）を行い、次元削減を行う。
-        \begin{itemize}
-            \item PCAの寄与度を確認し、主成分の重要性を評価する（以降で寄与度の詳細を説明）。
-        \end{itemize}
-    \item \textbf{PCA結果のプロット}: PCAによる次元削減結果をプロットし、視覚的に確認する（以降でPCAのプロットの詳細を説明）。
-    \item \textbf{K-meansクラスタリング}: 次元削減された特徴ベクトルに対してK-meansクラスタリングを行い、画像をクラスタに分類する。
-        \begin{itemize}
-            \item クラスタ番号を再割り当てし、クラスタごとに画像を保存する。
-        \end{itemize}
-    \item \textbf{クラスタリング結果のプロット}: K-meansクラスタリングの結果をプロットし、各クラスタの分布を視覚的に確認する（以降でk-meansのプロットの詳細を説明）。
-\end{enumerate}
+\subsubsection{出力}
+入力画像の圧縮、ベクトルの主成分分析、寄与度の確認、二次元へのプロット、クラスター数10でのk-meansを行った。
 
 \paragraph{寄与度の確認}
 \begin{figure}[H]
@@ -728,7 +667,7 @@ AEモデルが構築される。
 \end{figure}
 
 図\ref{fig:contribution_plot}は、主成分分析の寄与度を示すグラフである。結果より、各主成分がデータの分散にどの程度寄与しているかを確認することができる。
-ほとんどの寄与度が第一主成分と第二主成分で占められていることがわかる。したがって、二次元にプロットすることで十分にデータの特徴を表現できると考えられる。
+ほとんどの寄与度が第一主成分と第二主成分で占められていることが確認できる。したがって、二次元にプロットすることで十分にデータの特徴を表現できると考えられる。
 
 \paragraph{二次元プロット}
 \begin{figure}[H]
@@ -737,8 +676,9 @@ AEモデルが構築される。
     \caption{主成分分析による二次元プロット}
     \label{fig:two_dimensional_plot}
 \end{figure}
+
 図\ref{fig:two_dimensional_plot}は、主成分分析によって次元削減されたデータの二次元プロットである。このプロットにより、データの分布やクラスタリングの傾向を視覚的に確認することができる。
-結果より、aroundとlightが近く、その他は離れていることがわかる。このことから、aroundとlightは似た特徴を持っていることが示唆されるため、合わせて1種類の背景としlightと扱うことにする。そのため、以降は背景画像は3種類とする。
+結果より、aroundとlightが近く、その他は離れていることが確認できる。このことから、aroundとlightは似た特徴を持っていることが示唆されるため、合わせて1種類の背景としlightと扱うことにする。そのため、以降は背景画像は3種類とする。
 
 \paragraph{k-meansクラスタリング}
 \begin{figure}[H]
@@ -747,6 +687,7 @@ AEモデルが構築される。
     \caption{k-meansクラスタリングの結果}
     \label{fig:kmeans_plot}
 \end{figure}
+
 図\ref{fig:kmeans_plot}は、主成分分析による次元削減結果に対してクラスター数10のk-meansクラスタリングの結果を示すプロットである。このプロットにより、データがどのようにクラスタに分割されたかを視覚的に確認することができる。横軸の値が小さいクラスターから順に数字を0から9まで振ることで結果が固定される。
 結果より、0と1はwhite、4と5はlight、8と9はdarkとすることで曖昧な境界部分は除かれ、画像を背景ごとに分類することができる。
 
@@ -768,10 +709,10 @@ AEモデルが構築される。
 \end{itemize}
 
 \subsubsection{出力}
-プログラムと画像とモデルを用いて、画像の圧縮、ベクトルの主成分分析、二次元へのプロット、クラスター数10でのk-meansを行い、背景ごとに分類した。
+入力画像の圧縮、ベクトルの主成分分析、二次元へのプロット、クラスター数10でのk-meansを行い、背景ごとに分類した。
 この時、主成分分析に使用したモデルは\texttt{AE\_score\_check\_labels.ipynb}で使用したモデルと同じことに注意する。
 
-\paragraph{保存先}
+\paragraph{出力先}
 \begin{itemize}
     \item \textbf{imgs/update\_img}:
     \begin{itemize}
@@ -780,29 +721,6 @@ AEモデルが構築される。
         \item \textbf{white}
     \end{itemize}
 \end{itemize}
-
-\subsubsection{出力までの流れ}
-\begin{enumerate}
-    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
-    \item \textbf{モデルの読み込み}: 事前に訓練されたオートエンコーダーモデルを読み込む。
-    \item \textbf{画像の読み込み}: 指定されたディレクトリから画像を読み込む。
-    \item \textbf{画像の分割}: 読み込んだ画像を224×224ピクセルの小さな画像に分割する。
-    \item \textbf{オートエンコーダーによる特徴抽出}: 分割された画像をオートエンコーダーモデルに通し、特徴ベクトルを抽出する。
-    \item \textbf{PCAによる次元削減}: 抽出された特徴ベクトルに対してPCA（主成分分析）を行い、次元削減を行う。
-        \begin{itemize}
-            \item PCAの寄与度を確認し、主成分の重要性を評価する。
-        \end{itemize}
-    \item \textbf{PCA結果のプロット}: PCAによる次元削減結果をプロットし、視覚的に確認する。
-    \item \textbf{K-meansクラスタリング}: 次元削減された特徴ベクトルに対してK-meansクラスタリングを行い、画像をクラスタに分類する。
-        \begin{itemize}
-            \item クラスタ番号を再割り当てし、クラスタごとに画像を保存する。
-        \end{itemize}
-    \item \textbf{クラスタリング結果のプロット}: K-meansクラスタリングの結果をプロットし、各クラスタの分布を視覚的に確認する（以降でk-meansのプロットの詳細を説明）。
-    \item \textbf{画像の移動}: クラスタリング結果に基づいて、画像を新しいフォルダに移動する。
-        \begin{itemize}
-            \item クラスタ番号に応じて、画像を`white`、`light`、`dark`のフォルダに分類する。
-        \end{itemize}
-\end{enumerate}
 
 \paragraph{}
 \begin{figure}[H]
@@ -820,6 +738,17 @@ AEモデルが構築される。
 \paragraph{使用プログラム}
 \begin{itemize}
     \item \textbf{AE\_clip.ipynb}
+\end{itemize}
+
+\paragraph{使用画像}
+\begin{itemize}
+    \item \textbf{imgs/update\_img/}:
+    \begin{itemize}
+        \item \textbf{dark}
+        \item \textbf{light}
+        \item \textbf{white}
+    \end{itemize}
+    \item \textbf{imgs/update\_img\_remove/}
 \end{itemize}
 
 \paragraph{使用モデル}
@@ -844,24 +773,13 @@ AEモデルが構築される。
     \item \textbf{YES\_F}: 上空からクリーム色の砂浜を見下ろした画像で全体をくまなく探した結果ゴミなどの人工物が写っている可能性がある
 \end{itemize}
 
-\paragraph{使用画像}
-\begin{itemize}
-    \item \textbf{imgs/update\_img/}:
-    \begin{itemize}
-        \item \textbf{dark}
-        \item \textbf{light}
-        \item \textbf{white}
-    \end{itemize}
-    \item \textbf{imgs/update\_img\_remove/}
-\end{itemize}
-
 \paragraph{出力}
 プログラムとモデルと画像を用いて物体画像を抽出し、学習データを作成した。
 また、物体画像を抽出したデータを用意することで二つのモデルにおける精度比較も行った。
-100％物体画像を取り除くことは出来なかったたため、手動で物体画像を完全に取り除いた画像も保存し、それぞれの画像で学習を行いモデルの精度比較に使用する。
-また、学習データを作成する際に、ランダムに上下反転、左右反転、回転を行い、データ拡張を行った。保存先は以下の通りである。
+100％物体画像を取り除くことはできなかったたため、手動で物体画像を完全に取り除いた画像も保存し、それぞれの画像で学習を行いモデルの精度比較に使用する。
+学習データを作成する際は、ランダムに上下反転、左右反転、回転を行い、データ拡張を行った。
 
-\paragraph{保存先}
+\paragraph{出力先}
 \begin{itemize}
     \item \textbf{imgs/clip\_test}:
     \item \textbf{imgs/clip\_test\_result}
@@ -869,23 +787,7 @@ AEモデルが構築される。
     \item \textbf{imgs/update\_train\_imgs\_default/train\_img\_6048}
 \end{itemize}
 
-\subsubsection{出力までの流れ}
-\begin{enumerate}
-    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
-    \item \textbf{モデルの読み込み}: 事前に訓練されたCLIPモデル（RN50x64およびRN50）を読み込む。
-    \item \textbf{翻訳}: 使用する日本語の説明文をGoogleTranslatorで英語に翻訳する。
-    \item \textbf{画像のコピー}: 指定されたフォルダからランダムに画像を選択し、テスト用フォルダにコピーする。
-    \item \textbf{テスト画像の予測とプロット}: テスト用にコピーした画像に対してCLIPモデルを用いて予測を行い、結果をプロットして保存する（以降でtestの結果の詳細を説明）。
-    \item \textbf{画像の予測}: メインの画像に対してCLIPモデルを用いて予測を行う。
-    \item \textbf{画像の分類と保存}: 予測結果に基づいて画像を分類し、結果を保存する。
-    \item \textbf{フォルダのコピーと整理}: 分類結果のフォルダをコピーし、不要なディレクトリを削除する。
-    \item \textbf{画像の移動}: 物体画像を含むフォルダから画像を移動し、物体の割合を計算する（以降で物体の割合の詳細を説明）。
-    \item \textbf{画像のコピーと反転処理}: 画像をコピーし、6048枚になるように、必要に応じて反転や回転処理を行う。
-\end{enumerate}
-
 \subsubsection{テストデータの結果}
-精度を向上させるためにテストデータを用いて、入力する言葉の微調整を行った。
-以下に、最終的に使用した言葉によるテストデータの予測結果を示す。
 
 \begin{figure}[H]
     \centering
@@ -900,6 +802,11 @@ AEモデルが構築される。
     \caption{テスト画像2の予測結果}
     \label{fig:test_image_2_result}
 \end{figure}
+
+精度を向上させるためにテストデータを用いて、入力する言葉の微調整を行った。
+図\ref{fig:test_image_1_result}は物体が存在しない画像を入力した結果であり、
+図\ref{fig:test_image_2_result}は物体が存在する画像を入力した結果である。
+棒グラフは、入力画像に対して各モデルの予測値の割合を示している。
 
 \subsubsection{抽出結果}
 以下に、モデルごとの抽出結果を示す。
@@ -922,13 +829,13 @@ AEモデルが構築される。
 \end{table}
 
 \paragraph{RN50x64モデルとRN50モデルの比較}
-RN50x64モデルとRN50モデルの結果を比較すると、RN50x64モデルの方が物体を含んでいる割合が全てのカテゴリで低いことがわかる。
+RN50x64モデルとRN50モデルの結果を比較すると、RN50x64モデルの方が物体を含んでいる割合が全てのカテゴリで低いことが確認できる。
 結果から、RN50x64モデルを使用して物体画像を抽出することが適していると言えるため以降はRN50x64モデルを使用した学習データを用いて実験を進める。
-なお、上記の表からもわかるように、完全に物体を取り除くことは出来なかったため、以降で若干物体の画像が入った画像でモデルのアップデートを行った場合と全く物体が入っていない画像でモデルのアップデートを行った場合の精度の比較を行う。
+なお、上記の表からも確認できるように、完全に物体を取り除くことは不可能だったため、以降は若干物体の画像が入った画像でモデルのアップデートを行った場合と全く物体が入っていない画像でモデルのアップデートを行った場合の精度の比較も行う。
 
 \subsection{モデルのアップデート}
 作成した学習データでモデルのアップデートを行う。モデルのアップデートは、古い画像を学習させたモデルを新しい画像でアップデートすることで行う。
-また、背景画像は4分類ではなく3分類の方が適していることがわかったため、アップデートをするモデルも作り直す。
+また、背景画像は4分類ではなく3分類の方が適していることが確認できたため、アップデートをするモデルも作り直す。
 
 \subsubsection{旧モデルの再学習}
 
@@ -942,37 +849,15 @@ RN50x64モデルとRN50モデルの結果を比較すると、RN50x64モデル�
     \item \textbf{imgs/old\_train\_img3/train\_img\_6048/6048}
 \end{itemize}
 
+\subsubsection{出力}
+AEモデルが構築される。
+
 \paragraph{出力モデル名}
 \begin{itemize}
     \item \textbf{models/old\_models6048/20241225\_new\_dark.pth}
     \item \textbf{models/old\_models6048/20241225\_new\_light.pth}
     \item \textbf{models/old\_models6048/20241225\_new\_white.pth}
 \end{itemize}
-
-\subsubsection{出力までの流れ}
-省略
-
-\paragraph{}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20241225_new_dark.png}
-    \caption{20241225\_new\_dark}
-    \label{fig:learning_curve1}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20241225_new_light.png}
-    \caption{20241225\_new\_light}
-    \label{fig:learning_curve2}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20241225_new_white.png}
-    \caption{20241225\_new\_white}
-    \label{fig:learning_curve3}
-\end{figure}
 
 \subsubsection{モデルのアップデート}
 
@@ -986,6 +871,9 @@ RN50x64モデルとRN50モデルの結果を比較すると、RN50x64モデル�
     \item \textbf{imgs/update\_train\_imgs\_default/train\_img\_6048}
 \end{itemize}
 
+\subsubsection{出力}
+AEモデルのアップデートを行った。また、以降では出力されたモデルをまとめてdモデルと呼ぶことにする。
+
 \paragraph{出力モデル名}
 \begin{itemize}
     \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_ddark.pth}
@@ -993,46 +881,9 @@ RN50x64モデルとRN50モデルの結果を比較すると、RN50x64モデル�
     \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_dwhite.pth}
 \end{itemize}
 
-\subsubsection{出力までの流れ}
-
-\begin{enumerate}
-    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
-    \item \textbf{データの準備}: 指定されたディレクトリから画像データを読み込み、学習用と評価用に分割する。
-    \item \textbf{データセットの作成}: 画像データを読み込み、PyTorchのデータセットとして準備する。
-    \item \textbf{データローダーの作成}: 学習用と評価用のデータローダーを作成する。
-    \item \textbf{モデルの定義}: 深層オートエンコーダーモデルを定義する。
-    \item \textbf{モデルの読み込み}: 事前に保存されたモデルの重みを読み込む。
-    \item \textbf{最適化手法と誤差関数の設定}: モデルの最適化手法としてAdamを使用し、誤差関数としてMSELossを設定する。
-    \item \textbf{学習の実行}: 指定されたエポック数だけモデルの学習を行う。学習中に最も良いモデルを保存する。
-    \item \textbf{評価の実行}: 学習後、評価用データを用いてモデルの性能を評価する。
-    \item \textbf{結果の保存}: 学習と評価の損失をプロットし、画像として保存する。また、損失の推移をCSVファイルに保存する。
-\end{enumerate}
-
-\paragraph{}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_ddark.png}
-    \caption{20250115\_fine6048\_ddark}
-    \label{fig:learning_curve1}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_dlight.png}
-    \caption{20250115\_fine6048\_dlight}
-    \label{fig:learning_curve2}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_dwhite.png}
-    \caption{20250115\_fine6048\_dwhite}
-    \label{fig:learning_curve3}
-\end{figure}
-
 \paragraph{使用プログラム}
 \begin{itemize}
-    \item \textbf{AE\_deep\_finetrain\_matomete.py}
+    \item \textbf{AE\_fine\_train.py}
 \end{itemize}
 
 \paragraph{使用画像}
@@ -1040,37 +891,15 @@ RN50x64モデルとRN50モデルの結果を比較すると、RN50x64モデル�
     \item \textbf{imgs/update\_train\_imgs\_remove/train\_img\_6048}
 \end{itemize}
 
+\subsubsection{出力}
+AEモデルのアップデートを行った。また、以降では出力されたモデルをまとめてrモデルと呼ぶことにする。
+
 \paragraph{出力モデル名}
 \begin{itemize}
     \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rdark.pth}
     \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rlight.pth}
     \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rwhite.pth}
 \end{itemize}
-
-\subsubsection{出力までの流れ}
-省略
-
-\paragraph{}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_rdark.png}
-    \caption{20250115\_fine6048\_rdark}
-    \label{fig:learning_curve1}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_rlight.png}
-    \caption{20250115\_fine6048\_rlight}
-    \label{fig:learning_curve2}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_rwhite.png}
-    \caption{20250115\_fine6048\_rwhite}
-    \label{fig:learning_curve3}
-\end{figure}
 
 \subsection{物体検出の試み}
 アップデートしたモデルを使って、物体検出を行うために以下のプログラムファイルを使用した。
@@ -1096,14 +925,14 @@ RN50x64モデルとRN50モデルの結果を比較すると、RN50x64モデル�
     \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rwhite.pth}
 \end{itemize}
 
-\subsubsection{出力までの流れ}
-2024\_main.pyとモデルの読み込み以外同じため省略
+\subsubsection{出力}
+物体画像の判定が行われ、F2-scoreが計算される。
 
-\subsubsection{f2スコアの計算}
-以下に、dモデルとrモデルのF2スコアを示す。
+\subsubsection{F2-scoreの計算}
+以下に、dモデルとrモデルのF2-scoreを示す。
 
-\paragraph{dモデルのF2スコア}
-dモデルが物体だと思った画像の枚数は348枚で、その中に入っていた物体画像の枚数は12枚である。testフォルダの画像を分割した画像が884枚で、その中に入っていた物体画像の枚数が13枚である。混合行列の要素は以下の通りである。
+\paragraph{dモデルのF2-score}
+システムが物体だと判定した画像の枚数は348枚で、その中に入っていた物体画像の枚数は12枚である。testフォルダの画像を分割した画像が884枚で、その中に入っていた物体画像の枚数が13枚である。混合行列の要素は以下の通りである。
 
 \begin{itemize}
     \item 混合行列の要素:
@@ -1118,14 +947,14 @@ dモデルが物体だと思った画像の枚数は348枚で、その中に入�
             \item Precision = \(\frac{TP}{TP + FP} = \frac{12}{12 + 336} \approx 0.034\)
             \item Recall = \(\frac{TP}{TP + FN} = \frac{12}{12 + 1} \approx 0.923\)
         \end{itemize}
-    \item F2スコアを計算する。
+    \item F2-scoreを計算する。
         \begin{itemize}
             \item F2 = \(\frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \text{Precision}) + \text{Recall}} = \frac{5 \cdot (0.034 \cdot 0.923)}{4 \cdot 0.034 + 0.923} \approx 0.15\)
         \end{itemize}
 \end{itemize}
 
-\paragraph{rモデルのF2スコア}
-rモデルが物体だと思った画像の枚数は345枚で、その中に入っていた物体画像の枚数は11枚である。testフォルダの画像を分割した画像が884枚で、その中に入っていた物体画像の枚数が13枚である。混合行列の要素は以下の通りである。
+\paragraph{rモデルのF2-score}
+システムが物体だと判定した画像の枚数は345枚で、その中に入っていた物体画像の枚数は11枚である。testフォルダの画像を分割した画像が884枚で、その中に入っていた物体画像の枚数が13枚である。混合行列の要素は以下の通りである。
 
 \begin{itemize}
     \item 混合行列の要素:
@@ -1140,34 +969,35 @@ rモデルが物体だと思った画像の枚数は345枚で、その中に入�
             \item Precision = \(\frac{TP}{TP + FP} = \frac{11}{11 + 334} \approx 0.032\)
             \item Recall = \(\frac{TP}{TP + FN} = \frac{11}{11 + 2} \approx 0.846\)
         \end{itemize}
-    \item F2スコアを計算する。
+    \item F2-scoreを計算する。
         \begin{itemize}
             \item F2 = \(\frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \text{Precision}) + \text{Recall}} = \frac{5 \cdot (0.032 \cdot 0.846)}{4 \cdot 0.032 + 0.846} \approx 0.139\)
         \end{itemize}
 \end{itemize}
 
-アップデート前のf2スコアが1.17であったため、若干だが性能が向上していることがわかる。しかし前提としてF2スコアよりもFNがあることが問題であるため、それをなくすために物体が検出される流れを、共通で検出できなかった画像と共に確認する。
+アップデート前のF2-scoreが1.17であったため、若干だが性能が向上していることが確認できる。しかし前提としてF2-scoreよりもFNが1以上であることが問題であるため、物体検出システムを共通で検出不可だった画像を使用して問題点を確認する。
+また、dモデルとrモデルの両モデルで確認を行う。
 
-\subsection{物体検出の仕組み}
-物体検出の仕組みを確認するために、物体検出に失敗した画像を用いて、物体検出の流れを確認する。共通して検出に失敗した画像は以下の画像である。
+\subsection{物体検出システムの確認}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{imgs/65.png}
+    \includegraphics[width=0.4\textwidth]{imgs/65.png}
     \caption{物体検出に失敗した画像}
     \label{fig:failed_image}
 \end{figure}
 
+図\ref{fig:failed_image}は、物体検出に共通で失敗した画像である。この画像を用いて、物体検出システムの問題点を特定する。
 ここで着目したいのは、どの段階で物体を見失っているかである。
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[node distance=2cm, every node/.style={rectangle, draw, text width=4cm, align=center}, arrow/.style={thick,->,>=stealth}]
+    \begin{tikzpicture}[node distance=1.5cm, every node/.style={rectangle, draw, text width=4cm, align=center}, arrow/.style={thick,->,>=stealth}]
 
         % ノードの定義
-        \node (start) [startstop] {最もMSEが小さかったモデルによる差分画像};
+        \node (start) [startstop] {MSEが最小のモデルによる差分画像};
         \node (gray) [process, below of=start] {グレースケールに変換};
-        \node (binarize) [process, below of=gray] {閾値30で二値化};
+        \node (binarize) [process, below of=gray] {閾値で二値化};
         \node (denoise) [process, below of=binarize] {ノイズ除去};
         \node (contour_detection) [process, below of=denoise] {輪郭抽出};
         \node (area_detection) [process, below of=contour_detection] {面積検出};
@@ -1185,19 +1015,32 @@ rモデルが物体だと思った画像の枚数は345枚で、その中に入�
     \caption{差分画像の処理フロー}
     \label{fig:diff_image_processing_flow}
 \end{figure}
-物体を検出するために、上記のステップを踏んだ。ステップ1つ1つを確認することで、物体を見失っている原因を特定する。
+物体を検出するために、図\ref{fig:diff_image_processing_flow}の処理を行った。１つずつ処理を確認することで、物体を見失っている原因を特定する。
 
 \paragraph{使用プログラム}
 \begin{itemize}
     \item \textbf{AE\_inference.ipynb}
 \end{itemize}
 
-\paragraph{出力}
-このプログラムではコード内の引数に応じて、各ステップの結果を出力する。なお、推論のために制作したため出力やそれまでの流れは引数によって異なるため省略する。詳しくは付録のコードを参照してほしい。
+\paragraph{使用画像}
+\begin{itemize}
+    \item \textbf{imgs/test\_img}
+\end{itemize}
 
+\paragraph{使用モデル}
+\begin{itemize}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_ddark.pth}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_dlight.pth}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_dwhite.pth}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rdark.pth}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rlight.pth}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rwhite.pth}
+\end{itemize}
+
+\paragraph{出力}
+このプログラムではコード内の引数に応じて、各処理の結果を出力する。
 
 \subsubsection{グレースケールに変換}
-物体検出に失敗した画像をグレースケールに変換した結果を示す。
 
 \begin{figure}[H]
     \centering
@@ -1217,10 +1060,9 @@ rモデルが物体だと思った画像の枚数は345枚で、その中に入�
     \caption{物体検出に失敗した画像のグレースケール変換結果}
     \label{fig:failed_images_gray}
 \end{figure}
-視覚的には、物体が確認できている。
+図\ref{fig:failed_images_gray}は、物体検出に失敗した画像をdモデルとrモデルでグレースケールに変換した結果を示す。視覚的には、物体が確認できている。
 
 \subsubsection{二値化}
-次にこれらの画像を二値化する。閾値は30とした。
 
 \begin{figure}[H]
     \centering
@@ -1240,10 +1082,10 @@ rモデルが物体だと思った画像の枚数は345枚で、その中に入�
     \caption{物体検出に失敗した画像の二値化結果}
     \label{fig:failed_images_bin}
 \end{figure}
+図\ref{fig:failed_images_bin}は、物体検出に失敗した画像をdモデルとrモデルで二値化した結果を示す。二値化の閾値は30とした。
 明らかに物体部分が途切れてしまっている。これを解決するために、二値化を行う前に正規化を行い、画像のコントラストを高める。
 
-\subsubsection{正規化をして二値化}
-以下に、正規化を行った後に二値化した結果を示す。閾値は80とした。
+\subsubsection{正規化後に二値化}
 
 \begin{figure}[H]
     \centering
@@ -1283,27 +1125,28 @@ rモデルが物体だと思った画像の枚数は345枚で、その中に入�
     \label{fig:failed_images_normalize_bin}
 \end{figure}
 
-正規化を行うことで、物体部分が途切れることが改善されることはなかった。そのため、次の方法として二値化した画像に対してノイズ除去を行い、その後膨張処理と収縮処理を行うことで物体部分が途切れることの解消を目指し、物体が検出できているのかの確認を行う。
+図\ref{fig:failed_images_normalize_bin}は、物体検出に失敗した画像をdモデルとrモデルで正規化と二値化の結果を示す。閾値は80とした。
+正規化を行うことで、物体部分が途切れることが改善されることはなかった。
+そのため、次の方法として二値化をした画像に対してノイズ除去を行い、クロージングを行うことで物体部分が途切れることの解消を目指し、物体が検出できているのかの確認を行う。
 
-\subsubsection{ノイズ除去及び膨張収縮}
-以下に、ノイズ除去及び膨張収縮を行っい物体を検出した結果を示す。また、視覚的には正規化によって物体部分が途切れることが改善は見受けられなかったが、物体検出を行う際にはどのような効果が現れるかわからないのでそれも比較して検証を行う。
+\subsubsection{ノイズ除去及びクロージング}
 
 \begin{figure}[H]
     \centering
     \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65dnasinasi.png}
-        \caption{dモデルによるノイズ除去後膨張収縮を行っていない画像}
+        \caption{dモデルによるノイズ除去画像}
         \label{fig:failed_image_modeld_dilate_erode}
     \end{subfigure}
     \vfill
     \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65darinasi.png}
-        \caption{dモデルによるノイズ除去及び膨張収縮画像}
+        \caption{dモデルによるノイズ除去及びクロージング画像}
         \label{fig:failed_image_modelr_dilate_erode}
     \end{subfigure}
-    \caption{物体検出に失敗した画像のノイズ除去及び膨張収縮}
+    \caption{正規化なしdモデル検出結果}
     \label{fig:failed_images_dilate_erode}
 \end{figure}
 
@@ -1312,17 +1155,17 @@ rモデルが物体だと思った画像の枚数は345枚で、その中に入�
     \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65rnasinasi.png}
-        \caption{rモデルによるノイズ除去後膨張収縮を行っていない画像}
+        \caption{rモデルによるノイズ除去画像}
         \label{fig:failed_image_modeld_dilate_erode}
     \end{subfigure}
     \vfill
     \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65rarinasi.png}
-        \caption{rモデルによるノイズ除去及び膨張収縮画像}
+        \caption{rモデルによるノイズ除去及びクロージング画像}
         \label{fig:failed_image_modelr_dilate_erode}
     \end{subfigure}
-    \caption{物体検出に失敗した画像のノイズ除去及び膨張収縮}
+    \caption{正規化なしrモデル検出結果}
     \label{fig:failed_images_dilate_erode}
 \end{figure}
 
@@ -1331,17 +1174,17 @@ rモデルが物体だと思った画像の枚数は345枚で、その中に入�
     \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65dnasiari.png}
-        \caption{dモデルによる正規化行いノイズ除去後膨張収縮を行っていない画像}
+        \caption{dモデルによるノイズ除去画像}
         \label{fig:failed_image_modeld_dilate_erode}
     \end{subfigure}
     \vfill
     \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65dariari.png}
-        \caption{dモデルによる正規化を行いノイズ除去及び膨張収縮画像}
+        \caption{dモデルによるノイズ除去及びクロージング画像}
         \label{fig:failed_image_modelr_dilate_erode}
     \end{subfigure}
-    \caption{物体検出に失敗した画像のノイズ除去及び膨張収縮}
+    \caption{正規化ありdモデル検出結果}
     \label{fig:failed_images_dilate_erode}
 \end{figure}
 
@@ -1350,26 +1193,41 @@ rモデルが物体だと思った画像の枚数は345枚で、その中に入�
     \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65rnasiari.png}
-        \caption{rモデルによる正規化行いノイズ除去後膨張収縮を行っていない画像}
+        \caption{rモデルによるノイズ除去画像}
         \label{fig:failed_image_modeld_dilate_erode}
     \end{subfigure}
     \vfill
     \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65rariari.png}
-        \caption{rモデルによる正規化を行いノイズ除去及び膨張収縮画像}
+        \caption{rモデルによるノイズ除去及びクロージング画像}
         \label{fig:failed_image_modelr_dilate_erode}
     \end{subfigure}
-    \caption{物体検出に失敗した画像のノイズ除去及び膨張収縮}
+    \caption{正規化ありdモデル検出結果}
     \label{fig:failed_images_dilate_erode}
 
 \end{figure}
-それぞれ3枚の画像が並んでいるが、左から順に入力画像、面積を検出する直前の画像、確認した最大面積の画像である。入力画像の左上にはYESorNOと書かれており、その下には正規化を行ったかどうか、膨張収縮を行ったかどうかが書かれている。また、面積を検出する直前の画像の左上にはYESorNOと書かれており、その下には検出した最大面積の大きさ、一番下にはmseの値が一番小さくなったモデルの名前が書かれている。最大面積が閾値を超えるとYESと表示される。
-全ての画像に共通して、物体部分の面積を適切に検出できていないことが確認できる。特に膨張収縮を行った画像に関しては物体ではない部分の面積を検出してしまっている。これはAEが再現した画像の再現性が低い部分を膨張収縮により繋げてしまったためである。また、正規化を行っても結果が改善されていないことから、正規化は必要ないことがわかる。以上の結果から、差分画像に対してアプローチを行うのではなく、出力画像の精度向上にアプローチを行うことがより良い結果を得られると考えられる。
 
-\subsection{出力画像の精度向上}
-出力画像の精度を向上させる一般的な方法は学習枚数を増やすことである。学習枚数を増やすことで、モデルがより多くのパターンを学習することができるため、出力画像の精度が向上すると考えられる。しかし今回は現状が最大枚数なため、学習枚数を減らしたモデルを作成し、そのモデルを用いてMSEの推移を確認する。
-また、推移を確認する画像として物体検出に失敗した画像と紹介してきた画像を使用する。
+それぞれ3枚の画像が並んでいるが、左から順に入力画像、面積を検出する直前の画像、確認した最大面積の画像である。
+入力画像の左上には閾値が検出した最大面積を越えていればYESが、越えていなければNOが記されている。
+その下には最大面積の大きさとMSEが最も小さかったモデル名が記されている。
+全ての画像に共通して、物体部分の面積を適切に検出できていないことが確認できる。
+特にクロージングを行った画像に関しては物体ではない部分の面積を検出してしまいYESと表記してしまっている。
+これはAEが再構築した画像の再現性が低い部分をクロージングにより繋げてしまったためである。
+また、正規化を行っても結果が改善されていないことから、正規化は必要ないことが確認できる。
+以上の結果から、システムに問題があるのではなく差分画像自体を修正する必要があると考えられる。
+
+\subsection{差分画像の精度向上}
+差分画像は出力画像によって決まるため、出力画像の精度を向上させることで差分画像の精度も向上されることが見込まれる。
+出力画像の精度を向上させる一般的な方法は学習枚数を増やすことである。学習枚数を増やすことで、モデルがより多くのパターンを学習することができるため、出力画像の精度が向上すると考えられる。
+しかし今回はアップデートのための再学習を行っているため、必ずしも多ければ精度が向上するとは限らない。そのため学習枚数を減らしたモデルを作成し、そのモデルを用いてMSEの推移を確認する。
+また、物体検出に共通で失敗した画像を使用してMSEの推移を確認する。
+
+\subsubsection{学習枚数}
+これまで学習枚数は6048枚という数字にこだわってきた。これはアップデートをする前の去年度のモデルを構築した際の学習枚数であり、一般に最初に学習するモデルには大量の画像が必要である。しかし、アップデート時にはそれを越すことはあまりない。
+例えば、Zhuangらの「A Comprehensive Review on Transfer Learning」\cite{zhuang2020comprehensive}では、転移学習の手法について詳しく説明されており、転移学習では一般的に大規模なデータセットで事前学習を行い、その後、特定のタスクに対して小規模なデータセットでファインチューニングを行うことが効果的であると述べられている。
+この研究からもわかるように、初期学習には大量のデータが必要であるが、モデルのアップデート時にはそれを越えるデータが必要となることは稀である。
+
 \subsubsection{学習枚数の変更}
 学習枚数を減らしたデータセットを作成する。今回は100枚、1000枚、2000枚、3000枚、4000枚、5000枚のデータセットを作成する。
 
@@ -1384,14 +1242,16 @@ rモデルが物体だと思った画像の枚数は345枚で、その中に入�
     \item \textbf{imgs/update\_train\_imgs\_remove/train\_img\_6048}
 \end{itemize}
 
-\paragraph{出力}
+\subsubsection{出力}
+指定の枚数にデータセットを作成する
+
+\paragraph{出力先}
 \begin{itemize}
     \item \textbf{imgs/update\_train\_imgs\_default\_mix}
     \item \textbf{imgs/update\_train\_imgs\_remove\_mix}
 \end{itemize}
 
 \subsubsection{モデルの作成}
-以下に、学習枚数を減らしたモデルを作成する。
 
 \paragraph{使用プログラム}
 \begin{itemize}
@@ -1413,6 +1273,9 @@ rモデルが物体だと思った画像の枚数は345枚で、その中に入�
     \item \textbf{imgs/update\_train\_imgs\_default\_mix/train\_img\_5000}
     \item \textbf{imgs/update\_train\_imgs\_remove\_mix/train\_img\_5000}
 \end{itemize}
+
+\subsubsection{出力}
+指定の枚数学習したモデルを作成する。
 
 \paragraph{出力モデル名}
 \begin{itemize}
@@ -1455,11 +1318,15 @@ rモデルが物体だと思った画像の枚数は345枚で、その中に入�
 \end{itemize}
 
 \subsubsection{MSEの推移の確認}
-以下に、学習枚数を減らしたモデルによる物体画像のMSEの推移を確認する。
 
 \paragraph{使用プログラム}
 \begin{itemize}
     \item \textbf{AE\_deep\_check\_transition.ipynb}
+\end{itemize}
+
+\paragraph{使用画像}
+\begin{itemize}
+    \item \textbf{imgs/test\_objects/detected\_1\_65.jpg}
 \end{itemize}
 
 \paragraph{使用モデル}
@@ -1481,12 +1348,83 @@ rモデルが物体だと思った画像の枚数は345枚で、その中に入�
 \end{itemize}
 
 \paragraph{出力}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{imgs/suii.png}
     \caption{MSEの推移}
     \label{fig:mse_transition}
 \end{figure}
+
+図\ref{fig:mse_transition}は、物体が検出できなかった画像に対するMSEの推移を示す。
+横軸は学習枚数、縦軸はMSEを示している。学習枚数が増えるにつれてMSEが減少傾向にあることが確認できる。
+しかし、dモデルでは3000枚、rモデルでは4000枚でMSEが下がりきった後に上昇していることが確認でき、過学習の可能性も示唆される。
+そのため、再度それぞれのモデルで物体検出を行い、その結果を確認する。
+
+\subsubsection{物体検出}
+
+\paragraph{使用プログラム}
+\begin{itemize}
+    \item \textbf{AE\_inference.ipynb}
+\end{itemize}
+
+\paragraph{使用画像}
+\begin{itemize}
+    \item \textbf{imgs/test\_objects/detected\_1\_65.jpg}
+\end{itemize}
+
+\paragraph{使用モデル}
+\begin{itemize}
+    \item \textbf{models/fine\_model\_paths/3000\_fineAEdeepmodel\_20250115\_dlight.pth}
+    \item \textbf{models/fine\_model\_paths/4000\_fineAEdeepmodel\_20250115\_rlight.pth}
+\end{itemize}
+
+\paragraph{出力}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/65dnasi.png}
+        \caption{dモデルによる物体検出画像}
+        \label{fig:failed_image_modeld_dilate_erode}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/65dari.png}
+        \caption{dモデルによるクロージング物体検出画像}
+        \label{fig:failed_image_modelr_dilate_erode}
+    \end{subfigure}
+    \caption{3000dモデル検出結果}
+    \label{fig:failed_images_dilate_erode}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/65rnasi.png}
+        \caption{rモデルによる物体検出画像}
+        \label{fig:failed_image_modeld_dilate_erode}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{imgs/65rari.png}
+        \caption{rモデルによるクロージング物体検出画像}
+        \label{fig:failed_image_modelr_dilate_erode}
+    \end{subfigure}
+    \caption{4000rモデル検出結果}
+    \label{fig:failed_images_dilate_erode}
+\end{figure}
+
+
+
+\subsection{物体から鳥の死骸を抽出}
+
+
+\section{結論}
 
 \section{使用したデータの説明}
 本章では、研究で使用したデータについて説明する。始めに実験に使用したプログラミング環境とライブラリについて述べ、その後、実験に使用したファイルとディレクトリの構造を示す。さらに、使用した画像データとモデルデータについて詳細に説明する。
@@ -1620,6 +1558,231 @@ rモデルが物体だと思った画像の枚数は345枚で、その中に入�
 
     説明: 去年製作した背景ごとに224×224ピクセルの画像を6048枚学習させたモデル。
 \end{itemize}
+
+\subsection{使用プログラム}
+
+\begin{itemize}
+    \item \textbf{2023\_main.py}
+\end{itemize}
+
+\subsubsection{出力までの流れ}
+\begin{enumerate}
+    \item \textbf{画像の分割}: 入力画像を224×224ピクセルの小さな画像に分割した。
+    \item \textbf{物体検出の実行}: 分割された画像をAEを使用して、物体が存在するかどうかを判定した。
+        \begin{itemize}
+            \item AEモデルを使用して、入力画像を再構築する。
+            \item 再構築された画像と元の画像の差分を計算し、差分画像を生成する。
+            \item 再構築された画像と元の画像のMSEを計算し、MSEが最も小さいモデルの差分画像を採用する。
+            \item 差分画像から輪郭を抽出し、最大面積の輪郭を計算する。
+            \item 最大面積が閾値を超える場合、物体が存在すると判定する。
+        \end{itemize}
+        \item \textbf{結果の保存}: 物体が存在すると判定された画像を保存した。
+        \item \textbf{評価指標の計算}: 混合行列を作成し、F2-scoreを計算した。
+\end{enumerate}
+
+\begin{itemize}
+    \item \textbf{AE\_train.py}
+\end{itemize}
+
+\subsubsection{出力までの流れ}
+\begin{enumerate}
+    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
+    \item \textbf{データの準備}: 指定されたディレクトリから画像データを読み込み、学習用と評価用に分割する。
+    \item \textbf{データセットの作成}: 画像データを読み込み、PyTorchのデータセットとして準備する。
+    \item \textbf{データローダーの作成}: 学習用と評価用のデータローダーを作成する。
+    \item \textbf{モデルの定義}: 深層AEモデルを定義する。
+    \item \textbf{最適化手法と誤差関数の設定}: モデルの最適化手法としてAdamを使用し、誤差関数としてMSELossを設定する。
+    \item \textbf{学習の実行}: 指定されたエポック数だけモデルの学習を行う。学習中に最も良いモデルを保存する。
+    \item \textbf{評価の実行}: 学習後、評価用データを用いてモデルの性能を評価する。
+    \item \textbf{結果の保存}: 学習と評価の損失をプロットし、画像として保存する。また、損失の推移をCSVファイルに保存する。
+\end{enumerate}
+
+\begin{itemize}
+    \item \textbf{AE\_pca\_kmeans.ipynb}
+\end{itemize}
+\subsubsection{出力までの流れ}
+\begin{enumerate}
+    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
+    \item \textbf{モデルの読み込み}: 事前に訓練されたAEモデルを読み込む。
+    \item \textbf{画像の読み込み}: 指定されたディレクトリから画像を読み込む。
+    \item \textbf{AEによる特徴抽出}: 読み込んだ画像をAEモデルに通し、特徴ベクトルを抽出する。
+    \item \textbf{PCAによる次元削減}: 抽出された特徴ベクトルに対してPCA（主成分分析）を行い、次元削減を行う。
+        \begin{itemize}
+            \item PCAの寄与度を確認し、主成分の重要性を評価する（以降で寄与度の詳細を説明）。
+        \end{itemize}
+    \item \textbf{PCA結果のプロット}: PCAによる次元削減結果をプロットし、視覚的に確認する（以降でPCAのプロットの詳細を説明）。
+    \item \textbf{K-meansクラスタリング}: 次元削減された特徴ベクトルに対してK-meansクラスタリングを行い、画像をクラスタに分類する。
+        \begin{itemize}
+            \item クラスタ番号を再割り当てし、クラスタごとに画像を保存する。
+        \end{itemize}
+    \item \textbf{クラスタリング結果のプロット}: K-meansクラスタリングの結果をプロットし、各クラスタの分布を視覚的に確認する（以降でk-meansのプロットの詳細を説明）。
+\end{enumerate}
+
+\begin{itemize}
+    \item \textbf{AE\_make\_dataset.ipynb}
+\end{itemize}
+\subsubsection{出力までの流れ}
+\begin{enumerate}
+    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
+    \item \textbf{モデルの読み込み}: 事前に訓練されたAEモデルを読み込む。
+    \item \textbf{画像の読み込み}: 指定されたディレクトリから画像を読み込む。
+    \item \textbf{画像の分割}: 読み込んだ画像を224×224ピクセルの小さな画像に分割する。
+    \item \textbf{AEによる特徴抽出}: 分割された画像をAEモデルに通し、特徴ベクトルを抽出する。
+    \item \textbf{PCAによる次元削減}: 抽出された特徴ベクトルに対してPCA（主成分分析）を行い、次元削減を行う。
+        \begin{itemize}
+            \item PCAの寄与度を確認し、主成分の重要性を評価する。
+        \end{itemize}
+    \item \textbf{PCA結果のプロット}: PCAによる次元削減結果をプロットし、視覚的に確認する。
+    \item \textbf{K-meansクラスタリング}: 次元削減された特徴ベクトルに対してK-meansクラスタリングを行い、画像をクラスタに分類する。
+        \begin{itemize}
+            \item クラスタ番号を再割り当てし、クラスタごとに画像を保存する。
+        \end{itemize}
+    \item \textbf{クラスタリング結果のプロット}: K-meansクラスタリングの結果をプロットし、各クラスタの分布を視覚的に確認する（以降でk-meansのプロットの詳細を説明）。
+    \item \textbf{画像の移動}: クラスタリング結果に基づいて、画像を新しいフォルダに移動する。
+        \begin{itemize}
+            \item クラスタ番号に応じて、画像を`white`、`light`、`dark`のフォルダに分類する。
+        \end{itemize}
+\end{enumerate}
+
+\begin{itemize}
+    \item \textbf{AE\_clip.ipynb}
+\end{itemize}
+\subsubsection{出力までの流れ}
+\begin{enumerate}
+    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
+    \item \textbf{モデルの読み込み}: 事前に訓練されたCLIPモデル（RN50x64およびRN50）を読み込む。
+    \item \textbf{翻訳}: 使用する日本語の説明文をGoogleTranslatorで英語に翻訳する。
+    \item \textbf{画像のコピー}: 指定されたフォルダからランダムに画像を選択し、テスト用フォルダにコピーする。
+    \item \textbf{テスト画像の予測とプロット}: テスト用にコピーした画像に対してCLIPモデルを用いて予測を行い、結果をプロットして保存する（以降でtestの結果の詳細を説明）。
+    \item \textbf{画像の予測}: メインの画像に対してCLIPモデルを用いて予測を行う。
+    \item \textbf{画像の分類と保存}: 予測結果に基づいて画像を分類し、結果を保存する。
+    \item \textbf{フォルダのコピーと整理}: 分類結果のフォルダをコピーし、不要なディレクトリを削除する。
+    \item \textbf{画像の移動}: 物体画像を含むフォルダから画像を移動し、物体の割合を計算する（以降で物体の割合の詳細を説明）。
+    \item \textbf{画像のコピーと反転処理}: 画像をコピーし、6048枚になるように、必要に応じて反転や回転処理を行う。
+\end{enumerate}
+
+\begin{itemize}
+    \item \textbf{AE\_fine\_train.py}
+\end{itemize}
+
+\subsubsection{出力までの流れ}
+\begin{enumerate}
+    \item \textbf{シードの固定}: 再現性を確保するために、乱数シードを固定する。
+    \item \textbf{データの準備}: 指定されたディレクトリから画像データを読み込み、学習用と評価用に分割する。
+    \item \textbf{データセットの作成}: 画像データを読み込み、PyTorchのデータセットとして準備する。
+    \item \textbf{データローダーの作成}: 学習用と評価用のデータローダーを作成する。
+    \item \textbf{モデルの定義}: 深層AEモデルを定義する。
+    \item \textbf{モデルの読み込み}: 事前に保存されたモデルの重みを読み込む。
+    \item \textbf{最適化手法と誤差関数の設定}: モデルの最適化手法としてAdamを使用し、誤差関数としてMSELossを設定する。
+    \item \textbf{学習の実行}: 指定されたエポック数だけモデルの学習を行う。学習中に最も良いモデルを保存する。
+    \item \textbf{評価の実行}: 学習後、評価用データを用いてモデルの性能を評価する。
+    \item \textbf{結果の保存}: 学習と評価の損失をプロットし、画像として保存する。また、損失の推移をCSVファイルに保存する。
+\end{enumerate}
+
+\begin{itemize}
+    \item \textbf{2024\_main.py}
+\end{itemize}
+\subsubsection{出力までの流れ}
+2023\_main.pyとモデルの読み込み以外同じため省略
+
+
+\subsection{作成したモデルデータ}
+
+\begin{itemize}
+    \item \textbf{models/20241224\_A\_train\_model.pth}
+\end{itemize}
+\paragraph{}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20241224_A_train_img.png}
+    \caption{学習推移のグラフ}
+    \label{fig:learning_curve}
+\end{figure}
+
+\paragraph{出力モデル名}
+\begin{itemize}
+    \item \textbf{models/old\_models6048/20241225\_new\_dark.pth}
+    \item \textbf{models/old\_models6048/20241225\_new\_light.pth}
+    \item \textbf{models/old\_models6048/20241225\_new\_white.pth}
+\end{itemize}
+
+\paragraph{}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20241225_new_dark.png}
+    \caption{20241225\_new\_dark}
+    \label{fig:learning_curve1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20241225_new_light.png}
+    \caption{20241225\_new\_light}
+    \label{fig:learning_curve2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20241225_new_white.png}
+    \caption{20241225\_new\_white}
+    \label{fig:learning_curve3}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_ddark.pth}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_dlight.pth}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_dwhite.pth}
+\end{itemize}
+
+\paragraph{}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_ddark.png}
+    \caption{20250115\_fine6048\_ddark}
+    \label{fig:learning_curve1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_dlight.png}
+    \caption{20250115\_fine6048\_dlight}
+    \label{fig:learning_curve2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_dwhite.png}
+    \caption{20250115\_fine6048\_dwhite}
+    \label{fig:learning_curve3}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rdark.pth}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rlight.pth}
+    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rwhite.pth}
+\end{itemize}
+\paragraph{}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_rdark.png}
+    \caption{20250115\_fine6048\_rdark}
+    \label{fig:learning_curve1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_rlight.png}
+    \caption{20250115\_fine6048\_rlight}
+    \label{fig:learning_curve2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20250115_fine6048_rwhite.png}
+    \caption{20250115\_fine6048\_rwhite}
+    \label{fig:learning_curve3}
+\end{figure}
+
 
 \bibliographystyle{unsrt}
 \bibliography{references}
