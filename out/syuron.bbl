@@ -1,10 +1,5 @@
 \begin{thebibliography}{1}
 
-\bibitem{he2016deep}
-Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
-\newblock Deep residual learning for image recognition.
-\newblock In {\em Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, 2016.
-
 \bibitem{goodfellow2016deep}
 Ian Goodfellow, Yoshua Bengio, and Aaron Courville.
 \newblock {\em Deep Learning}.
@@ -14,6 +9,11 @@ Ian Goodfellow, Yoshua Bengio, and Aaron Courville.
 Christopher~M. Bishop.
 \newblock {\em Pattern Recognition and Machine Learning}.
 \newblock Springer, 2006.
+
+\bibitem{he2016deep}
+Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
+\newblock Deep residual learning for image recognition.
+\newblock In {\em Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, 2016.
 
 \bibitem{lecun2015deep}
 Yann LeCun, Yoshua Bengio, and Geoffrey Hinton.

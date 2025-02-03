@@ -4,7 +4,7 @@
 \contentsline {subsection}{\numberline {1.3}引き継ぎの理由と目標}{2}{subsection.1.1.3}%
 \contentsline {section}{\numberline {2}検出方法とアルゴリズム}{3}{section.1.2}%
 \contentsline {subsection}{\numberline {2.1}科学用語の説明}{3}{subsection.1.2.1}%
-\contentsline {subsubsection}{AE（AE）}{3}{section*.2}%
+\contentsline {subsubsection}{AE（Auto Encoder）}{3}{section*.2}%
 \contentsline {subsubsection}{CLIP（Contrastive Language-Image Pre-Training）}{3}{section*.3}%
 \contentsline {subsubsection}{ResNet（Residual Networks）}{3}{section*.4}%
 \contentsline {subsubsection}{RN50およびRN50x64}{3}{section*.5}%
@@ -13,135 +13,135 @@
 \contentsline {subsubsection}{コサイン類似度}{4}{section*.8}%
 \contentsline {subsubsection}{シード（Seed）}{4}{section*.9}%
 \contentsline {subsubsection}{ゼロショット学習（Zero-Shot Learning）}{4}{section*.10}%
-\contentsline {subsubsection}{混合行列}{4}{section*.11}%
-\contentsline {subsubsection}{F2-score}{4}{section*.12}%
-\contentsline {subsubsection}{正規化}{5}{section*.13}%
-\contentsline {subsubsection}{膨張と収縮}{5}{section*.14}%
+\contentsline {subsubsection}{平均二乗誤差（Mean Squared Error, MSE）}{4}{section*.11}%
+\contentsline {subsubsection}{混合行列}{4}{section*.12}%
+\contentsline {subsubsection}{F2-score}{5}{section*.13}%
+\contentsline {subsubsection}{正規化}{5}{section*.14}%
+\contentsline {subsubsection}{膨張と収縮}{5}{section*.15}%
 \contentsline {subsection}{\numberline {2.2}検出方法}{6}{subsection.1.2.2}%
 \contentsline {subsection}{\numberline {2.3}閾値に関して}{7}{subsection.1.2.3}%
-\contentsline {subsection}{\numberline {2.4}AEの改良}{8}{subsection.1.2.4}%
-\contentsline {subsubsection}{モデル用語の説明}{8}{section*.18}%
-\contentsline {subsubsection}{去年度のAEモデル}{9}{section*.19}%
-\contentsline {subsubsection}{今年度のAEモデル}{10}{section*.21}%
-\contentsline {subsubsection}{変更点}{10}{section*.23}%
-\contentsline {subsubsection}{改良の効果}{11}{section*.24}%
-\contentsline {subsection}{\numberline {2.5}AEモデルのアップデートの重要性}{11}{subsection.1.2.5}%
-\contentsline {paragraph}{モデルをアップデートしない場合}{11}{section*.25}%
-\contentsline {paragraph}{モデルをアップデートする場合}{11}{section*.26}%
-\contentsline {subsection}{\numberline {2.6}モデルのアップデート方法}{12}{subsection.1.2.6}%
-\contentsline {section}{\numberline {3}実験}{13}{section.1.3}%
-\contentsline {subsection}{\numberline {3.1}物体検出の試み}{13}{subsection.1.3.1}%
-\contentsline {paragraph}{使用プログラム}{13}{section*.28}%
-\contentsline {paragraph}{使用画像}{13}{section*.29}%
-\contentsline {paragraph}{使用モデル}{13}{section*.30}%
-\contentsline {subsubsection}{出力}{13}{section*.31}%
-\contentsline {subsubsection}{F2-scoreの計算}{13}{section*.32}%
-\contentsline {subsection}{\numberline {3.2}モデルアップデートの有用性}{14}{subsection.1.3.2}%
-\contentsline {subsection}{\numberline {3.3}背景画像の分類}{14}{subsection.1.3.3}%
-\contentsline {subsubsection}{検証}{14}{section*.33}%
-\contentsline {paragraph}{使用プログラム}{14}{section*.34}%
-\contentsline {paragraph}{使用画像}{14}{section*.35}%
-\contentsline {subsubsection}{出力}{14}{section*.36}%
-\contentsline {paragraph}{出力モデル名}{14}{section*.37}%
-\contentsline {paragraph}{使用プログラム}{14}{section*.38}%
-\contentsline {paragraph}{使用画像}{14}{section*.39}%
-\contentsline {paragraph}{使用モデル}{15}{section*.40}%
-\contentsline {subsubsection}{出力}{15}{section*.41}%
-\contentsline {paragraph}{寄与度の確認}{15}{figure.caption.43}%
-\contentsline {paragraph}{二次元プロット}{16}{figure.caption.45}%
-\contentsline {paragraph}{k-meansクラスタリング}{17}{figure.caption.47}%
-\contentsline {subsubsection}{実証}{17}{section*.48}%
-\contentsline {paragraph}{使用プログラム}{17}{section*.49}%
-\contentsline {paragraph}{使用画像}{17}{section*.50}%
-\contentsline {paragraph}{使用モデル}{17}{section*.51}%
-\contentsline {subsubsection}{出力}{18}{section*.52}%
-\contentsline {paragraph}{出力先}{18}{section*.53}%
-\contentsline {paragraph}{}{18}{figure.caption.55}%
-\contentsline {subsection}{\numberline {3.4}物体画像の抽出}{18}{subsection.1.3.4}%
-\contentsline {paragraph}{使用プログラム}{19}{section*.56}%
-\contentsline {paragraph}{使用画像}{19}{section*.57}%
-\contentsline {paragraph}{使用モデル}{19}{section*.58}%
-\contentsline {subsubsection}{使用した言葉}{19}{section*.59}%
-\contentsline {paragraph}{出力}{20}{section*.60}%
-\contentsline {paragraph}{出力先}{20}{section*.61}%
-\contentsline {subsubsection}{テストデータの結果}{20}{section*.62}%
-\contentsline {subsubsection}{抽出結果}{21}{section*.65}%
-\contentsline {paragraph}{RN50x64モデルとRN50モデルの比較}{21}{section*.67}%
-\contentsline {subsection}{\numberline {3.5}モデルのアップデート}{21}{subsection.1.3.5}%
-\contentsline {subsubsection}{旧モデルの再学習}{22}{section*.68}%
-\contentsline {paragraph}{使用プログラム}{22}{section*.69}%
-\contentsline {paragraph}{使用画像}{22}{section*.70}%
-\contentsline {subsubsection}{出力}{22}{section*.71}%
-\contentsline {paragraph}{出力モデル名}{22}{section*.72}%
-\contentsline {subsubsection}{モデルのアップデート}{22}{section*.73}%
-\contentsline {paragraph}{使用プログラム}{22}{section*.74}%
-\contentsline {paragraph}{使用画像}{22}{section*.75}%
-\contentsline {subsubsection}{出力}{22}{section*.76}%
-\contentsline {paragraph}{出力モデル名}{22}{section*.77}%
-\contentsline {paragraph}{使用プログラム}{22}{section*.78}%
-\contentsline {paragraph}{使用画像}{22}{section*.79}%
-\contentsline {subsubsection}{出力}{23}{section*.80}%
-\contentsline {paragraph}{出力モデル名}{23}{section*.81}%
-\contentsline {subsection}{\numberline {3.6}物体検出の試み}{23}{subsection.1.3.6}%
-\contentsline {paragraph}{使用プログラム}{23}{section*.82}%
-\contentsline {paragraph}{使用画像}{23}{section*.83}%
-\contentsline {paragraph}{使用モデル}{23}{section*.84}%
-\contentsline {subsubsection}{出力}{23}{section*.85}%
-\contentsline {subsubsection}{F2-scoreの計算}{23}{section*.86}%
-\contentsline {paragraph}{dモデルのF2-score}{24}{section*.87}%
-\contentsline {paragraph}{rモデルのF2-score}{24}{section*.88}%
-\contentsline {subsection}{\numberline {3.7}物体検出システムの確認}{25}{subsection.1.3.7}%
-\contentsline {paragraph}{使用プログラム}{25}{section*.91}%
-\contentsline {paragraph}{使用画像}{26}{section*.92}%
-\contentsline {paragraph}{使用モデル}{26}{section*.93}%
-\contentsline {paragraph}{出力}{26}{section*.94}%
-\contentsline {subsubsection}{グレースケールに変換}{26}{section*.95}%
-\contentsline {subsubsection}{二値化}{27}{section*.97}%
-\contentsline {subsubsection}{正規化後に二値化}{27}{section*.99}%
-\contentsline {subsubsection}{ノイズ除去及びクロージング}{28}{section*.102}%
-\contentsline {subsection}{\numberline {3.8}差分画像の精度向上}{30}{subsection.1.3.8}%
-\contentsline {subsubsection}{学習枚数}{30}{section*.107}%
-\contentsline {subsubsection}{学習枚数の変更}{31}{section*.108}%
-\contentsline {paragraph}{使用プログラム}{31}{section*.109}%
-\contentsline {paragraph}{使用画像}{31}{section*.110}%
-\contentsline {subsubsection}{出力}{31}{section*.111}%
-\contentsline {paragraph}{出力先}{31}{section*.112}%
-\contentsline {subsubsection}{モデルの作成}{31}{section*.113}%
-\contentsline {paragraph}{使用プログラム}{31}{section*.114}%
-\contentsline {paragraph}{使用画像}{31}{section*.115}%
-\contentsline {subsubsection}{出力}{32}{section*.116}%
-\contentsline {paragraph}{出力モデル名}{32}{section*.117}%
-\contentsline {subsubsection}{MSEの推移の確認}{33}{section*.118}%
-\contentsline {paragraph}{使用プログラム}{33}{section*.119}%
-\contentsline {paragraph}{使用画像}{33}{section*.120}%
-\contentsline {paragraph}{使用モデル}{33}{section*.121}%
-\contentsline {paragraph}{出力}{34}{figure.caption.123}%
-\contentsline {subsubsection}{物体検出}{34}{section*.124}%
-\contentsline {paragraph}{使用プログラム}{34}{section*.125}%
-\contentsline {paragraph}{使用画像}{34}{section*.126}%
-\contentsline {paragraph}{使用モデル}{35}{section*.127}%
-\contentsline {paragraph}{出力}{36}{figure.caption.130}%
-\contentsline {subsection}{\numberline {3.9}物体から鳥の死骸を抽出}{36}{subsection.1.3.9}%
-\contentsline {paragraph}{使用プログラム}{36}{section*.131}%
-\contentsline {paragraph}{使用画像}{36}{section*.132}%
-\contentsline {paragraph}{使用モデル}{36}{section*.133}%
-\contentsline {subsubsection}{使用した言葉}{37}{section*.134}%
-\contentsline {paragraph}{出力}{37}{section*.135}%
-\contentsline {section}{\numberline {4}結論}{37}{section.1.4}%
-\contentsline {section}{\numberline {5}使用したデータの説明}{37}{section.1.5}%
-\contentsline {subsection}{\numberline {5.1}プログラミング環境と使用したライブラリ}{37}{subsection.1.5.1}%
-\contentsline {subsection}{\numberline {5.2}想定環境}{38}{subsection.1.5.2}%
-\contentsline {subsection}{\numberline {5.3}画像データ}{39}{subsection.1.5.3}%
-\contentsline {subsection}{\numberline {5.4}モデルデータ}{40}{subsection.1.5.4}%
-\contentsline {subsection}{\numberline {5.5}使用プログラム}{40}{subsection.1.5.5}%
-\contentsline {subsubsection}{出力までの流れ}{40}{section*.136}%
-\contentsline {subsubsection}{出力までの流れ}{40}{section*.137}%
-\contentsline {subsubsection}{出力までの流れ}{40}{section*.138}%
-\contentsline {subsubsection}{出力までの流れ}{41}{section*.139}%
-\contentsline {subsubsection}{出力までの流れ}{42}{section*.140}%
-\contentsline {subsubsection}{出力までの流れ}{42}{section*.141}%
-\contentsline {subsubsection}{出力までの流れ}{43}{section*.142}%
-\contentsline {subsubsection}{出力までの流れ}{43}{section*.143}%
-\contentsline {subsubsection}{出力までの流れ}{44}{section*.144}%
-\contentsline {subsubsection}{出力までの流れ}{44}{section*.145}%
-\contentsline {subsection}{\numberline {5.6}出力モデル名と学習曲線}{45}{subsection.1.5.6}%
+\contentsline {subsection}{\numberline {2.4}AEの改良}{9}{subsection.1.2.4}%
+\contentsline {subsubsection}{モデル用語の説明}{9}{section*.19}%
+\contentsline {subsubsection}{昨年度のAEモデル}{10}{section*.20}%
+\contentsline {subsubsection}{今年度のAEモデル}{11}{section*.22}%
+\contentsline {subsubsection}{変更点}{11}{section*.24}%
+\contentsline {subsubsection}{改良の効果}{12}{section*.25}%
+\contentsline {subsection}{\numberline {2.5}AEモデルのアップデートの重要性}{12}{subsection.1.2.5}%
+\contentsline {paragraph}{モデルをアップデートしない場合}{12}{section*.26}%
+\contentsline {paragraph}{モデルをアップデートする場合}{12}{section*.27}%
+\contentsline {subsection}{\numberline {2.6}モデルのアップデート方法}{13}{subsection.1.2.6}%
+\contentsline {section}{\numberline {3}実験}{14}{section.1.3}%
+\contentsline {subsection}{\numberline {3.1}物体検出の試み}{14}{subsection.1.3.1}%
+\contentsline {paragraph}{使用プログラム}{14}{section*.29}%
+\contentsline {paragraph}{使用画像}{14}{section*.30}%
+\contentsline {paragraph}{使用モデル}{14}{section*.31}%
+\contentsline {subsubsection}{出力}{14}{section*.32}%
+\contentsline {subsubsection}{F2-scoreの計算}{14}{section*.33}%
+\contentsline {subsection}{\numberline {3.2}モデルアップデートの有用性}{15}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {3.3}背景画像の分類}{15}{subsection.1.3.3}%
+\contentsline {subsubsection}{検証}{15}{section*.34}%
+\contentsline {paragraph}{使用プログラム}{15}{section*.35}%
+\contentsline {paragraph}{使用画像}{15}{section*.36}%
+\contentsline {subsubsection}{出力}{15}{section*.37}%
+\contentsline {paragraph}{出力モデル名}{15}{section*.38}%
+\contentsline {paragraph}{使用プログラム}{15}{section*.39}%
+\contentsline {paragraph}{使用画像}{15}{section*.40}%
+\contentsline {paragraph}{使用モデル}{16}{section*.41}%
+\contentsline {subsubsection}{出力}{16}{section*.42}%
+\contentsline {subsubsection}{実証}{18}{section*.46}%
+\contentsline {paragraph}{使用プログラム}{18}{section*.47}%
+\contentsline {paragraph}{使用画像}{18}{section*.48}%
+\contentsline {paragraph}{使用モデル}{18}{section*.49}%
+\contentsline {subsubsection}{出力}{19}{section*.50}%
+\contentsline {paragraph}{出力先}{19}{section*.51}%
+\contentsline {paragraph}{}{19}{figure.caption.53}%
+\contentsline {subsection}{\numberline {3.4}物体画像の抽出}{19}{subsection.1.3.4}%
+\contentsline {paragraph}{使用プログラム}{20}{section*.54}%
+\contentsline {paragraph}{使用画像}{20}{section*.55}%
+\contentsline {paragraph}{使用モデル}{20}{section*.56}%
+\contentsline {subsubsection}{使用した言葉}{20}{section*.57}%
+\contentsline {subsubsection}{出力}{21}{section*.58}%
+\contentsline {paragraph}{出力先}{21}{section*.59}%
+\contentsline {subsubsection}{テストデータの結果}{22}{section*.60}%
+\contentsline {subsubsection}{抽出結果}{22}{section*.63}%
+\contentsline {paragraph}{RN50x64モデルとRN50モデルの比較}{23}{section*.65}%
+\contentsline {subsection}{\numberline {3.5}モデルのアップデート}{23}{subsection.1.3.5}%
+\contentsline {subsubsection}{旧モデルの再学習}{23}{section*.66}%
+\contentsline {paragraph}{使用プログラム}{23}{section*.67}%
+\contentsline {paragraph}{使用画像}{23}{section*.68}%
+\contentsline {subsubsection}{出力}{23}{section*.69}%
+\contentsline {paragraph}{出力モデル名}{23}{section*.70}%
+\contentsline {subsubsection}{モデルのアップデート}{23}{section*.71}%
+\contentsline {paragraph}{使用プログラム}{23}{section*.72}%
+\contentsline {paragraph}{使用画像}{23}{section*.73}%
+\contentsline {subsubsection}{出力}{23}{section*.74}%
+\contentsline {paragraph}{出力モデル名}{24}{section*.75}%
+\contentsline {paragraph}{使用プログラム}{24}{section*.76}%
+\contentsline {paragraph}{使用画像}{24}{section*.77}%
+\contentsline {subsubsection}{出力}{24}{section*.78}%
+\contentsline {paragraph}{出力モデル名}{24}{section*.79}%
+\contentsline {subsection}{\numberline {3.6}物体検出の試み}{24}{subsection.1.3.6}%
+\contentsline {paragraph}{使用プログラム}{24}{section*.80}%
+\contentsline {paragraph}{使用画像}{24}{section*.81}%
+\contentsline {paragraph}{使用モデル}{24}{section*.82}%
+\contentsline {subsubsection}{出力}{25}{section*.83}%
+\contentsline {subsubsection}{F2-scoreの計算}{25}{section*.84}%
+\contentsline {paragraph}{dモデルのF2-score}{25}{section*.85}%
+\contentsline {paragraph}{rモデルのF2-score}{25}{section*.86}%
+\contentsline {subsection}{\numberline {3.7}物体検出システムの確認}{26}{subsection.1.3.7}%
+\contentsline {paragraph}{使用プログラム}{27}{section*.89}%
+\contentsline {paragraph}{使用画像}{27}{section*.90}%
+\contentsline {paragraph}{使用モデル}{27}{section*.91}%
+\contentsline {subsubsection}{出力}{27}{section*.92}%
+\contentsline {subsubsection}{グレースケールに変換}{27}{section*.93}%
+\contentsline {subsubsection}{二値化}{28}{section*.95}%
+\contentsline {subsubsection}{正規化後に二値化}{28}{section*.97}%
+\contentsline {subsubsection}{ノイズ除去及びクロージング}{29}{section*.100}%
+\contentsline {subsection}{\numberline {3.8}差分画像の精度向上}{31}{subsection.1.3.8}%
+\contentsline {subsubsection}{学習枚数}{31}{section*.105}%
+\contentsline {subsubsection}{学習枚数の変更}{32}{section*.106}%
+\contentsline {paragraph}{使用プログラム}{32}{section*.107}%
+\contentsline {paragraph}{使用画像}{32}{section*.108}%
+\contentsline {subsubsection}{出力}{32}{section*.109}%
+\contentsline {paragraph}{出力先}{32}{section*.110}%
+\contentsline {subsubsection}{モデルの構築}{32}{section*.111}%
+\contentsline {paragraph}{使用プログラム}{32}{section*.112}%
+\contentsline {paragraph}{使用画像}{32}{section*.113}%
+\contentsline {subsubsection}{出力}{33}{section*.114}%
+\contentsline {paragraph}{出力モデル名}{33}{section*.115}%
+\contentsline {subsubsection}{MSEの推移の確認}{34}{section*.116}%
+\contentsline {paragraph}{使用プログラム}{34}{section*.117}%
+\contentsline {paragraph}{使用画像}{34}{section*.118}%
+\contentsline {paragraph}{使用モデル}{34}{section*.119}%
+\contentsline {paragraph}{出力}{35}{figure.caption.121}%
+\contentsline {subsubsection}{物体検出}{35}{section*.122}%
+\contentsline {paragraph}{使用プログラム}{35}{section*.123}%
+\contentsline {paragraph}{使用画像}{35}{section*.124}%
+\contentsline {paragraph}{使用モデル}{36}{section*.125}%
+\contentsline {paragraph}{出力}{37}{figure.caption.128}%
+\contentsline {subsection}{\numberline {3.9}物体から鳥の死骸を抽出}{37}{subsection.1.3.9}%
+\contentsline {paragraph}{使用プログラム}{37}{section*.129}%
+\contentsline {paragraph}{使用画像}{37}{section*.130}%
+\contentsline {paragraph}{使用モデル}{37}{section*.131}%
+\contentsline {subsubsection}{使用した言葉}{38}{section*.132}%
+\contentsline {paragraph}{出力}{38}{section*.133}%
+\contentsline {section}{\numberline {4}結論}{38}{section.1.4}%
+\contentsline {section}{\numberline {5}謝辞}{39}{section.1.5}%
+\contentsline {section}{\numberline {6}使用したデータの説明}{39}{section.1.6}%
+\contentsline {subsection}{\numberline {6.1}プログラミング環境と使用したライブラリ}{39}{subsection.1.6.1}%
+\contentsline {subsection}{\numberline {6.2}想定環境}{40}{subsection.1.6.2}%
+\contentsline {subsection}{\numberline {6.3}画像データ}{41}{subsection.1.6.3}%
+\contentsline {subsection}{\numberline {6.4}モデルデータ}{42}{subsection.1.6.4}%
+\contentsline {subsection}{\numberline {6.5}使用プログラム}{42}{subsection.1.6.5}%
+\contentsline {subsubsection}{出力までの流れ}{42}{section*.134}%
+\contentsline {subsubsection}{出力までの流れ}{42}{section*.135}%
+\contentsline {subsubsection}{出力までの流れ}{42}{section*.136}%
+\contentsline {subsubsection}{出力までの流れ}{43}{section*.137}%
+\contentsline {subsubsection}{出力までの流れ}{43}{section*.138}%
+\contentsline {subsubsection}{出力までの流れ}{44}{section*.139}%
+\contentsline {subsubsection}{出力までの流れ}{45}{section*.140}%
+\contentsline {subsubsection}{出力までの流れ}{45}{section*.141}%
+\contentsline {subsubsection}{出力までの流れ}{46}{section*.142}%
+\contentsline {subsubsection}{出力までの流れ}{46}{section*.143}%
+\contentsline {subsection}{\numberline {6.6}出力モデル名と学習曲線}{47}{subsection.1.6.6}%
+\contentsline {subsection}{\numberline {6.7}プログラムファイル}{71}{subsection.1.6.7}%
