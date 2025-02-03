@@ -45,7 +45,7 @@
 \contentsline {subsubsection}{出力}{15}{section*.37}%
 \contentsline {paragraph}{出力モデル名}{15}{section*.38}%
 \contentsline {paragraph}{使用プログラム}{15}{section*.39}%
-\contentsline {paragraph}{使用画像}{15}{section*.40}%
+\contentsline {paragraph}{使用画像}{16}{section*.40}%
 \contentsline {paragraph}{使用モデル}{16}{section*.41}%
 \contentsline {subsubsection}{出力}{16}{section*.42}%
 \contentsline {subsubsection}{実証}{18}{section*.46}%
@@ -119,7 +119,7 @@
 \contentsline {paragraph}{使用画像}{35}{section*.124}%
 \contentsline {paragraph}{使用モデル}{36}{section*.125}%
 \contentsline {subsubsection}{出力}{36}{section*.126}%
-\contentsline {subsection}{\numberline {3.9}物体から鳥の死骸を抽出}{37}{subsection.1.3.9}%
+\contentsline {subsection}{\numberline {3.9}物体から鳥を抽出}{37}{subsection.1.3.9}%
 \contentsline {paragraph}{使用プログラム}{37}{section*.129}%
 \contentsline {paragraph}{使用画像}{37}{section*.130}%
 \contentsline {paragraph}{使用モデル}{38}{section*.131}%
@@ -143,5 +143,5 @@
 \contentsline {subsubsection}{出力までの流れ}{45}{section*.141}%
 \contentsline {subsubsection}{出力までの流れ}{46}{section*.142}%
 \contentsline {subsubsection}{出力までの流れ}{46}{section*.143}%
-\contentsline {subsection}{\numberline {6.6}出力モデル名と学習曲線}{47}{subsection.1.6.6}%
+\contentsline {subsection}{\numberline {6.6}出力モデル名と学習曲線}{46}{subsection.1.6.6}%
 \contentsline {subsection}{\numberline {6.7}プログラムファイル}{71}{subsection.1.6.7}%
