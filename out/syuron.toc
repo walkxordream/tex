@@ -27,8 +27,8 @@
 \contentsline {subsubsection}{変更点}{11}{section*.24}%
 \contentsline {subsubsection}{改良の効果}{12}{section*.25}%
 \contentsline {subsection}{\numberline {2.5}AEモデルのアップデートの重要性}{12}{subsection.1.2.5}%
-\contentsline {paragraph}{モデルをアップデートしない場合}{12}{section*.26}%
-\contentsline {paragraph}{モデルをアップデートする場合}{12}{section*.27}%
+\contentsline {paragraph}{モデルをアップデートせずに使い続けると,以下のような問題が発生する可能性がある.}{12}{section*.26}%
+\contentsline {paragraph}{一方,モデルを定期的にアップデートすることで,以下のような利点がある.}{12}{section*.27}%
 \contentsline {subsection}{\numberline {2.6}モデルのアップデート方法}{13}{subsection.1.2.6}%
 \contentsline {section}{\numberline {3}実験}{14}{section.1.3}%
 \contentsline {subsection}{\numberline {3.1}物体検出の試み}{14}{subsection.1.3.1}%
@@ -113,18 +113,18 @@
 \contentsline {paragraph}{使用プログラム}{34}{section*.117}%
 \contentsline {paragraph}{使用画像}{34}{section*.118}%
 \contentsline {paragraph}{使用モデル}{34}{section*.119}%
-\contentsline {paragraph}{出力}{35}{figure.caption.121}%
+\contentsline {subsubsection}{出力}{35}{section*.120}%
 \contentsline {subsubsection}{物体検出}{35}{section*.122}%
 \contentsline {paragraph}{使用プログラム}{35}{section*.123}%
 \contentsline {paragraph}{使用画像}{35}{section*.124}%
 \contentsline {paragraph}{使用モデル}{36}{section*.125}%
-\contentsline {paragraph}{出力}{37}{figure.caption.128}%
+\contentsline {subsubsection}{出力}{36}{section*.126}%
 \contentsline {subsection}{\numberline {3.9}物体から鳥の死骸を抽出}{37}{subsection.1.3.9}%
 \contentsline {paragraph}{使用プログラム}{37}{section*.129}%
 \contentsline {paragraph}{使用画像}{37}{section*.130}%
-\contentsline {paragraph}{使用モデル}{37}{section*.131}%
+\contentsline {paragraph}{使用モデル}{38}{section*.131}%
 \contentsline {subsubsection}{使用した言葉}{38}{section*.132}%
-\contentsline {paragraph}{出力}{38}{section*.133}%
+\contentsline {subsubsection}{出力}{38}{section*.133}%
 \contentsline {section}{\numberline {4}結論}{38}{section.1.4}%
 \contentsline {section}{\numberline {5}謝辞}{39}{section.1.5}%
 \contentsline {section}{\numberline {6}使用したデータの説明}{39}{section.1.6}%
