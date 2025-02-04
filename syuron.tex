@@ -95,6 +95,9 @@
 \subsubsection{AE（Auto Encoder）}
 　AEは,入力データを圧縮し,その圧縮されたデータから元のデータを再構築することを目的としたニューラルネットワークの一種である.主にデータの次元削減や特徴抽出に使用される.AEはエンコーダとデコーダの2つの部分から構成され,エンコーダは入力データを低次元の潜在空間にマッピングし,デコーダはその潜在空間から元のデータを再構築する.
 
+\subsubsection{ファインチューニング（Fine-Tuning）}
+　ファインチューニングは,事前に学習されたモデルを新しいデータセットに適応させるための手法である.これにより,モデルの性能を向上させることができる.ファインチューニングでは,通常,事前学習されたモデルの一部または全ての層の重みを微調整する.
+
 \subsubsection{CLIP（Contrastive Language-Image Pre-Training）}
 　CLIPは,OpenAIによって開発されたモデルで,画像とテキストのペアを用いて学習することで,画像とテキストの間の関連性を高精度で捉えることができる.CLIPは,画像エンコーダとテキストエンコーダを用いて,それぞれの入力を高次元のベクトルに変換し,これらのベクトル間のコサイン類似度を最大化するように学習する.これにより,画像とテキストの間の関連性を高精度で捉えることができる.
 
@@ -513,7 +516,6 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \item ReLU活性化関数の使用を最小限に抑えた.
 \end{itemize}
 
-
 \subsubsection{改良の効果}
 これらの変更により,以下のような改善点が見られた.
 \begin{itemize}
@@ -571,6 +573,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 \\　始めに,全体の画像を背景ごとにクラスタリングする.これはAEで特徴抽出を行い,特徴量をPCA（主成分分析）で次元削減し,k-meansクラスタリングを用いることで可能であることが確認できた.
 \\　次に,画像の中から物体画像を取り除く.これはCLIPを使用することで効果的に行うことができる.CLIPを用いることで,画像内の物体をある程度の精度で検出し,物体が存在しない画像を抽出することができる.
 これらのステップに関しては,以降の章で詳しく説明する.
+\\　構築したアップデート用学習データを用いて,AEモデルをファインチューニングすることで,モデルのアップデートを行う.このとき,層ごとにパラメーターの調整は行わずに,均一なパラメーターで学習を行う.
 
 \newpage
 
@@ -1794,7 +1797,67 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \item \textbf{結果の表示}: 分類結果を表示し,特定の条件に一致する画像の数をカウントする.
 \end{enumerate}
 
-\subsection{出力モデル名と学習曲線}
+\subsection{モデル構築}
+　始めに,モデルを構築するときのパラメータについて説明する.
+
+\subsubsection{シードの固定}
+　再現性を確保するために,乱数シードを固定する.これにより,同じデータセットとパラメータを使用した場合に,同じ結果が得られるようにする.
+
+\subsubsection{データの準備}
+　データは指定されたディレクトリから読み込み,学習用と評価用に分割する.データは8:2の割合で分割され,学習用データと評価用データとして使用する.
+
+\subsubsection{モデルの定義}
+　DeepAutoencoderモデルを使用する.このモデルは,エンコーダとデコーダの2つの部分から構成されており,入力データを圧縮し,その圧縮されたデータから元のデータを再構築することを目的としている.
+
+\subsubsection{学習パラメータ}
+　学習に使用するパラメータは以下の通り.
+
+- エポック数:モデルの学習は最大で1000エポック行う.
+
+- デバイス: GPU（利用可能な場合）,それ以外はCPU.
+
+- 最適化手法:モデルの最適化にはAdamオプティマイザを使用する.
+
+- 誤差関数:モデルの誤差関数として平均二乗誤差（MSELoss）を使用する.
+
+\subsubsection{収束条件}
+　学習の収束条件として,連続して30エポック以上改善が見られない場合に学習を停止する設定を行う.この条件により,過学習を防ぎつつ効率的な学習を行うことができる.
+
+\subsubsection{バッチサイズ}
+　学習に使用するバッチサイズは,学習データの枚数に応じて以下のように設定する.
+
+- 学習データが100枚の場合: バッチサイズは8
+
+- 学習データが1000枚の場合: バッチサイズは32
+
+- 学習データが2000と3000枚の場合: バッチサイズは64
+
+- 学習データが4000と5000枚の場合: バッチサイズは128
+
+- 学習データが6048枚の場合: バッチサイズは256
+
+\subsubsection{学習と評価の実行}
+　学習と評価のプロセスは以下の通り.学習中に最も良いモデルを保存し,学習と評価の損失をプロットする.
+
+1. 学習:
+
+　- モデルを学習用データで訓練し,各エポックごとに損失を計算する.
+
+　- 損失が最も少ないモデルを保存する.
+
+2. 評価:
+
+　- 評価用データを使用してモデルの性能を評価する.
+
+　- 学習と評価の損失をプロットし,画像として保存する.
+
+これにより,モデルの学習プロセスとパラメータ設定について詳細に説明することができる.
+
+以下に構築したモデルの名前と学習曲線を示す.
+
+\newpage
+
+\subsubsection{モデルの名前と学習曲線}
 \begin{itemize}
     \item \textbf{models/20241224\_A\_train\_model.pth}
     \begin{figure}[H]
@@ -1810,6 +1873,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve1}
     \end{figure}
+    \newpage
     \item \textbf{models/old\_models6048/20241225\_new\_light.pth}
     \begin{figure}[H]
         \centering
@@ -1824,6 +1888,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve3}
     \end{figure}
+    \newpage
     \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_ddark.pth}
     \begin{figure}[H]
         \centering
@@ -1838,6 +1903,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve5}
     \end{figure}
+    \newpage
     \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_ddark.pth}
     \begin{figure}[H]
         \centering
@@ -1852,6 +1918,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve5}
     \end{figure}
+    \newpage
     \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_ddark.pth}
     \begin{figure}[H]
         \centering
@@ -1866,6 +1933,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve5}
     \end{figure}
+    \newpage
     \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_dlight.pth}
     \begin{figure}[H]
         \centering
@@ -1880,6 +1948,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve5}
     \end{figure}
+    \newpage
     \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_dwhite.pth}
     \begin{figure}[H]
         \centering
@@ -1894,6 +1963,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve5}
     \end{figure}
+    \newpage
     \item \textbf{models/dmodels/5000\_fineAEdeepmodel\_20250116\_ddark.pth}
     \begin{figure}[H]
         \centering
@@ -1908,6 +1978,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve4}
     \end{figure}
+    \newpage
     \item \textbf{models/dmodels/5000\_fineAEdeepmodel\_20250116\_dlight.pth}
     \begin{figure}[H]
         \centering
@@ -1922,6 +1993,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve4}
     \end{figure}
+    \newpage
     \item \textbf{models/dmodels/5000\_fineAEdeepmodel\_20250116\_dwhite.pth}
     \begin{figure}[H]
         \centering
@@ -1936,6 +2008,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve4}
     \end{figure}
+    \newpage
     \item \textbf{models/dmodels/4000\_fineAEdeepmodel\_20250116\_ddark.pth}
     \begin{figure}[H]
         \centering
@@ -1950,6 +2023,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve4}
     \end{figure}
+    \newpage
     \item \textbf{models/dmodels/4000\_fineAEdeepmodel\_20250116\_dlight.pth}
     \begin{figure}[H]
         \centering
@@ -1964,6 +2038,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve4}
     \end{figure}
+    \newpage
     \item \textbf{models/dmodels/4000\_fineAEdeepmodel\_20250116\_dwhite.pth}
     \begin{figure}[H]
         \centering
@@ -1978,6 +2053,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve4}
     \end{figure}
+    \newpage
     \item \textbf{models/dmodels/3000\_fineAEdeepmodel\_20250116\_ddark.pth}
     \begin{figure}[H]
         \centering
@@ -1992,6 +2068,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve4}
     \end{figure}
+    \newpage
     \item \textbf{models/dmodels/3000\_fineAEdeepmodel\_20250116\_dlight.pth}
     \begin{figure}[H]
         \centering
@@ -2006,6 +2083,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve4}
     \end{figure}
+    \newpage
     \item \textbf{models/dmodels/3000\_fineAEdeepmodel\_20250116\_dwhite.pth}
     \begin{figure}[H]
         \centering
@@ -2020,6 +2098,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve4}
     \end{figure}
+    \newpage
     \item \textbf{models/dmodels/2000\_fineAEdeepmodel\_20250116\_ddark.pth}
     \begin{figure}[H]
         \centering
@@ -2034,6 +2113,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve4}
     \end{figure}
+    \newpage
     \item \textbf{models/dmodels/2000\_fineAEdeepmodel\_20250116\_dlight.pth}
     \begin{figure}[H]
         \centering
@@ -2048,6 +2128,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve4}
     \end{figure}
+    \newpage
     \item \textbf{models/dmodels/2000\_fineAEdeepmodel\_20250116\_dwhite.pth}
     \begin{figure}[H]
         \centering
@@ -2062,6 +2143,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve4}
     \end{figure}
+    \newpage
     \item \textbf{models/dmodels/5000\_fineAEdeepmodel\_20250116\_ddark.pth}
     \begin{figure}[H]
         \centering
@@ -2076,6 +2158,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve4}
     \end{figure}
+    \newpage
     \item \textbf{models/dmodels/1000\_fineAEdeepmodel\_20250116\_dlight.pth}
     \begin{figure}[H]
         \centering
@@ -2090,6 +2173,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve4}
     \end{figure}
+    \newpage
     \item \textbf{models/dmodels/1000\_fineAEdeepmodel\_20250116\_dwhite.pth}
     \begin{figure}[H]
         \centering
@@ -2104,6 +2188,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve4}
     \end{figure}
+    \newpage
     \item \textbf{models/dmodels/100\_fineAEdeepmodel\_20250116\_ddark.pth}
     \begin{figure}[H]
         \centering
@@ -2118,6 +2203,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve4}
     \end{figure}
+    \newpage
     \item \textbf{models/dmodels/100\_fineAEdeepmodel\_20250116\_dlight.pth}
     \begin{figure}[H]
         \centering
@@ -2132,6 +2218,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \caption{学習曲線}
         \label{fig:learning_curve4}
     \end{figure}
+    \newpage
     \item \textbf{models/dmodels/100\_fineAEdeepmodel\_20250116\_dwhite.pth}
     \begin{figure}[H]
         \centering
