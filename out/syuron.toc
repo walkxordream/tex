@@ -65,7 +65,7 @@
 \contentsline {paragraph}{出力先}{21}{section*.60}%
 \contentsline {subsubsection}{テストデータの結果}{22}{section*.61}%
 \contentsline {subsubsection}{抽出結果}{22}{section*.64}%
-\contentsline {paragraph}{RN50x64モデルとRN50モデルの比較}{23}{section*.66}%
+\contentsline {subsubsection}{RN50x64モデルとRN50モデルの比較}{23}{section*.66}%
 \contentsline {subsection}{\numberline {3.5}モデルのアップデート}{23}{subsection.1.3.5}%
 \contentsline {subsubsection}{旧モデルの再学習}{23}{section*.67}%
 \contentsline {paragraph}{使用プログラム}{23}{section*.68}%
@@ -87,70 +87,71 @@
 \contentsline {paragraph}{使用モデル}{24}{section*.83}%
 \contentsline {subsubsection}{出力}{25}{section*.84}%
 \contentsline {subsubsection}{F2-scoreの計算}{25}{section*.85}%
-\contentsline {paragraph}{dモデルのF2-score}{25}{section*.86}%
-\contentsline {paragraph}{rモデルのF2-score}{25}{section*.87}%
+\contentsline {subsubsection}{dモデルのF2-score}{25}{section*.86}%
+\contentsline {subsubsection}{rモデルのF2-score}{25}{section*.87}%
 \contentsline {subsection}{\numberline {3.7}物体検出システムの確認}{26}{subsection.1.3.7}%
 \contentsline {paragraph}{使用プログラム}{27}{section*.90}%
 \contentsline {paragraph}{使用画像}{27}{section*.91}%
 \contentsline {paragraph}{使用モデル}{27}{section*.92}%
 \contentsline {subsubsection}{出力}{27}{section*.93}%
-\contentsline {subsubsection}{グレースケールに変換}{27}{section*.94}%
+\contentsline {subsubsection}{グレースケールに変換}{28}{section*.94}%
 \contentsline {subsubsection}{二値化}{28}{section*.96}%
-\contentsline {subsubsection}{正規化後に二値化}{28}{section*.98}%
-\contentsline {subsubsection}{ノイズ除去及びクロージング}{29}{section*.101}%
-\contentsline {subsection}{\numberline {3.8}差分画像の精度向上}{31}{subsection.1.3.8}%
-\contentsline {subsubsection}{学習枚数}{31}{section*.106}%
+\contentsline {subsubsection}{正規化後に二値化}{29}{section*.98}%
+\contentsline {subsubsection}{ノイズ除去及びクロージング}{30}{section*.101}%
+\contentsline {subsection}{\numberline {3.8}差分画像の精度向上}{32}{subsection.1.3.8}%
+\contentsline {subsubsection}{学習枚数}{32}{section*.106}%
 \contentsline {subsubsection}{学習枚数の変更}{32}{section*.107}%
 \contentsline {paragraph}{使用プログラム}{32}{section*.108}%
 \contentsline {paragraph}{使用画像}{32}{section*.109}%
 \contentsline {subsubsection}{出力}{32}{section*.110}%
-\contentsline {paragraph}{出力先}{32}{section*.111}%
-\contentsline {subsubsection}{モデルの構築}{32}{section*.112}%
-\contentsline {paragraph}{使用プログラム}{32}{section*.113}%
-\contentsline {paragraph}{使用画像}{32}{section*.114}%
+\contentsline {paragraph}{出力先}{33}{section*.111}%
+\contentsline {subsubsection}{モデルの構築}{33}{section*.112}%
+\contentsline {paragraph}{使用プログラム}{33}{section*.113}%
+\contentsline {paragraph}{使用画像}{33}{section*.114}%
 \contentsline {subsubsection}{出力}{33}{section*.115}%
 \contentsline {paragraph}{出力モデル名}{33}{section*.116}%
-\contentsline {subsubsection}{MSEの推移の確認}{34}{section*.117}%
-\contentsline {paragraph}{使用プログラム}{34}{section*.118}%
-\contentsline {paragraph}{使用画像}{34}{section*.119}%
-\contentsline {paragraph}{使用モデル}{34}{section*.120}%
-\contentsline {subsubsection}{出力}{35}{section*.121}%
-\contentsline {subsubsection}{物体検出}{35}{section*.123}%
-\contentsline {paragraph}{使用プログラム}{35}{section*.124}%
-\contentsline {paragraph}{使用画像}{35}{section*.125}%
+\contentsline {subsubsection}{MSEの推移の確認}{35}{section*.117}%
+\contentsline {paragraph}{使用プログラム}{35}{section*.118}%
+\contentsline {paragraph}{使用画像}{35}{section*.119}%
+\contentsline {paragraph}{使用モデル}{35}{section*.120}%
+\contentsline {subsubsection}{出力}{36}{section*.121}%
+\contentsline {subsubsection}{物体検出}{36}{section*.123}%
+\contentsline {paragraph}{使用プログラム}{36}{section*.124}%
+\contentsline {paragraph}{使用画像}{36}{section*.125}%
 \contentsline {paragraph}{使用モデル}{36}{section*.126}%
-\contentsline {subsubsection}{出力}{36}{section*.127}%
-\contentsline {subsection}{\numberline {3.9}物体から鳥を抽出}{37}{subsection.1.3.9}%
-\contentsline {paragraph}{使用プログラム}{37}{section*.130}%
-\contentsline {paragraph}{使用画像}{37}{section*.131}%
+\contentsline {subsubsection}{出力}{37}{section*.127}%
+\contentsline {subsection}{\numberline {3.9}物体から鳥を抽出}{38}{subsection.1.3.9}%
+\contentsline {paragraph}{使用プログラム}{38}{section*.130}%
+\contentsline {paragraph}{使用画像}{38}{section*.131}%
 \contentsline {paragraph}{使用モデル}{38}{section*.132}%
 \contentsline {subsubsection}{使用した言葉}{38}{section*.133}%
 \contentsline {subsubsection}{出力}{38}{section*.134}%
-\contentsline {section}{\numberline {4}結論}{38}{section.1.4}%
+\contentsline {section}{\numberline {4}結論}{39}{section.1.4}%
 \contentsline {section}{\numberline {5}謝辞}{39}{section.1.5}%
-\contentsline {section}{\numberline {6}使用したデータの説明}{39}{section.1.6}%
-\contentsline {subsection}{\numberline {6.1}プログラミング環境と使用したライブラリ}{39}{subsection.1.6.1}%
-\contentsline {subsection}{\numberline {6.2}想定環境}{40}{subsection.1.6.2}%
+\contentsline {section}{\numberline {6}使用したデータの説明}{40}{section.1.6}%
+\contentsline {subsection}{\numberline {6.1}プログラミング環境と使用したライブラリ}{40}{subsection.1.6.1}%
+\contentsline {subsection}{\numberline {6.2}想定環境}{41}{subsection.1.6.2}%
 \contentsline {subsection}{\numberline {6.3}画像データ}{41}{subsection.1.6.3}%
 \contentsline {subsection}{\numberline {6.4}モデルデータ}{42}{subsection.1.6.4}%
-\contentsline {subsection}{\numberline {6.5}使用プログラム}{42}{subsection.1.6.5}%
-\contentsline {subsubsection}{出力までの流れ}{42}{section*.135}%
-\contentsline {subsubsection}{出力までの流れ}{42}{section*.136}%
-\contentsline {subsubsection}{出力までの流れ}{42}{section*.137}%
-\contentsline {subsubsection}{出力までの流れ}{43}{section*.138}%
-\contentsline {subsubsection}{出力までの流れ}{43}{section*.139}%
-\contentsline {subsubsection}{出力までの流れ}{44}{section*.140}%
+\contentsline {subsection}{\numberline {6.5}使用プログラム}{43}{subsection.1.6.5}%
+\contentsline {subsubsection}{出力までの流れ}{43}{section*.135}%
+\contentsline {subsubsection}{出力までの流れ}{43}{section*.136}%
+\contentsline {subsubsection}{出力までの流れ}{43}{section*.137}%
+\contentsline {subsubsection}{出力までの流れ}{44}{section*.138}%
+\contentsline {subsubsection}{出力までの流れ}{44}{section*.139}%
+\contentsline {subsubsection}{出力までの流れ}{45}{section*.140}%
 \contentsline {subsubsection}{出力までの流れ}{45}{section*.141}%
-\contentsline {subsubsection}{出力までの流れ}{45}{section*.142}%
+\contentsline {subsubsection}{出力までの流れ}{46}{section*.142}%
 \contentsline {subsubsection}{出力までの流れ}{46}{section*.143}%
-\contentsline {subsubsection}{出力までの流れ}{46}{section*.144}%
-\contentsline {subsection}{\numberline {6.6}モデル構築}{46}{subsection.1.6.6}%
-\contentsline {subsubsection}{シードの固定}{46}{section*.145}%
-\contentsline {subsubsection}{データの準備}{46}{section*.146}%
-\contentsline {subsubsection}{モデルの定義}{47}{section*.147}%
-\contentsline {subsubsection}{学習パラメータ}{47}{section*.148}%
-\contentsline {subsubsection}{収束条件}{47}{section*.149}%
-\contentsline {subsubsection}{バッチサイズ}{47}{section*.150}%
-\contentsline {subsubsection}{学習と評価の実行}{47}{section*.151}%
-\contentsline {subsubsection}{モデルの名前と学習曲線}{48}{section*.152}%
-\contentsline {subsection}{\numberline {6.7}プログラムファイル}{73}{subsection.1.6.7}%
+\contentsline {subsubsection}{出力までの流れ}{47}{section*.144}%
+\contentsline {subsubsection}{出力までの流れ}{47}{section*.145}%
+\contentsline {subsection}{\numberline {6.6}モデル構築}{47}{subsection.1.6.6}%
+\contentsline {subsubsection}{シードの固定}{47}{section*.146}%
+\contentsline {subsubsection}{データの準備}{48}{section*.147}%
+\contentsline {subsubsection}{モデルの定義}{48}{section*.148}%
+\contentsline {subsubsection}{学習パラメータ}{48}{section*.149}%
+\contentsline {subsubsection}{収束条件}{48}{section*.150}%
+\contentsline {subsubsection}{バッチサイズ}{48}{section*.151}%
+\contentsline {subsubsection}{学習と評価の実行}{48}{section*.152}%
+\contentsline {subsubsection}{モデルの名前と学習曲線}{49}{section*.153}%
+\contentsline {subsection}{\numberline {6.7}プログラムファイル}{74}{subsection.1.6.7}%

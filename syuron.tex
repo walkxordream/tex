@@ -11,6 +11,7 @@
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage{subcaption}
+\usepackage{xcolor} % 追加
 \pgfplotsset{compat=1.17}
 \setCJKmainfont{MS Mincho}
 \usetikzlibrary{positioning, shapes.geometric, arrows.meta}
@@ -24,7 +25,14 @@
 \renewcommand{\thesubsubsection}{\thesection.\thesubsection.\arabic{subsubsection}}
 
 
+
 \begin{document}
+
+\renewcommand{\abstractname}{概要}
+\renewcommand{\contentsname}{目次}
+\renewcommand{\figurename}{図}
+\renewcommand{\tablename}{表}
+\renewcommand{\bibname}{参考文献}
 
 \setcounter{chapter}{1}
 
@@ -57,12 +65,14 @@
 
 \newpage
 
+
+
 \begin{abstract}
 　近年,再生可能エネルギーの1つである風力発電の導入が注目されているが,発電機の建設には多くの問題点が存在する.その中でもバードストライクは重大な問題であり,回転する風車のブレードに鳥類が衝突する現象である.山形県企業局では,当局が管理している風力発電機に対してバードストライク調査を行っているが,仕事量の多さや調査の正確性に幅があることが懸念されている.本研究の目的は,この懸念を解消するために,ドローンを用いて発電機周辺の土地を撮影し,自動的に鳥を発見できるプログラムを構築することである.
-\\　昨年度,山形大学の先輩である梅津魁秀氏は,深層学習を用いたバードストライク調査プログラムの研究を行い,AEを使用してドローンで撮影した画像から物体画像を検出する手法を提案した.
+\\　昨年度,山形大学の先輩である梅津魁秀氏は,深層学習を用いたバードストライク調査プログラムの研究を行い,AEを使用してドローンで撮影した画像から物体画像を検出する手法を提案し,\textcolor{red}{物体画像に関してF2-scoreが0.83という高い精度で物体の有無を判定することができた}.
 \\　今年度は課題であった,汎用的なモデルを構築することと物体画像から鳥の画像を検出することに取り組んだ.汎用的なモデルの構築には,モデルの自動アップデートを行い,物体画像から鳥の画像を検出するためにCLIPの使用を提案した.
-\\　本研究の成果により,AE,PCA,K-meansクラスタリング,CLIPを用いて自動アップデートの手法を開発したが,汎用的なモデルを構築することは出来なかった.これは,アップデート元となるモデルが過剰にデータ拡張していたためと考えられる.
-\\　物体画像から鳥の画像の検出は,CLIPを用いて可能であることが確認できた.しかし,手動でテストデータを構築したため,厳密な評価を行うのは難しい.
+\\　本研究の成果により,AE,PCA,K-meansクラスタリング,CLIPを\textcolor{red}{組み合わせることで}自動アップデートの手法を開発したが,\textcolor{red}{アップデート後のF2-scoreが0.15と低く,全ての物体の検出も出来ていないため}汎用的なモデルを構築することは出来なかった.これは,アップデート元となるモデルが過剰にデータ拡張していたためと考えられる.
+\\　物体画像から鳥の画像の検出は,CLIPを用いて可能であることが確認できた.しかし,手動でテストデータを構築したため,厳密な評価を行うのは難しい\textcolor{red}{がF2-scoreは0.33であった}.
 \\　今後の課題として,過剰なデータ拡張を行っていないモデルをアップデート元とすることと,検出できた物体画像に対してCLIPを用いて鳥の検出の有無を評価することが挙げられる.
 \end{abstract}
 
@@ -655,7 +665,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 
 \paragraph{出力モデル名}
 \begin{itemize}
-    \item \textbf{models/20241224\_A\_train\_model.pth}
+    \item \textbf{models/6048\_AEdeepmodel\_20241224\_A\_train\_img.pth}
 \end{itemize}
 
 \paragraph{使用プログラム}
@@ -843,7 +853,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \end{tabular}
 \end{table}
 
-\paragraph{RN50x64モデルとRN50モデルの比較}
+\subsubsection{RN50x64モデルとRN50モデルの比較}
 　RN50x64モデルとRN50モデルの結果を比較すると,RN50x64モデルの方が物体を含んでいる割合が全てのカテゴリで低いことが確認できる.
 結果から,RN50x64モデルを使用して物体画像を抽出することが適していると言えるため以降はRN50x64モデルを使用した学習データを用いて実験を進める.
 なお,上記の表からも確認できるように,完全に物体を取り除くことは不可能だったため,以降は若干物体の画像が入った画像でモデルのアップデートを行った場合と全く物体が入っていない画像でモデルのアップデートを行った場合の精度の比較も行う.
@@ -946,7 +956,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 \subsubsection{F2-scoreの計算}
 　以下に,dモデルとrモデルのF2-scoreを示す.
 
-\paragraph{dモデルのF2-score}
+\subsubsection{dモデルのF2-score}
 　システムが物体だと判定した画像の枚数は348枚で,その中に入っていた物体画像の枚数は12枚である.testフォルダの画像を分割した画像が884枚で,その中に入っていた物体画像の枚数が13枚である.混合行列の要素は以下の通りである.
 
 \begin{itemize}
@@ -968,7 +978,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \end{itemize}
 \end{itemize}
 
-\paragraph{rモデルのF2-score}
+\subsubsection{rモデルのF2-score}
 　システムが物体だと判定した画像の枚数は345枚で,その中に入っていた物体画像の枚数は11枚である.testフォルダの画像を分割した画像が884枚で,その中に入っていた物体画像の枚数が13枚である.混合行列の要素は以下の通りである.
 
 \begin{itemize}
@@ -1029,7 +1039,6 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \caption{差分画像の処理フロー}
     \label{fig:diff_image_processing_flow}
 \end{figure}
-
 物体を検出するために,図\ref{fig:diff_image_processing_flow}の処理を行った.１つずつ処理を確認することで,物体を見失っている原因を特定する.
 
 \paragraph{使用プログラム}
@@ -1491,13 +1500,12 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
             \item F2 = \(\frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \text{Precision}) + \text{Recall}} = \frac{5 \cdot (0.091 \cdot 1.0)}{4 \cdot 0.091 + 1.0} \approx 0.333\)
         \end{itemize}
 \end{itemize}
-
 　F2-scoreはそこまで高い結果ではなかった.
 これは,実際にAIが物体と判定した画像に対してではなく,物体が検出されたと仮定したデータで行った結果であるため,F2-scoreの値を適切に評価することは難しく今後の課題とする.
 
 \section{結論}
 　今年度は汎用的なモデルを構築することと,物体画像から鳥の画像を自動で検出することを目標に研究を行ったが,1つ目の目標である汎用的なモデルの構築は失敗に終わった.
-\\　これは,昨年度のモデルの学習に使用した画像に問題があると考えられる.そのため,過剰にデータ拡張をせずに学習を行ったモデルをベースにアップデートを行うことで改善される可能性があり,今後の課題とする..
+\\　これは,昨年度のモデルの学習に使用した画像に問題があると考えられる.そのため,過剰にデータ拡張をせずに学習を行ったモデルをベースにアップデートを行うことで改善される可能性があり,今後の課題とする.\textcolor{red}{また,性能の良いベースモデルが構築できたら,デコード部分をアップデートすることで,学習時間の短縮に繋がると考えられる.}
 \\　2つ目の目標である物体画像から鳥の画像を自動で検出することに関しては,CLIPを用いることで鳥の画像を抽出することができたが,実験に使用したデータが適切でなかったため,F2-scoreの値を適切に評価することが難しく今後の課題とする.
 
 \section{謝辞}
@@ -1552,13 +1560,14 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     ├── 2023_main.py
     ├── 2024_main.py
     ├── AE_clip.ipynb
-    ├── AE_deep_check.ipynb
-    ├── AE_deep_check_change.ipynb
-    ├── AE_deep_finetrain_matomete.py
-    ├── AE_deep_main_search.ipynb
-    ├── AE_deep_train_matomete.py
-    ├── AE_for_newmodel.ipynb
-    ├── AE_score_check_labels.ipynb
+    ├── AE_inference.ipynb
+    ├── AE_make_dataset.ipynb
+    ├── AE_pca_kmeans.ipynb
+    ├── AE_train_img_move.ipynb
+    ├── AE_train.py
+    ├── AE_trainf.py
+    ├── AE_transition.py
+    ├── CLIP_bird.ipynb
     ├── imgs/
     └── models/
     \end{verbatim}
@@ -1785,7 +1794,21 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 \end{enumerate}
 
 \begin{itemize}
-    \item \textbf{Clip\_bird.ipynb}
+    \item \textbf{AE\_transition.py}
+\end{itemize}
+
+\subsubsection{出力までの流れ}
+\begin{enumerate}
+    \item \textbf{必要なライブラリのインポート}: 必要なライブラリをインポートする.
+    \item \textbf{シードの固定}: 再現性を確保するために,乱数シードを固定する.
+    \item \textbf{モデルの定義と読み込み}: AEモデルを定義し,事前に保存されたモデルの重みを読み込む.
+    \item \textbf{画像の分割}: 画像を指定されたサイズに分割する.
+    \item \textbf{モデルの作成}: モデルを作成し,読み込んだ重みを適用する.
+    \item \textbf{MSEの計算とプロット}: 各モデルに対して分割された画像のMSEを計算し,結果をプロットする.
+\end{enumerate}
+
+\begin{itemize}
+    \item \textbf{CLIP\_bird.ipynb}
 \end{itemize}
 
 \subsubsection{出力までの流れ}
@@ -1859,7 +1882,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 
 \subsubsection{モデルの名前と学習曲線}
 \begin{itemize}
-    \item \textbf{models/20241224\_A\_train\_model.pth}
+    \item \textbf{models/6048\_AEdeepmodel\_20241224\_A\_train\_img.pth}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{imgs/loss_plot_20241224_A_train_img.png}
@@ -2238,7 +2261,11 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 \subsection{プログラムファイル}
 github: \url{}
 
+% 参考文献のセクション
+\nocite{*}
 \bibliographystyle{unsrt}
 \bibliography{references}
+
+
 
 \end{document}
