@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.3)  5 FEB 2025 20:12
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.3)  6 FEB 2025 20:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -610,6 +610,10 @@ Package caption Info: New subtype `subfigure' on input line 238.
 \c@subfigure=\count355
 Package caption Info: New subtype `subtable' on input line 238.
 \c@subtable=\count356
+) (c:/texlive/2024/texmf-dist/tex/latex/chngcntr/chngcntr.sty
+Package: chngcntr 2018/04/09 v1.1a change counter resetting
+Package chngcntr Info: \counterwithout already defined.
+(chngcntr)             Quitting chngcntr on input line 21.
 )
 
 Package fontspec Info: 
@@ -854,27 +858,27 @@ LaTeX Warning: Label `fig:learning_curve4' multiply defined.
 )
 \openout1 = `syuron.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-Package hyperref Info: Link coloring OFF on input line 29.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+Package hyperref Info: Link coloring OFF on input line 31.
  (out/syuron.out) (out/syuron.out)
 \@outlinefile=\write4
 \openout4 = `syuron.out'.
@@ -886,56 +890,56 @@ Package fontspec Info:
 
 \symlegacymaths=\mathgroup4
 LaTeX Font Info:    Overwriting symbol font `legacymaths' in version `bold'
-(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 29.
-LaTeX Font Info:    Redeclaring math accent \acute on input line 29.
-LaTeX Font Info:    Redeclaring math accent \grave on input line 29.
-LaTeX Font Info:    Redeclaring math accent \ddot on input line 29.
-LaTeX Font Info:    Redeclaring math accent \tilde on input line 29.
-LaTeX Font Info:    Redeclaring math accent \bar on input line 29.
-LaTeX Font Info:    Redeclaring math accent \breve on input line 29.
-LaTeX Font Info:    Redeclaring math accent \check on input line 29.
-LaTeX Font Info:    Redeclaring math accent \hat on input line 29.
-LaTeX Font Info:    Redeclaring math accent \dot on input line 29.
-LaTeX Font Info:    Redeclaring math accent \mathring on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \Delta on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \Theta on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \Xi on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \Pi on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \Phi on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \Psi on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \Omega on input line 29.
-LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 29.
-LaTeX Font Info:    Redeclaring symbol font `operators' on input line 29.
+(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 31.
+LaTeX Font Info:    Redeclaring math accent \acute on input line 31.
+LaTeX Font Info:    Redeclaring math accent \grave on input line 31.
+LaTeX Font Info:    Redeclaring math accent \ddot on input line 31.
+LaTeX Font Info:    Redeclaring math accent \tilde on input line 31.
+LaTeX Font Info:    Redeclaring math accent \bar on input line 31.
+LaTeX Font Info:    Redeclaring math accent \breve on input line 31.
+LaTeX Font Info:    Redeclaring math accent \check on input line 31.
+LaTeX Font Info:    Redeclaring math accent \hat on input line 31.
+LaTeX Font Info:    Redeclaring math accent \dot on input line 31.
+LaTeX Font Info:    Redeclaring math accent \mathring on input line 31.
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 31.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 31.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 31.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 31.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 31.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 31.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 31.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 31.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 31.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 31.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 31.
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 31.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 31.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 29.
+(Font)              `operators' in the math version `normal' on input line 31.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> TU/lmr/m/n on input line 29.
+(Font)                  OT1/cmr/m/n --> TU/lmr/m/n on input line 31.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 29.
+(Font)              `operators' in the math version `bold' on input line 31.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> TU/lmr/m/n on input line 29.
+(Font)                  OT1/cmr/bx/n --> TU/lmr/m/n on input line 31.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  TU/lmr/m/n --> TU/lmr/m/n on input line 29.
+(Font)                  TU/lmr/m/n --> TU/lmr/m/n on input line 31.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> TU/lmr/m/it on input line 29.
+(Font)                  OT1/cmr/m/it --> TU/lmr/m/it on input line 31.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> TU/lmr/b/n on input line 29.
+(Font)                  OT1/cmr/bx/n --> TU/lmr/b/n on input line 31.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 29.
+(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 31.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 29.
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 31.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  TU/lmr/m/n --> TU/lmr/b/n on input line 29.
+(Font)                  TU/lmr/m/n --> TU/lmr/b/n on input line 31.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> TU/lmr/b/it on input line 29.
+(Font)                  OT1/cmr/bx/it --> TU/lmr/b/it on input line 31.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 29.
+(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 31.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 29.
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 31.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -982,7 +986,7 @@ Package caption Info: End \AtBeginDocument code.
 ]
 
 LaTeX Font Warning: Font shape `TU/MSMincho(0)/b/n' undefined
-(Font)              using `TU/MSMincho(0)/m/n' instead on input line 70.
+(Font)              using `TU/MSMincho(0)/m/n' instead on input line 72.
 
 
 
@@ -1070,62 +1074,62 @@ File: imgs/test2.png Graphic file (type bmp)
 [22]
 
 [23]
-Overfull \hbox (14.38414pt too wide) in paragraph at lines 904--905
+Overfull \hbox (14.38414pt too wide) in paragraph at lines 906--907
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_ddark.pth 
  []
 
 
-Overfull \hbox (14.32413pt too wide) in paragraph at lines 905--906
+Overfull \hbox (14.32413pt too wide) in paragraph at lines 907--908
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_dlight.pth 
  []
 
 
-Overfull \hbox (20.09613pt too wide) in paragraph at lines 906--907
+Overfull \hbox (20.09613pt too wide) in paragraph at lines 908--909
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_dwhite.pth 
  []
 
 
-Overfull \hbox (12.40413pt too wide) in paragraph at lines 924--925
+Overfull \hbox (12.40413pt too wide) in paragraph at lines 926--927
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rdark.pth 
  []
 
 
-Overfull \hbox (12.34413pt too wide) in paragraph at lines 925--926
+Overfull \hbox (12.34413pt too wide) in paragraph at lines 927--928
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rlight.pth 
  []
 
 
-Overfull \hbox (18.11613pt too wide) in paragraph at lines 926--927
+Overfull \hbox (18.11613pt too wide) in paragraph at lines 928--929
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rwhite.pth 
  []
 
 
-Overfull \hbox (14.38414pt too wide) in paragraph at lines 945--946
+Overfull \hbox (14.38414pt too wide) in paragraph at lines 947--948
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_ddark.pth 
  []
 
 
-Overfull \hbox (14.32413pt too wide) in paragraph at lines 946--947
+Overfull \hbox (14.32413pt too wide) in paragraph at lines 948--949
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_dlight.pth 
  []
 
 
-Overfull \hbox (20.09613pt too wide) in paragraph at lines 947--948
+Overfull \hbox (20.09613pt too wide) in paragraph at lines 949--950
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_dwhite.pth 
  []
 
 
-Overfull \hbox (12.40413pt too wide) in paragraph at lines 948--949
+Overfull \hbox (12.40413pt too wide) in paragraph at lines 950--951
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rdark.pth 
  []
 
 
-Overfull \hbox (12.34413pt too wide) in paragraph at lines 949--950
+Overfull \hbox (12.34413pt too wide) in paragraph at lines 951--952
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rlight.pth 
  []
 
 
-Overfull \hbox (18.11613pt too wide) in paragraph at lines 950--951
+Overfull \hbox (18.11613pt too wide) in paragraph at lines 952--953
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rwhite.pth 
  []
 
@@ -1139,32 +1143,32 @@ File: imgs/65.png Graphic file (type bmp)
 
 
 [26]
-Overfull \hbox (14.38414pt too wide) in paragraph at lines 1056--1057
+Overfull \hbox (14.38414pt too wide) in paragraph at lines 1058--1059
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_ddark.pth 
  []
 
 
-Overfull \hbox (14.32413pt too wide) in paragraph at lines 1057--1058
+Overfull \hbox (14.32413pt too wide) in paragraph at lines 1059--1060
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_dlight.pth 
  []
 
 
-Overfull \hbox (20.09613pt too wide) in paragraph at lines 1058--1059
+Overfull \hbox (20.09613pt too wide) in paragraph at lines 1060--1061
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_dwhite.pth 
  []
 
 
-Overfull \hbox (12.40413pt too wide) in paragraph at lines 1059--1060
+Overfull \hbox (12.40413pt too wide) in paragraph at lines 1061--1062
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rdark.pth 
  []
 
 
-Overfull \hbox (12.34413pt too wide) in paragraph at lines 1060--1061
+Overfull \hbox (12.34413pt too wide) in paragraph at lines 1062--1063
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rlight.pth 
  []
 
 
-Overfull \hbox (18.11613pt too wide) in paragraph at lines 1061--1062
+Overfull \hbox (18.11613pt too wide) in paragraph at lines 1063--1064
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rwhite.pth 
  []
 
@@ -1217,184 +1221,184 @@ File: imgs/65rariari.png Graphic file (type bmp)
 [31]
 
 [32]
-Overfull \hbox (7.62814pt too wide) in paragraph at lines 1308--1309
+Overfull \hbox (7.62814pt too wide) in paragraph at lines 1310--1311
 []\TU/lmr/bx/n/12 models/fine_model_paths/100_fineAEdeepmodel_20250116_ddark.pth 
  []
 
 
-Overfull \hbox (7.56813pt too wide) in paragraph at lines 1309--1310
+Overfull \hbox (7.56813pt too wide) in paragraph at lines 1311--1312
 []\TU/lmr/bx/n/12 models/fine_model_paths/100_fineAEdeepmodel_20250116_dlight.pth 
  []
 
 
-Overfull \hbox (13.34013pt too wide) in paragraph at lines 1310--1311
+Overfull \hbox (13.34013pt too wide) in paragraph at lines 1312--1313
 []\TU/lmr/bx/n/12 models/fine_model_paths/100_fineAEdeepmodel_20250116_dwhite.pth 
  []
 
 
-Overfull \hbox (5.64813pt too wide) in paragraph at lines 1311--1312
+Overfull \hbox (5.64813pt too wide) in paragraph at lines 1313--1314
 []\TU/lmr/bx/n/12 models/fine_model_paths/100_fineAEdeepmodel_20250116_rdark.pth 
  []
 
 
-Overfull \hbox (5.58813pt too wide) in paragraph at lines 1312--1313
+Overfull \hbox (5.58813pt too wide) in paragraph at lines 1314--1315
 []\TU/lmr/bx/n/12 models/fine_model_paths/100_fineAEdeepmodel_20250116_rlight.pth 
  []
 
 
-Overfull \hbox (11.36014pt too wide) in paragraph at lines 1313--1314
+Overfull \hbox (11.36014pt too wide) in paragraph at lines 1315--1316
 []\TU/lmr/bx/n/12 models/fine_model_paths/100_fineAEdeepmodel_20250116_rwhite.pth 
  []
 
 
-Overfull \hbox (14.38414pt too wide) in paragraph at lines 1314--1315
+Overfull \hbox (14.38414pt too wide) in paragraph at lines 1316--1317
 []\TU/lmr/bx/n/12 models/fine_model_paths/1000_fineAEdeepmodel_20250116_ddark.pth 
  []
 
 
-Overfull \hbox (14.32413pt too wide) in paragraph at lines 1315--1316
+Overfull \hbox (14.32413pt too wide) in paragraph at lines 1317--1318
 []\TU/lmr/bx/n/12 models/fine_model_paths/1000_fineAEdeepmodel_20250116_dlight.pth 
  []
 
 
-Overfull \hbox (20.09613pt too wide) in paragraph at lines 1316--1317
+Overfull \hbox (20.09613pt too wide) in paragraph at lines 1318--1319
 []\TU/lmr/bx/n/12 models/fine_model_paths/1000_fineAEdeepmodel_20250116_dwhite.pth 
  []
 
 
 
 [33]
-Overfull \hbox (12.40413pt too wide) in paragraph at lines 1317--1318
+Overfull \hbox (12.40413pt too wide) in paragraph at lines 1319--1320
 []\TU/lmr/bx/n/12 models/fine_model_paths/1000_fineAEdeepmodel_20250116_rdark.pth 
  []
 
 
-Overfull \hbox (12.34413pt too wide) in paragraph at lines 1318--1319
+Overfull \hbox (12.34413pt too wide) in paragraph at lines 1320--1321
 []\TU/lmr/bx/n/12 models/fine_model_paths/1000_fineAEdeepmodel_20250116_rlight.pth 
  []
 
 
-Overfull \hbox (18.11613pt too wide) in paragraph at lines 1319--1320
+Overfull \hbox (18.11613pt too wide) in paragraph at lines 1321--1322
 []\TU/lmr/bx/n/12 models/fine_model_paths/1000_fineAEdeepmodel_20250116_rwhite.pth 
  []
 
 
-Overfull \hbox (14.38414pt too wide) in paragraph at lines 1320--1321
+Overfull \hbox (14.38414pt too wide) in paragraph at lines 1322--1323
 []\TU/lmr/bx/n/12 models/fine_model_paths/2000_fineAEdeepmodel_20250116_ddark.pth 
  []
 
 
-Overfull \hbox (14.32413pt too wide) in paragraph at lines 1321--1322
+Overfull \hbox (14.32413pt too wide) in paragraph at lines 1323--1324
 []\TU/lmr/bx/n/12 models/fine_model_paths/2000_fineAEdeepmodel_20250116_dlight.pth 
  []
 
 
-Overfull \hbox (20.09613pt too wide) in paragraph at lines 1322--1323
+Overfull \hbox (20.09613pt too wide) in paragraph at lines 1324--1325
 []\TU/lmr/bx/n/12 models/fine_model_paths/2000_fineAEdeepmodel_20250116_dwhite.pth 
  []
 
 
-Overfull \hbox (12.40413pt too wide) in paragraph at lines 1323--1324
+Overfull \hbox (12.40413pt too wide) in paragraph at lines 1325--1326
 []\TU/lmr/bx/n/12 models/fine_model_paths/2000_fineAEdeepmodel_20250116_rdark.pth 
  []
 
 
-Overfull \hbox (12.34413pt too wide) in paragraph at lines 1324--1325
+Overfull \hbox (12.34413pt too wide) in paragraph at lines 1326--1327
 []\TU/lmr/bx/n/12 models/fine_model_paths/2000_fineAEdeepmodel_20250116_rlight.pth 
  []
 
 
-Overfull \hbox (18.11613pt too wide) in paragraph at lines 1325--1326
+Overfull \hbox (18.11613pt too wide) in paragraph at lines 1327--1328
 []\TU/lmr/bx/n/12 models/fine_model_paths/2000_fineAEdeepmodel_20250116_rwhite.pth 
  []
 
 
-Overfull \hbox (14.38414pt too wide) in paragraph at lines 1326--1327
+Overfull \hbox (14.38414pt too wide) in paragraph at lines 1328--1329
 []\TU/lmr/bx/n/12 models/fine_model_paths/3000_fineAEdeepmodel_20250116_ddark.pth 
  []
 
 
-Overfull \hbox (14.32413pt too wide) in paragraph at lines 1327--1328
+Overfull \hbox (14.32413pt too wide) in paragraph at lines 1329--1330
 []\TU/lmr/bx/n/12 models/fine_model_paths/3000_fineAEdeepmodel_20250116_dlight.pth 
  []
 
 
-Overfull \hbox (20.09613pt too wide) in paragraph at lines 1328--1329
+Overfull \hbox (20.09613pt too wide) in paragraph at lines 1330--1331
 []\TU/lmr/bx/n/12 models/fine_model_paths/3000_fineAEdeepmodel_20250116_dwhite.pth 
  []
 
 
-Overfull \hbox (12.40413pt too wide) in paragraph at lines 1329--1330
+Overfull \hbox (12.40413pt too wide) in paragraph at lines 1331--1332
 []\TU/lmr/bx/n/12 models/fine_model_paths/3000_fineAEdeepmodel_20250116_rdark.pth 
  []
 
 
-Overfull \hbox (12.34413pt too wide) in paragraph at lines 1330--1331
+Overfull \hbox (12.34413pt too wide) in paragraph at lines 1332--1333
 []\TU/lmr/bx/n/12 models/fine_model_paths/3000_fineAEdeepmodel_20250116_rlight.pth 
  []
 
 
-Overfull \hbox (18.11613pt too wide) in paragraph at lines 1331--1332
+Overfull \hbox (18.11613pt too wide) in paragraph at lines 1333--1334
 []\TU/lmr/bx/n/12 models/fine_model_paths/3000_fineAEdeepmodel_20250116_rwhite.pth 
  []
 
 
-Overfull \hbox (14.38414pt too wide) in paragraph at lines 1332--1333
+Overfull \hbox (14.38414pt too wide) in paragraph at lines 1334--1335
 []\TU/lmr/bx/n/12 models/fine_model_paths/4000_fineAEdeepmodel_20250116_ddark.pth 
  []
 
 
-Overfull \hbox (14.32413pt too wide) in paragraph at lines 1333--1334
+Overfull \hbox (14.32413pt too wide) in paragraph at lines 1335--1336
 []\TU/lmr/bx/n/12 models/fine_model_paths/4000_fineAEdeepmodel_20250116_dlight.pth 
  []
 
 
-Overfull \hbox (20.09613pt too wide) in paragraph at lines 1334--1335
+Overfull \hbox (20.09613pt too wide) in paragraph at lines 1336--1337
 []\TU/lmr/bx/n/12 models/fine_model_paths/4000_fineAEdeepmodel_20250116_dwhite.pth 
  []
 
 
-Overfull \hbox (12.40413pt too wide) in paragraph at lines 1335--1336
+Overfull \hbox (12.40413pt too wide) in paragraph at lines 1337--1338
 []\TU/lmr/bx/n/12 models/fine_model_paths/4000_fineAEdeepmodel_20250116_rdark.pth 
  []
 
 
-Overfull \hbox (12.34413pt too wide) in paragraph at lines 1336--1337
+Overfull \hbox (12.34413pt too wide) in paragraph at lines 1338--1339
 []\TU/lmr/bx/n/12 models/fine_model_paths/4000_fineAEdeepmodel_20250116_rlight.pth 
  []
 
 
-Overfull \hbox (18.11613pt too wide) in paragraph at lines 1337--1338
+Overfull \hbox (18.11613pt too wide) in paragraph at lines 1339--1340
 []\TU/lmr/bx/n/12 models/fine_model_paths/4000_fineAEdeepmodel_20250116_rwhite.pth 
  []
 
 
-Overfull \hbox (14.38414pt too wide) in paragraph at lines 1338--1339
+Overfull \hbox (14.38414pt too wide) in paragraph at lines 1340--1341
 []\TU/lmr/bx/n/12 models/fine_model_paths/5000_fineAEdeepmodel_20250116_ddark.pth 
  []
 
 
-Overfull \hbox (14.32413pt too wide) in paragraph at lines 1339--1340
+Overfull \hbox (14.32413pt too wide) in paragraph at lines 1341--1342
 []\TU/lmr/bx/n/12 models/fine_model_paths/5000_fineAEdeepmodel_20250116_dlight.pth 
  []
 
 
-Overfull \hbox (20.09613pt too wide) in paragraph at lines 1340--1341
+Overfull \hbox (20.09613pt too wide) in paragraph at lines 1342--1343
 []\TU/lmr/bx/n/12 models/fine_model_paths/5000_fineAEdeepmodel_20250116_dwhite.pth 
  []
 
 
-Overfull \hbox (12.40413pt too wide) in paragraph at lines 1341--1342
+Overfull \hbox (12.40413pt too wide) in paragraph at lines 1343--1344
 []\TU/lmr/bx/n/12 models/fine_model_paths/5000_fineAEdeepmodel_20250116_rdark.pth 
  []
 
 
-Overfull \hbox (12.34413pt too wide) in paragraph at lines 1342--1343
+Overfull \hbox (12.34413pt too wide) in paragraph at lines 1344--1345
 []\TU/lmr/bx/n/12 models/fine_model_paths/5000_fineAEdeepmodel_20250116_rlight.pth 
  []
 
 
-Overfull \hbox (18.11613pt too wide) in paragraph at lines 1343--1344
+Overfull \hbox (18.11613pt too wide) in paragraph at lines 1345--1346
 []\TU/lmr/bx/n/12 models/fine_model_paths/5000_fineAEdeepmodel_20250116_rwhite.pth 
  []
 
@@ -1406,12 +1410,12 @@ File: imgs/suii.png Graphic file (type bmp)
 
 
 [35]
-Overfull \hbox (14.32413pt too wide) in paragraph at lines 1404--1405
+Overfull \hbox (14.32413pt too wide) in paragraph at lines 1406--1407
 []\TU/lmr/bx/n/12 models/fine_model_paths/3000_fineAEdeepmodel_20250115_dlight.pth 
  []
 
 
-Overfull \hbox (12.34413pt too wide) in paragraph at lines 1405--1406
+Overfull \hbox (12.34413pt too wide) in paragraph at lines 1407--1408
 []\TU/lmr/bx/n/12 models/fine_model_paths/4000_fineAEdeepmodel_20250115_rlight.pth 
  []
 
@@ -1508,14 +1512,14 @@ File: imgs/loss_plot_20241225_new_white.png Graphic file (type bmp)
 File: imgs/loss_plot_20250115_fine6048_ddark.png Graphic file (type bmp)
 <imgs/loss_plot_20250115_fine6048_ddark.png>
 
-Overfull \hbox (14.38414pt too wide) in paragraph at lines 1915--1921
+Overfull \hbox (14.38414pt too wide) in paragraph at lines 1917--1923
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_ddark.pth 
  []
 
 File: imgs/loss_plot_20250115_fine6048_rdark.png Graphic file (type bmp)
 <imgs/loss_plot_20250115_fine6048_rdark.png>
 
-Overfull \hbox (12.40413pt too wide) in paragraph at lines 1922--1928
+Overfull \hbox (12.40413pt too wide) in paragraph at lines 1924--1930
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rdark.pth 
  []
 
@@ -1525,14 +1529,14 @@ Overfull \hbox (12.40413pt too wide) in paragraph at lines 1922--1928
 File: imgs/loss_plot_20250115_fine6048_ddark.png Graphic file (type bmp)
 <imgs/loss_plot_20250115_fine6048_ddark.png>
 
-Overfull \hbox (14.38414pt too wide) in paragraph at lines 1930--1936
+Overfull \hbox (14.38414pt too wide) in paragraph at lines 1932--1938
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_ddark.pth 
  []
 
 File: imgs/loss_plot_20250115_fine6048_rdark.png Graphic file (type bmp)
 <imgs/loss_plot_20250115_fine6048_rdark.png>
 
-Overfull \hbox (12.40413pt too wide) in paragraph at lines 1937--1943
+Overfull \hbox (12.40413pt too wide) in paragraph at lines 1939--1945
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rdark.pth 
  []
 
@@ -1542,14 +1546,14 @@ Overfull \hbox (12.40413pt too wide) in paragraph at lines 1937--1943
 File: imgs/loss_plot_20250115_fine6048_ddark.png Graphic file (type bmp)
 <imgs/loss_plot_20250115_fine6048_ddark.png>
 
-Overfull \hbox (14.38414pt too wide) in paragraph at lines 1945--1951
+Overfull \hbox (14.38414pt too wide) in paragraph at lines 1947--1953
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_ddark.pth 
  []
 
 File: imgs/loss_plot_20250115_fine6048_rdark.png Graphic file (type bmp)
 <imgs/loss_plot_20250115_fine6048_rdark.png>
 
-Overfull \hbox (12.40413pt too wide) in paragraph at lines 1952--1958
+Overfull \hbox (12.40413pt too wide) in paragraph at lines 1954--1960
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rdark.pth 
  []
 
@@ -1559,14 +1563,14 @@ Overfull \hbox (12.40413pt too wide) in paragraph at lines 1952--1958
 File: imgs/loss_plot_20250115_fine6048_dlight.png Graphic file (type bmp)
 <imgs/loss_plot_20250115_fine6048_dlight.png>
 
-Overfull \hbox (14.32413pt too wide) in paragraph at lines 1960--1966
+Overfull \hbox (14.32413pt too wide) in paragraph at lines 1962--1968
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_dlight.pth 
  []
 
 File: imgs/loss_plot_20250115_fine6048_rlight.png Graphic file (type bmp)
 <imgs/loss_plot_20250115_fine6048_rlight.png>
 
-Overfull \hbox (12.34413pt too wide) in paragraph at lines 1967--1973
+Overfull \hbox (12.34413pt too wide) in paragraph at lines 1969--1975
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rlight.pth 
  []
 
@@ -1576,14 +1580,14 @@ Overfull \hbox (12.34413pt too wide) in paragraph at lines 1967--1973
 File: imgs/loss_plot_20250115_fine6048_dwhite.png Graphic file (type bmp)
 <imgs/loss_plot_20250115_fine6048_dwhite.png>
 
-Overfull \hbox (20.09613pt too wide) in paragraph at lines 1975--1981
+Overfull \hbox (20.09613pt too wide) in paragraph at lines 1977--1983
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_dwhite.pth 
  []
 
 File: imgs/loss_plot_20250115_fine6048_rwhite.png Graphic file (type bmp)
 <imgs/loss_plot_20250115_fine6048_rwhite.png>
 
-Overfull \hbox (18.11613pt too wide) in paragraph at lines 1982--1988
+Overfull \hbox (18.11613pt too wide) in paragraph at lines 1984--1990
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rwhite.pth 
  []
 
@@ -1743,10 +1747,10 @@ Package rerunfilecheck Info: File `syuron.out' has not changed.
 (rerunfilecheck)             Checksum: 4B764C91B4FE349B0EC006DBB477C6B6;3701.
  ) 
 Here is how much of TeX's memory you used:
- 37470 strings out of 473889
- 934392 string characters out of 5734826
- 1500124 words of memory out of 5000000
- 59878 multiletter control sequences out of 15000+600000
+ 37489 strings out of 473889
+ 934952 string characters out of 5734826
+ 1500231 words of memory out of 5000000
+ 59893 multiletter control sequences out of 15000+600000
  562581 words of font info for 74 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  84i,8n,93p,751b,851s stack positions out of 10000i,1000n,20000p,200000b,200000s
