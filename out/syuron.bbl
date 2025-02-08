@@ -1,5 +1,10 @@
 \begin{thebibliography}{1}
 
+\bibitem{umetsu2023birdstrike}
+梅津魁秀.
+\newblock 深層学習での物体検出によるバードストライク調査プログラムの作成, 2023.
+\newblock 山形大学大学院理工学研究科数理科学分野修士論文, 未公刊資料.
+
 \bibitem{goodfellow2016deep}
 Ian Goodfellow, Yoshua Bengio, and Aaron Courville.
 \newblock {\em Deep Learning}.
@@ -24,10 +29,6 @@ Yann LeCun, Yoshua Bengio, and Geoffrey Hinton.
 Fuzhen Zhuang, Zhiwei Qi, Keyu Duan, Dongbo Xi, Yongchun Zhu, Hengshu Zhu, Hui Xiong, and Qing He.
 \newblock A comprehensive review on transfer learning.
 \newblock {\em Proceedings of the IEEE}, 109(1):43--76, 2020.
-
-\bibitem{umetsu2023birdstrike}
-梅津魁秀.
-\newblock 深層学習での物体検出によるバードストライク調査プログラムの作成, 2023.
 
 \bibitem{bruce2020datascience}
 Peter Bruce, Andrew Bruce, and Peter Gedeck.
