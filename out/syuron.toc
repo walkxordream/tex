@@ -154,4 +154,4 @@
 \contentsline {subsubsection}{バッチサイズ}{48}{section*.151}%
 \contentsline {subsubsection}{学習と評価の実行}{48}{section*.152}%
 \contentsline {subsubsection}{モデルの名前と学習曲線}{49}{section*.153}%
-\contentsline {subsection}{\numberline {6.7}プログラムファイル}{74}{subsection.1.6.7}%
+\contentsline {subsection}{\numberline {6.7}データ}{74}{subsection.1.6.7}%
