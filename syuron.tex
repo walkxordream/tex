@@ -593,7 +593,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 
 \section{実験}
 　本章では, 従来の方法で物体検出を試みたうえでモデルアップデートの有用性について論じる. 
-なお, 使用した環境等に関しては6章を参照してほしい. また, ファイル名で使われている8桁の数字は日付を表していて, 実行した日時によって異なる事に注意する. 
+なお, 使用した環境や画像, モデル, プログラミングに関しては6章で詳細に説明を行っているため, そちらを参照して欲しい. また, ファイル名で使われている8桁の数字は日付を表していて, 実行した日時によって異なる事に注意する. 
 
 \subsection{物体検出の試み}
 　従来の方法で物体検出を試みる. 結果は以下の通りである\\
@@ -796,7 +796,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 
 使用した言葉\\
 　　　本研究で使用した言葉は以下の通りである. これらの言葉はCLIPモデルに入\\
-　　力するためにGoogleTranslatorで英語に翻訳されて使用された. 
+　　力するためにGoogleTranslatorで英語に翻訳して使用された. 
 \begin{itemize}
     \item \textbf{NO\_A}: 上空から緑色や黃緑色の草が生い茂った箇所を見下ろした画像で全体をくまなく探してもゴミなどの人工物, 白色の小さい物体, 黒色の物体, 木の枝は確実に写っていない
     \item \textbf{NO\_B}: 上空から緑色や黃緑色の草が砂浜の上から生えているのを見下ろした画像で全体をくまなく探してもゴミなどの人工物, 白色の小さい物体, 黒色の物体, 木の枝は確実に写っていない
@@ -915,7 +915,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 
 出力\\
 　　　AEモデルのアップデートを行った. また, 以降では出力されたモデルをまと\\
-　　めてdモデルと呼ぶことにする. \\
+　　めて\textbf{dmodel}と呼ぶことにする. \\
 
 出力モデル名
 \begin{itemize}
@@ -936,7 +936,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 
 出力\\
 　　　AEモデルのアップデートを行った. また, 以降では出力されたモデルをまと\\
-　　めてrモデルと呼ぶことにする. \\
+　　めて\textbf{rmodel}と呼ぶことにする. \\
 
 出力モデル名
 \begin{itemize}
@@ -946,7 +946,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 \end{itemize}
 
 \subsection{物体検出の試み}
-　アップデートしたモデルを使って, 再び物体検出を試みた. 結果は以下の通りである. \\
+　アップデートしたdmodelとrmodelを使って, 再び物体検出を試みた. 結果は以下の通りである. \\
 
 使用プログラム
 \begin{itemize}
@@ -973,9 +973,9 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 　　　物体画像の判定が行われ, F2-scoreが計算される. \\
 
 \subsubsection{F2-scoreの計算}
-　以下に, dモデルとrモデルのF2-scoreを示す. 
+　以下に, dmodelとrmodelのF2-scoreを示す. 
 
-\subsubsection{dモデルのF2-score}
+\subsubsection{dmodelのF2-score}
 　システムが物体だと判定した画像の枚数は348枚で, その中に入っていた物体画像の枚数は12枚である. testフォルダの画像を分割した画像が884枚で, その中に入っていた物体画像の枚数が13枚である. 混合行列の要素は以下の通りである. 
 
 \begin{itemize}
@@ -997,7 +997,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \end{itemize}
 \end{itemize}
 
-\subsubsection{rモデルのF2-score}
+\subsubsection{rmodelのF2-score}
 　システムが物体だと判定した画像の枚数は345枚で, その中に入っていた物体画像の枚数は11枚である. testフォルダの画像を分割した画像が884枚で, その中に入っていた物体画像の枚数が13枚である. 混合行列の要素は以下の通りである. 
 
 \begin{itemize}
@@ -1019,7 +1019,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \end{itemize}
 \end{itemize}
 　アップデート前のF2-scoreが1.17であったため, 若干だが性能が向上していることが確認できる. しかし前提としてF2-scoreよりもFNが1以上であることが問題であるため, 物体検出システムを共通で検出不可だった画像を使用して問題点を確認する. 
-また, dモデルとrモデルの両モデルで確認を行う. 
+また, dmodelとrmodelの両モデルで確認を行う. 
 
 \subsection{物体検出システムの確認}
 
@@ -1090,21 +1090,21 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \begin{subfigure}{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65ddiff.png}
-        \caption{dモデルによるグレースケール画像}
+        \caption{dmodelによるグレースケール画像}
         \label{fig:failed_image_modeld_diff}
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65rdiff.png}
-        \caption{rモデルによるグレースケール画像}
+        \caption{rmodelによるグレースケール画像}
         \label{fig:failed_image_modelr_diff}
     \end{subfigure}
     \caption{物体検出に失敗した画像のグレースケール変換結果}
     \label{fig:failed_images_gray}
 \end{figure}
 
-　図\ref{fig:failed_images_gray}は, 物体検出に失敗した画像をdモデルとrモデルでグレースケールに変換した結果を示す. 視覚的には, 物体が確認できている. 
+　図\ref{fig:failed_images_gray}は, 物体検出に失敗した画像をdmodelとrmodelでグレースケールに変換した結果を示す. 視覚的には, 物体が確認できている. 
 
 \subsubsection{二値化}
 
@@ -1113,21 +1113,21 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \begin{subfigure}{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65dbin.png}
-        \caption{dモデルによる二値化画像}
+        \caption{dmodelによる二値化画像}
         \label{fig:failed_image_modeld_bin}
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65rbin.png}
-        \caption{rモデルによる二値化画像}
+        \caption{rmodelによる二値化画像}
         \label{fig:failed_image_modelr_bin}
     \end{subfigure}
     \caption{物体検出に失敗した画像の二値化結果}
     \label{fig:failed_images_bin}
 \end{figure}
 
-　図\ref{fig:failed_images_bin}は, 物体検出に失敗した画像をdモデルとrモデルで二値化した結果を示す. 二値化の閾値は30とした. 
+　図\ref{fig:failed_images_bin}は, 物体検出に失敗した画像をdmodelとrmodelで二値化した結果を示す. 二値化の閾値は30とした. 
 明らかに物体部分が途切れてしまっている. これを解決するために, 二値化を行う前に正規化を行い, 画像のコントラストを高める. 
 
 \subsubsection{正規化後に二値化}
@@ -1137,14 +1137,14 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \begin{subfigure}{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65seid.png}
-        \caption{dモデルによる正規化画像}
+        \caption{dmodelによる正規化画像}
         \label{fig:failed_image_modeld_normalize}
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65seir.png}
-        \caption{rモデルによる正規化画像}
+        \caption{rmodelによる正規化画像}
         \label{fig:failed_image_modelr_normalize}
     \end{subfigure}
     \caption{物体検出に失敗した画像の正規化}
@@ -1156,21 +1156,21 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65seid2.png}
-        \caption{dモデルによる二値化画像}
+        \caption{dmodelによる二値化画像}
         \label{fig:failed_image_modeld_bin2}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65seir2.png}
-        \caption{rモデルによる二値化画像}
+        \caption{rmodelによる二値化画像}
         \label{fig:failed_image_modelr_bin2}
     \end{subfigure}
     \caption{物体検出に失敗した画像の正規化と二値化}
     \label{fig:failed_images_normalize_bin}
 \end{figure}
 
-　図\ref{fig:failed_images_normalize_bin}は, 物体検出に失敗した画像をdモデルとrモデルで正規化と二値化の結果を示す. 閾値は80とした. 
+　図\ref{fig:failed_images_normalize_bin}は, 物体検出に失敗した画像をdmodelとrmodelで正規化と二値化の結果を示す. 閾値は80とした. 
 正規化を行うことで, 物体部分が途切れることが改善されることはなかった. 
 そのため, 次の方法として二値化をした画像に対してノイズ除去を行い, クロージングを行うことで物体部分が途切れることの解消を目指し, 物体が検出できているのかの確認を行う. 
 
@@ -1181,17 +1181,17 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65dnasinasi.png}
-        \caption{dモデルによるノイズ除去画像}
+        \caption{dmodelによるノイズ除去画像}
         \label{fig:failed_image_modeld_dilate_erode}
     \end{subfigure}
     \vfill
     \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65darinasi.png}
-        \caption{dモデルによるノイズ除去及びクロージング画像}
+        \caption{dmodelによるノイズ除去及びクロージング画像}
         \label{fig:failed_image_modelr_dilate_erode}
     \end{subfigure}
-    \caption{正規化なしdモデル検出結果}
+    \caption{正規化なしdmodel検出結果}
     \label{fig:failed_images_dilate_erode}
 \end{figure}
 
@@ -1200,17 +1200,17 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65rnasinasi.png}
-        \caption{rモデルによるノイズ除去画像}
+        \caption{rmodelによるノイズ除去画像}
         \label{fig:failed_image_modeld_dilate_erode}
     \end{subfigure}
     \vfill
     \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65rarinasi.png}
-        \caption{rモデルによるノイズ除去及びクロージング画像}
+        \caption{rmodelによるノイズ除去及びクロージング画像}
         \label{fig:failed_image_modelr_dilate_erode}
     \end{subfigure}
-    \caption{正規化なしrモデル検出結果}
+    \caption{正規化なしrmodel検出結果}
     \label{fig:failed_images_dilate_erode}
 \end{figure}
 
@@ -1219,17 +1219,17 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65dnasiari.png}
-        \caption{dモデルによるノイズ除去画像}
+        \caption{dmodelによるノイズ除去画像}
         \label{fig:failed_image_modeld_dilate_erode}
     \end{subfigure}
     \vfill
     \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65dariari.png}
-        \caption{dモデルによるノイズ除去及びクロージング画像}
+        \caption{dmodelによるノイズ除去及びクロージング画像}
         \label{fig:failed_image_modelr_dilate_erode}
     \end{subfigure}
-    \caption{正規化ありdモデル検出結果}
+    \caption{正規化ありdmodel検出結果}
     \label{fig:failed_images_dilate_erode}
 \end{figure}
 
@@ -1238,17 +1238,17 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65rnasiari.png}
-        \caption{rモデルによるノイズ除去画像}
+        \caption{rmodelによるノイズ除去画像}
         \label{fig:failed_image_modeld_dilate_erode}
     \end{subfigure}
     \vfill
     \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65rariari.png}
-        \caption{rモデルによるノイズ除去及びクロージング画像}
+        \caption{rmodelによるノイズ除去及びクロージング画像}
         \label{fig:failed_image_modelr_dilate_erode}
     \end{subfigure}
-    \caption{正規化ありdモデル検出結果}
+    \caption{正規化ありdmodel検出結果}
     \label{fig:failed_images_dilate_erode}
 
 \end{figure}
@@ -1263,9 +1263,9 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 \\　以上の結果から, システムに問題があるのではなく差分画像自体を修正する必要があると考えられる. 
 
 \subsection{差分画像の精度向上}
-　差分画像は出力画像によって決まるため, 出力画像の精度を向上させることで差分画像の精度も向上されることが見込まれる. 
-出力画像の精度を向上させる一般的な方法は学習枚数を増やすことである. 学習枚数を増やすことで, モデルがより多くのパターンを学習することができるため, 出力画像の精度が向上すると考えられる. 
-しかし今回はアップデートのための学習を行っているため, 必ずしも多ければ精度が向上するとは限らない. そのため学習枚数を減らしたモデルを構築し, そのモデルを用いてMSEの推移を確認する. 
+　差分画像は出力画像によって決まるため, 出力画像の精度を向上させることで差分画像への物体出現が多くなることが見込まれる. 
+一般に学習枚数を増やすことで, モデルがより多くのパターンを学習することができるため, 出力画像の精度が向上すると考えられる. 
+しかし今回はアップデートのための学習を行っているため, 必ずしも学習枚数が多ければ精度が向上するとは限らない. そのため学習枚数を減らしたモデルを構築し, そのモデルを用いてMSEの推移を確認する. 
 また, 物体検出に共通で失敗した画像を使用してMSEの推移を確認する. 
 
 \subsubsection{学習枚数}
@@ -1274,125 +1274,80 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 この研究からもわかるように, 初期学習には大量のデータが必要であるが, モデルのアップデート時にはそれを越えるデータが必要となることは稀である. 
 
 \subsubsection{学習枚数の変更}
-　学習枚数を減らしたデータセットを構築する. 今回は100枚, 1000枚, 2000枚, 3000枚, 4000枚, 5000枚のデータセットを構築する. 
+　学習枚数を減らしたデータセットを構築する. 今回は100枚, 1000枚, 2000枚, 3000枚, 4000枚, 5000枚のデータセットを構築する. 結果は以下の通りである. \\
 
-\paragraph{使用プログラム}
+使用プログラム
 \begin{itemize}
     \item \textbf{AE\_train\_img\_move.ipynb}
 \end{itemize}
 
-\paragraph{使用画像}
+使用画像
 \begin{itemize}
     \item \textbf{imgs/update\_train\_imgs\_default/train\_img\_6048}
     \item \textbf{imgs/update\_train\_imgs\_remove/train\_img\_6048}
 \end{itemize}
 
-\subsubsection{出力}
-　指定の枚数にデータセットを構築する. 
+出力\\
+　　指定の枚数にデータセットを構築する. \\
 
-\paragraph{出力先}
+出力先\\
 \begin{itemize}
     \item \textbf{imgs/update\_train\_imgs\_default\_mix}
     \item \textbf{imgs/update\_train\_imgs\_remove\_mix}
 \end{itemize}
 
 \subsubsection{モデルの構築}
+　モデルの構築を行う. 結果は以下の通りである. \\
 
-\paragraph{使用プログラム}
+使用プログラム
 \begin{itemize}
-    \item \textbf{AE\_deep\_finetrain.py}
+    \item \textbf{AE\_trainf.py}
 \end{itemize}
 
-\paragraph{使用画像}
+使用画像
 \begin{itemize}
-    \item \textbf{imgs/update\_train\_imgs\_default\_mix/train\_img\_100}
-    \item \textbf{imgs/update\_train\_imgs\_remove\_mix/train\_img\_100}
-    \item \textbf{imgs/update\_train\_imgs\_default\_mix/train\_img\_1000}
-    \item \textbf{imgs/update\_train\_imgs\_remove\_mix/train\_img\_1000}
-    \item \textbf{imgs/update\_train\_imgs\_default\_mix/train\_img\_2000}
-    \item \textbf{imgs/update\_train\_imgs\_remove\_mix/train\_img\_2000}
-    \item \textbf{imgs/update\_train\_imgs\_default\_mix/train\_img\_3000}
-    \item \textbf{imgs/update\_train\_imgs\_remove\_mix/train\_img\_3000}
-    \item \textbf{imgs/update\_train\_imgs\_default\_mix/train\_img\_4000}
-    \item \textbf{imgs/update\_train\_imgs\_remove\_mix/train\_img\_4000}
-    \item \textbf{imgs/update\_train\_imgs\_default\_mix/train\_img\_5000}
-    \item \textbf{imgs/update\_train\_imgs\_remove\_mix/train\_img\_5000}
+    \item \textbf{imgs/update\_train\_imgs\_default\_mix/train\_img\_n}
+    \item \textbf{imgs/update\_train\_imgs\_remove\_mix/train\_img\_n}
 \end{itemize}
+\textbf{\hspace{2.0em}(n = 100, 1000, 2000, 3000, 4000, 5000)}
 
-\subsubsection{出力}
-　指定の枚数学習したモデルを構築する. 
+出力\\
+　　指定の枚数学習したモデルが構築される.\\ 
 
-\paragraph{出力モデル名}
+出力モデル名
 \begin{itemize}
-    \item \textbf{models/fine\_model\_paths/100\_fineAEdeepmodel\_20250116\_ddark.pth}
-    \item \textbf{models/fine\_model\_paths/100\_fineAEdeepmodel\_20250116\_dlight.pth}
-    \item \textbf{models/fine\_model\_paths/100\_fineAEdeepmodel\_20250116\_dwhite.pth}
-    \item \textbf{models/fine\_model\_paths/100\_fineAEdeepmodel\_20250116\_rdark.pth}
-    \item \textbf{models/fine\_model\_paths/100\_fineAEdeepmodel\_20250116\_rlight.pth}
-    \item \textbf{models/fine\_model\_paths/100\_fineAEdeepmodel\_20250116\_rwhite.pth}
-    \item \textbf{models/fine\_model\_paths/1000\_fineAEdeepmodel\_20250116\_ddark.pth}
-    \item \textbf{models/fine\_model\_paths/1000\_fineAEdeepmodel\_20250116\_dlight.pth}
-    \item \textbf{models/fine\_model\_paths/1000\_fineAEdeepmodel\_20250116\_dwhite.pth}
-    \item \textbf{models/fine\_model\_paths/1000\_fineAEdeepmodel\_20250116\_rdark.pth}
-    \item \textbf{models/fine\_model\_paths/1000\_fineAEdeepmodel\_20250116\_rlight.pth}
-    \item \textbf{models/fine\_model\_paths/1000\_fineAEdeepmodel\_20250116\_rwhite.pth}
-    \item \textbf{models/fine\_model\_paths/2000\_fineAEdeepmodel\_20250116\_ddark.pth}
-    \item \textbf{models/fine\_model\_paths/2000\_fineAEdeepmodel\_20250116\_dlight.pth}
-    \item \textbf{models/fine\_model\_paths/2000\_fineAEdeepmodel\_20250116\_dwhite.pth}
-    \item \textbf{models/fine\_model\_paths/2000\_fineAEdeepmodel\_20250116\_rdark.pth}
-    \item \textbf{models/fine\_model\_paths/2000\_fineAEdeepmodel\_20250116\_rlight.pth}
-    \item \textbf{models/fine\_model\_paths/2000\_fineAEdeepmodel\_20250116\_rwhite.pth}
-    \item \textbf{models/fine\_model\_paths/3000\_fineAEdeepmodel\_20250116\_ddark.pth}
-    \item \textbf{models/fine\_model\_paths/3000\_fineAEdeepmodel\_20250116\_dlight.pth}
-    \item \textbf{models/fine\_model\_paths/3000\_fineAEdeepmodel\_20250116\_dwhite.pth}
-    \item \textbf{models/fine\_model\_paths/3000\_fineAEdeepmodel\_20250116\_rdark.pth}
-    \item \textbf{models/fine\_model\_paths/3000\_fineAEdeepmodel\_20250116\_rlight.pth}
-    \item \textbf{models/fine\_model\_paths/3000\_fineAEdeepmodel\_20250116\_rwhite.pth}
-    \item \textbf{models/fine\_model\_paths/4000\_fineAEdeepmodel\_20250116\_ddark.pth}
-    \item \textbf{models/fine\_model\_paths/4000\_fineAEdeepmodel\_20250116\_dlight.pth}
-    \item \textbf{models/fine\_model\_paths/4000\_fineAEdeepmodel\_20250116\_dwhite.pth}
-    \item \textbf{models/fine\_model\_paths/4000\_fineAEdeepmodel\_20250116\_rdark.pth}
-    \item \textbf{models/fine\_model\_paths/4000\_fineAEdeepmodel\_20250116\_rlight.pth}
-    \item \textbf{models/fine\_model\_paths/4000\_fineAEdeepmodel\_20250116\_rwhite.pth}
-    \item \textbf{models/fine\_model\_paths/5000\_fineAEdeepmodel\_20250116\_ddark.pth}
-    \item \textbf{models/fine\_model\_paths/5000\_fineAEdeepmodel\_20250116\_dlight.pth}
-    \item \textbf{models/fine\_model\_paths/5000\_fineAEdeepmodel\_20250116\_dwhite.pth}
-    \item \textbf{models/fine\_model\_paths/5000\_fineAEdeepmodel\_20250116\_rdark.pth}
-    \item \textbf{models/fine\_model\_paths/5000\_fineAEdeepmodel\_20250116\_rlight.pth}
-    \item \textbf{models/fine\_model\_paths/5000\_fineAEdeepmodel\_20250116\_rwhite.pth}
+    \item \textbf{models/fine\_model\_paths/n\_fineAEdeepmodel\_20250116\_ddark.pth}
+    \item \textbf{models/fine\_model\_paths/n\_fineAEdeepmodel\_20250116\_dlight.pth}
+    \item \textbf{models/fine\_model\_paths/n\_fineAEdeepmodel\_20250116\_dwhite.pth}
+    \item \textbf{models/fine\_model\_paths/n\_fineAEdeepmodel\_20250116\_rdark.pth}
+    \item \textbf{models/fine\_model\_paths/n\_fineAEdeepmodel\_20250116\_rlight.pth}
+    \item \textbf{models/fine\_model\_paths/n\_fineAEdeepmodel\_20250116\_rwhite.pth}
 \end{itemize}
+\textbf{\hspace{2.0em}(n = 100, 1000, 2000, 3000, 4000, 5000)}
 
 \subsubsection{MSEの推移の確認}
+　構築したモデルを使用してMSEの推移を確認する. 結果は以下の通りである. \\
 
-\paragraph{使用プログラム}
+使用プログラム
 \begin{itemize}
     \item \textbf{AE\_deep\_check\_transition.ipynb}
 \end{itemize}
 
-\paragraph{使用画像}
+使用画像
 \begin{itemize}
     \item \textbf{imgs/test\_objects/detected\_1\_65.jpg}
 \end{itemize}
 
-\paragraph{使用モデル}
+使用モデル
 \begin{itemize}
-    \item \textbf{models/dmodels/100\_fineAEdeepmodel\_20250116\_dlight.pth}
-    \item \textbf{models/rmodels/100\_fineAEdeepmodel\_20250116\_rlight.pth}
-    \item \textbf{models/dmodels/1000\_fineAEdeepmodel\_20250116\_dlight.pth}
-    \item \textbf{models/rmodels/1000\_fineAEdeepmodel\_20250116\_rlight.pth}
-    \item \textbf{models/dmodels/2000\_fineAEdeepmodel\_20250116\_dlight.pth}
-    \item \textbf{models/rmodels/2000\_fineAEdeepmodel\_20250116\_rlight.pth}
-    \item \textbf{models/dmodels/3000\_fineAEdeepmodel\_20250116\_dlight.pth}
-    \item \textbf{models/rmodels/3000\_fineAEdeepmodel\_20250116\_rlight.pth}
-    \item \textbf{models/dmodels/4000\_fineAEdeepmodel\_20250116\_dlight.pth}
-    \item \textbf{models/rmodels/4000\_fineAEdeepmodel\_20250116\_rlight.pth}
-    \item \textbf{models/dmodels/5000\_fineAEdeepmodel\_20250116\_dlight.pth}
-    \item \textbf{models/rmodels/5000\_fineAEdeepmodel\_20250116\_rlight.pth}
+    \item \textbf{models/dmodels/n\_fineAEdeepmodel\_20250116\_dlight.pth}
+    \item \textbf{models/rmodels/n\_fineAEdeepmodel\_20250116\_rlight.pth}
     \item \textbf{models/dmodels/6048\_fineAEdeepmodel\_20250115\_dlight.pth}
     \item \textbf{models/rmodels/6048\_fineAEdeepmodel\_20250115\_rlight.pth}
 \end{itemize}
+\textbf{\hspace{2.0em}(n = 100, 1000, 2000, 3000, 4000, 5000)}
 
-\subsubsection{出力}
+出力\\
 
 \begin{figure}[H]
     \centering
@@ -1401,47 +1356,49 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \label{fig:mse_transition}
 \end{figure}
 
-　図\ref{fig:mse_transition}は, 物体が検出できなかった画像に対するMSEの推移を示す. 
+図\ref{fig:mse_transition}は, 物体が検出できなかった画像に対するMSEの推移を示す. 
 横軸は学習枚数, 縦軸はMSEを示している. 学習枚数が増えるにつれてMSEが減少傾向にあることが確認できる. 
-しかし, dモデルでは3000枚, rモデルでは4000枚でMSEが下がりきった後に上昇していることが確認でき, 過学習の可能性も示唆される. 
+しかし, dmodelでは3000枚, rmodelでは4000枚でMSEが下がりきった後に上昇していることが確認でき, 過学習の可能性も示唆される. 
 そのため, 再度それぞれのモデルで物体検出を行い, その結果を確認する. 
 
 \subsubsection{物体検出}
+　それぞれ適切な学習枚数のモデルを使用して物体検出を行う. 結果は以下の通りである. \\
 
-\paragraph{使用プログラム}
+使用プログラム
 \begin{itemize}
     \item \textbf{AE\_inference.ipynb}
 \end{itemize}
 
-\paragraph{使用画像}
+使用画像
 \begin{itemize}
     \item \textbf{imgs/test\_objects/detected\_1\_65.jpg}
 \end{itemize}
 
-\paragraph{使用モデル}
+使用モデル
 \begin{itemize}
     \item \textbf{models/fine\_model\_paths/3000\_fineAEdeepmodel\_20250115\_dlight.pth}
     \item \textbf{models/fine\_model\_paths/4000\_fineAEdeepmodel\_20250115\_rlight.pth}
 \end{itemize}
 
-\subsubsection{出力}
+\newpage
+出力\\
 
 \begin{figure}[H]
     \centering
     \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65dnasi.png}
-        \caption{dモデルによる物体検出画像}
+        \caption{dmodelによる物体検出画像}
         \label{fig:failed_image_modeld_dilate_erode}
     \end{subfigure}
     \vfill
     \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65dari.png}
-        \caption{dモデルによるクロージング物体検出画像}
+        \caption{dmodelによるクロージング物体検出画像}
         \label{fig:failed_image_modeld_dilate_erode}
     \end{subfigure}
-    \caption{3000dモデル検出結果}
+    \caption{3000dmodel検出結果}
     \label{fig:failed_images_dilate_eroded}
 \end{figure}
 
@@ -1450,46 +1407,47 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65rnasi.png}
-        \caption{rモデルによる物体検出画像}
+        \caption{rmodelによる物体検出画像}
         \label{fig:failed_image_modelr_dilate_erode}
     \end{subfigure}
     \vfill
     \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=\textwidth]{imgs/65rari.png}
-        \caption{rモデルによるクロージング物体検出画像}
+        \caption{rmodelによるクロージング物体検出画像}
         \label{fig:failed_image_modelr_dilate_erode}
     \end{subfigure}
-    \caption{4000rモデル検出結果}
+    \caption{4000rmodel検出結果}
     \label{fig:failed_images_dilate_eroder}
 \end{figure}
 
-　図\ref{fig:failed_images_dilate_eroded}は, 3000枚学習したdモデルによる物体検出結果を示す. 図\ref{fig:failed_images_dilate_eroder}は, 4000枚学習したrモデルによる物体検出結果を示す. 
+図\ref{fig:failed_images_dilate_eroded}は, 3000枚学習したdmodelによる物体検出結果を示す. 図\ref{fig:failed_images_dilate_eroder}は, 4000枚学習したrmodelによる物体検出結果を示す. 
 \\　物体を検出することは出来なかった. これは, 学習枚数を増やすことでMSEが下がることが確認できたが, 物体検出の精度が向上することはなかったためである. 
 また, 失敗の一因として, アップデート前のモデルの学習に使用した画像に問題があると考えられる. 特に昨年度は画像の枚数が限られていたため, 学習データを16倍にデータ拡張したことが過剰であり, モデルが実際のデータ分布を適切に学習できなかった可能性がある. 
 \\　対応策として, 現在アップデートに使っている画像をデータ拡張を行わずに学習し, 次回撮影された画像でアップデートを行うことが考えられる. 
 これは, 別日に撮影された画像で行う必要があると考えるが, 現状ではデータがないため, 今後の課題とする. 
 
 \subsection{物体から鳥を抽出}
-　物体の検出は失敗に終わった. しかし, 物体を検出できたと仮定して, 物体から鳥の画像を抽出することを試みる. 
+　物体の検出は失敗に終わった. しかし, 物体を検出できたと仮定して, 物体から鳥の画像をCLIPを使用して抽出することを試みる. 結果は以下の通りである. \\
 
-\paragraph{使用プログラム}
+使用プログラム
 \begin{itemize}
     \item \textbf{AE\_clip.ipynb}
 \end{itemize}
 
-\paragraph{使用画像}
+使用画像
 \begin{itemize}
     \item \textbf{imgs/test\_objects\_bird}:
 \end{itemize}
 
-\paragraph{使用モデル}
+使用モデル
 \begin{itemize}
     \item \textbf{RN50x64(High Model)}
 \end{itemize}
 
-\subsubsection{使用した言葉}
-　本研究で使用した言葉は以下の通りである. これらの言葉はCLIPモデルに入力するためにGoogleTranslatorで英語に翻訳されて使用された. 
+使用した言葉\\
+　　　本研究で使用した言葉は以下の通りである. これらの言葉はCLIPモデルに入\\
+　　力するためにGoogleTranslatorで英語に翻訳して使用された. 
 \begin{itemize}
     \item \textbf{YES\_bird}: 鳥の死骸が落ちている
     \item \textbf{NO\_bird}: 鳥の死骸が落ちていない
@@ -1497,10 +1455,11 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \item \textbf{NO\_bird3}: 何も落ちていない
 \end{itemize}
 
-\subsubsection{出力}
-　1枚の鳥の画像を含む100枚の画像を入力し, 鳥の画像を抽出する. 
-結果として, 鳥の画像が含まれる11枚の画像が抽出された. 
+出力\\
+　　　1枚の鳥の画像を含む100枚の画像を入力し, 鳥の画像を抽出する. 結果とし\\
+　　て, 鳥の画像が含まれる11枚の画像が抽出された. 
 
+\subsubsection{F2-scoreの計算}
 \begin{itemize}
     \item 混合行列の要素:
         \begin{itemize}
@@ -1849,7 +1808,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 　データは指定されたディレクトリから読み込み, 学習用と評価用に分割する. データは8:2の割合で分割され, 学習用データと評価用データとして使用する. 
 
 \subsubsection{モデルの定義}
-　DeepAutoencoderモデルを使用する. このモデルは, エンコーダとデコーダの2つの部分から構成されており, 入力データを圧縮し, その圧縮されたデータから元のデータを再構築することを目的としている. 
+　DeepAutoencodermodelを使用する. このモデルは, エンコーダとデコーダの2つの部分から構成されており, 入力データを圧縮し, その圧縮されたデータから元のデータを再構築することを目的としている. 
 
 \subsubsection{学習パラメータ}
 　学習に使用するパラメータは以下の通り. 
