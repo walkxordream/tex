@@ -1330,7 +1330,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 
 使用プログラム
 \begin{itemize}
-    \item \textbf{AE\_deep\_check\_transition.ipynb}
+    \item \textbf{AE\_transition.ipynb}
 \end{itemize}
 
 使用画像
@@ -1347,8 +1347,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 \end{itemize}
 \textbf{\hspace{2.0em}(n = 100, 1000, 2000, 3000, 4000, 5000)}
 
-出力\\
-
+\subsubsection{出力}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{imgs/suii.png}
@@ -1432,7 +1431,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 
 使用プログラム
 \begin{itemize}
-    \item \textbf{AE\_clip.ipynb}
+    \item \textbf{CLIP\_bird.ipynb}
 \end{itemize}
 
 使用画像
@@ -1568,9 +1567,9 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 
     \item \textbf{imgs/old\_train\_img3/train\_img\_6048/6048}
     \begin{itemize}
-        \item \textbf{new\_dark/}: jpgが6048枚
-        \item \textbf{new\_light/}: jpgが6048枚
-        \item \textbf{new\_white/}: jpgが6048枚
+        \item \textbf{new\_dark/}: 6048枚
+        \item \textbf{new\_light/}: 6048枚
+        \item \textbf{new\_white/}: 6048枚
     \end{itemize}
 
     説明: 昨年学習に使用した背景ごとに分類された224×224ピクセルの画像がそれぞれ含まれている. 
@@ -1588,12 +1587,12 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
    
     \item \textbf{imgs/update\_img\_remove/}
     \begin{itemize}
-        \item \textbf{dark\_object/}: jpgが306枚
-        \item \textbf{dark/}: jpgが4973枚
-        \item \textbf{light\_object/}: jpgが1703枚
-        \item \textbf{light/}: jpgが7518枚
-        \item \textbf{white\_object/}: jpgが1925枚
-        \item \textbf{white/}: jpgが3064枚
+        \item \textbf{dark\_object/}:306枚
+        \item \textbf{dark/}:4973枚
+        \item \textbf{light\_object/}:1703枚
+        \item \textbf{light/}:7518枚
+        \item \textbf{white\_object/}:1925枚
+        \item \textbf{white/}:3064枚
     \end{itemize}
 
     説明: update\_img（今後製作される）を背景ごとに物体が存在する画像としない画像に分けたもの. 
@@ -1610,16 +1609,14 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \item \textbf{AEmodel\_paved\_ground20230927.pth}
     \end{itemize}
 
-    説明: 昨年製作した背景ごとに224×224ピクセルの画像を6048枚学習させたモデル. 
+    説明: 昨年構築した背景ごとに224×224ピクセルの画像を6048枚学習させたモデル. 
 \end{itemize}
 
 \subsection{使用プログラム}
 
-\begin{itemize}
-    \item \textbf{2023\_main.py}
-\end{itemize}
+\subsubsection{\textbf{2023\_main.py}}
 
-\subsubsection{出力までの流れ}
+出力までの流れ
 \begin{enumerate}
     \item \textbf{画像の分割}: 入力画像を224×224ピクセルの小さな画像に分割した. 
     \item \textbf{物体検出の実行}: 分割された画像をAEを使用して, 物体が存在するかどうかを判定した. 
@@ -1634,17 +1631,15 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \item \textbf{評価指標の計算}: 混合行列を作成し, F2-scoreを計算した. 
 \end{enumerate}
 
-\begin{itemize}
-    \item \textbf{2024\_main.py}
-\end{itemize}
+\subsubsection{\textbf{2024\_main.py}}
 
-\subsubsection{出力までの流れ}
-2023\_main.pyとモデルの読み込み以外同じため省略
+出力までの流れ\\
 
-\begin{itemize}
-    \item \textbf{AE\_clip.ipynb}
-\end{itemize}
-\subsubsection{出力までの流れ}
+2023\_main.pyとモデルの読み込み以外同じため省略. 
+
+\subsubsection{\textbf{AE\_clip.ipynb}}
+
+出力までの流れ
 \begin{enumerate}
     \item \textbf{シードの固定}: 再現性を確保するために, 乱数シードを固定する. 
     \item \textbf{モデルの読み込み}: 事前に訓練されたCLIPモデル（RN50x64およびRN50）を読み込む. 
@@ -1658,11 +1653,9 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \item \textbf{画像のコピーと反転処理}: 画像をコピーし, 6048枚になるように, 必要に応じて反転や回転処理を行う. 
 \end{enumerate}
 
-\begin{itemize}
-    \item \textbf{AE\_inference.ipynb}
-\end{itemize}
+\subsubsection{\textbf{AE\_inference.ipynb}}
 
-\subsubsection{出力までの流れ}
+出力までの流れ
 \begin{enumerate}
     \item \textbf{シードの固定}: 再現性を確保するために, 乱数シードを固定する. 
     \item \textbf{モデルの定義と読み込み}: 指定されたパスからモデルを読み込む. 
@@ -1673,10 +1666,9 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \item \textbf{結果の保存}: 差分画像, 二値化画像, 輪郭画像, 入力画像, 出力画像を保存し, 結果をプロットして保存する. 
 \end{enumerate}
 
-\begin{itemize}
-    \item \textbf{AE\_make\_dataset.ipynb}
-\end{itemize}
-\subsubsection{出力までの流れ}
+\subsubsection{\textbf{AE\_make\_dataset.ipynb}}
+
+出力までの流れ
 \begin{enumerate}
     \item \textbf{シードの固定}: 再現性を確保するために, 乱数シードを固定する. 
     \item \textbf{モデルの読み込み}: 事前に訓練されたAEモデルを読み込む. 
@@ -1684,63 +1676,29 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \item \textbf{画像の分割}: 読み込んだ画像を224×224ピクセルの小さな画像に分割する. 
     \item \textbf{AEによる特徴抽出}: 分割された画像をAEモデルに通し, 特徴ベクトルを抽出する. 
     \item \textbf{PCAによる次元削減}: 抽出された特徴ベクトルに対してPCAを行い, 次元削減を行う. 
-        \begin{itemize}
-            \item PCAの寄与度を確認し, 主成分の重要性を評価する. 
-        \end{itemize}
     \item \textbf{PCA結果のプロット}: PCAによる次元削減結果をプロットし, 視覚的に確認する. 
     \item \textbf{K-meansクラスタリング}: 次元削減された特徴ベクトルに対してK-meansクラスタリングを行い, 画像をクラスタに分類する. 
-        \begin{itemize}
-            \item クラスタ番号を再割り当てし, クラスタごとに画像を保存する. 
-        \end{itemize}
-    \item \textbf{クラスタリング結果のプロット}: K-meansクラスタリングの結果をプロットし, 各クラスタの分布を視覚的に確認する（以降でK-meansのプロットの詳細を説明）. 
+    \item \textbf{クラスタリング結果のプロット}: K-meansクラスタリングの結果をプロットし, 各クラスタの分布を視覚的に確認する. 
     \item \textbf{画像の移動}: クラスタリング結果に基づいて, 画像を新しいフォルダに移動する. 
-        \begin{itemize}
-            \item クラスタ番号に応じて, 画像を`white`, `light`, `dark`のフォルダに分類する. 
-        \end{itemize}
 \end{enumerate}
 
-\begin{itemize}
-    \item \textbf{AE\_pca\_kmeans.ipynb}
-\end{itemize}
-\subsubsection{出力までの流れ}
+\subsubsection{\textbf{AE\_pca\_kmeans.ipynb}}
+
+出力までの流れ
 \begin{enumerate}
     \item \textbf{シードの固定}: 再現性を確保するために, 乱数シードを固定する. 
     \item \textbf{モデルの読み込み}: 事前に訓練されたAEモデルを読み込む. 
     \item \textbf{画像の読み込み}: 指定されたディレクトリから画像を読み込む. 
     \item \textbf{AEによる特徴抽出}: 読み込んだ画像をAEモデルに通し, 特徴ベクトルを抽出する. 
     \item \textbf{PCAによる次元削減}: 抽出された特徴ベクトルに対してPCAを行い, 次元削減を行う. 
-        \begin{itemize}
-            \item PCAの寄与度を確認し, 主成分の重要性を評価する. 
-        \end{itemize}
     \item \textbf{PCA結果のプロット}: PCAによる次元削減結果をプロットし, 視覚的に確認する. 
     \item \textbf{K-meansクラスタリング}: 次元削減された特徴ベクトルに対してK-meansクラスタリングを行い, 画像をクラスタに分類する. 
-        \begin{itemize}
-            \item クラスタ番号を再割り当てし, クラスタごとに画像を保存する. 
-        \end{itemize}
     \item \textbf{クラスタリング結果のプロット}: K-meansクラスタリングの結果をプロットし, 各クラスタの分布を視覚的に確認する. 
 \end{enumerate}
 
-\begin{itemize}
-    \item \textbf{AE\_train\_img\_move.ipynb}
-\end{itemize}
+\subsubsection{\textbf{AE\_train.py}}
 
-\subsubsection{出力までの流れ}
-\begin{enumerate}
-    \item \textbf{シードの固定}: 再現性を確保するために, 乱数シードを固定する. 
-    \item \textbf{すべてのサブフォルダを取得}: `glob`を使用して, ソースディレクトリ内のすべてのサブフォルダを取得する. 
-    \item \textbf{サブフォルダ内の画像ファイルを取得}: 各サブフォルダ内のすべての画像ファイルを取得する. 
-    \item \textbf{画像ファイルをランダムに選択}: 指定された数の画像ファイルをランダムに選択する. 
-    \item \textbf{コピー先のサブフォルダを構築}: 選択された画像ファイルをコピーするためのサブフォルダを構築する. 
-    \item \textbf{画像ファイルをコピー}: 選択された画像ファイルをコピー先のサブフォルダにコピーする. 
-    \item \textbf{データセットの構築}: 指定された数の画像ファイルを含むデータセットを構築する. 
-    \item \textbf{異なるサイズのデータセットを構築}: 異なるサイズのデータセットを構築する. 
-\end{enumerate}
-
-\begin{itemize}
-    \item \textbf{AE\_train.py}
-\end{itemize}
-
-\subsubsection{出力までの流れ}
+出力までの流れ
 \begin{enumerate}
     \item \textbf{シードの固定}: 再現性を確保するために, 乱数シードを固定する. 
     \item \textbf{データの準備}: 指定されたディレクトリから画像データを読み込み, 学習用と評価用に分割する. 
@@ -1753,11 +1711,23 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \item \textbf{結果の保存}: 学習と評価の損失をプロットし, 画像として保存する. また, 損失の推移をCSVファイルに保存する. 
 \end{enumerate}
 
-\begin{itemize}
-    \item \textbf{AE\_trainf.py}
-\end{itemize}
+\subsubsection{\textbf{AE\_train\_img\_move.ipynb}}
 
-\subsubsection{出力までの流れ}
+出力までの流れ
+\begin{enumerate}
+    \item \textbf{シードの固定}: 再現性を確保するために, 乱数シードを固定する. 
+    \item \textbf{すべてのサブフォルダを取得}: globを使用して, ソースディレクトリ内のすべてのサブフォルダを取得する. 
+    \item \textbf{サブフォルダ内の画像ファイルを取得}: 各サブフォルダ内のすべての画像ファイルを取得する. 
+    \item \textbf{画像ファイルをランダムに選択}: 指定された数の画像ファイルをランダムに選択する. 
+    \item \textbf{コピー先のサブフォルダを構築}: 選択された画像ファイルをコピーするためのサブフォルダを構築する. 
+    \item \textbf{画像ファイルをコピー}: 選択された画像ファイルをコピー先のサブフォルダにコピーする. 
+    \item \textbf{データセットの構築}: 指定された数の画像ファイルを含むデータセットを構築する. 
+    \item \textbf{異なるサイズのデータセットを構築}: 異なるサイズのデータセットを構築する. 
+\end{enumerate}
+
+\subsubsection{\textbf{AE\_trainf.py}}
+
+出力までの流れ
 \begin{enumerate}
     \item \textbf{シードの固定}: 再現性を確保するために, 乱数シードを固定する. 
     \item \textbf{データの準備}: 指定されたディレクトリから画像データを読み込み, 学習用と評価用に分割する. 
@@ -1771,11 +1741,9 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \item \textbf{結果の保存}: 学習と評価の損失をプロットし, 画像として保存する. また, 損失の推移をCSVファイルに保存する. 
 \end{enumerate}
 
-\begin{itemize}
-    \item \textbf{AE\_transition.py}
-\end{itemize}
+\subsubsection{\textbf{AE\_transition.ipynb}}
 
-\subsubsection{出力までの流れ}
+出力までの流れ
 \begin{enumerate}
     \item \textbf{必要なライブラリのインポート}: 必要なライブラリをインポートする. 
     \item \textbf{シードの固定}: 再現性を確保するために, 乱数シードを固定する. 
@@ -1785,11 +1753,9 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \item \textbf{MSEの計算とプロット}: 各モデルに対して分割された画像のMSEを計算し, 結果をプロットする. 
 \end{enumerate}
 
-\begin{itemize}
-    \item \textbf{CLIP\_bird.ipynb}
-\end{itemize}
+\subsubsection{\textbf{CLIP\_bird.ipynb}}
 
-\subsubsection{出力までの流れ}
+出力までの流れ
 \begin{enumerate}
     \item \textbf{シードの固定}: 再現性を確保するために, 乱数シードを固定する. 
     \item \textbf{モデルの読み込み}: 事前に訓練されたCLIPモデルRN50x64を読み込む. 
@@ -1808,7 +1774,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 　データは指定されたディレクトリから読み込み, 学習用と評価用に分割する. データは8:2の割合で分割され, 学習用データと評価用データとして使用する. 
 
 \subsubsection{モデルの定義}
-　DeepAutoencodermodelを使用する. このモデルは, エンコーダとデコーダの2つの部分から構成されており, 入力データを圧縮し, その圧縮されたデータから元のデータを再構築することを目的としている. 
+　DeepAutoencodermodelを使用する. このモデルは, エンコーダとデコーダの2つの部分から構成されており, 入力データを圧縮し, その圧縮されたデータから元のデータを再構築することを目的としている. 詳細は図\ref{fig:AE}を参照. 
 
 \subsubsection{学習パラメータ}
 　学習に使用するパラメータは以下の通り. 

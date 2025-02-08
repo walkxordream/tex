@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.3)  8 FEB 2025 23:13
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.3)  8 FEB 2025 23:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1382,34 +1382,29 @@ Underfull \hbox (badness 10000) in paragraph at lines 1329--1330
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 1350--1351
-
- []
-
 File: imgs/suii.png Graphic file (type bmp)
 <imgs/suii.png>
 
 
 [33]
-Underfull \hbox (badness 10000) in paragraph at lines 1365--1366
+Underfull \hbox (badness 10000) in paragraph at lines 1364--1365
 
  []
 
 
-Overfull \hbox (23.46812pt too wide) in paragraph at lines 1379--1380
+Overfull \hbox (23.46812pt too wide) in paragraph at lines 1378--1379
 []\TU/lmr/bx/n/12 models/fine_model_paths/3000_fineAEdeepmodel_20250115_dlight.pth 
  []
 
 
-Overfull \hbox (21.48813pt too wide) in paragraph at lines 1380--1381
+Overfull \hbox (21.48813pt too wide) in paragraph at lines 1379--1380
 []\TU/lmr/bx/n/12 models/fine_model_paths/4000_fineAEdeepmodel_20250115_rlight.pth 
  []
 
 
 
 [34]
-Underfull \hbox (badness 10000) in paragraph at lines 1384--1385
+Underfull \hbox (badness 10000) in paragraph at lines 1383--1384
 
  []
 
@@ -1424,7 +1419,7 @@ File: imgs/65rari.png Graphic file (type bmp)
 
 
 [35]
-Underfull \hbox (badness 10000) in paragraph at lines 1431--1432
+Underfull \hbox (badness 10000) in paragraph at lines 1430--1431
 
  []
 
@@ -1479,6 +1474,11 @@ Missing character: There is no ─ (U+2500) in font [lmmono12-regular]:!
 [39]
 
 [40]
+Underfull \hbox (badness 10000) in paragraph at lines 1636--1637
+
+ []
+
+
 
 [41]
 
@@ -1508,14 +1508,14 @@ File: imgs/loss_plot_20241225_new_white.png Graphic file (type bmp)
 File: imgs/loss_plot_20250115_fine6048_ddark.png Graphic file (type bmp)
 <imgs/loss_plot_20250115_fine6048_ddark.png>
 
-Overfull \hbox (23.52814pt too wide) in paragraph at lines 1893--1899
+Overfull \hbox (23.52814pt too wide) in paragraph at lines 1859--1865
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_ddark.pth 
  []
 
 File: imgs/loss_plot_20250115_fine6048_rdark.png Graphic file (type bmp)
 <imgs/loss_plot_20250115_fine6048_rdark.png>
 
-Overfull \hbox (21.54813pt too wide) in paragraph at lines 1900--1906
+Overfull \hbox (21.54813pt too wide) in paragraph at lines 1866--1872
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rdark.pth 
  []
 
@@ -1525,14 +1525,14 @@ Overfull \hbox (21.54813pt too wide) in paragraph at lines 1900--1906
 File: imgs/loss_plot_20250115_fine6048_ddark.png Graphic file (type bmp)
 <imgs/loss_plot_20250115_fine6048_ddark.png>
 
-Overfull \hbox (23.52814pt too wide) in paragraph at lines 1908--1914
+Overfull \hbox (23.52814pt too wide) in paragraph at lines 1874--1880
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_ddark.pth 
  []
 
 File: imgs/loss_plot_20250115_fine6048_rdark.png Graphic file (type bmp)
 <imgs/loss_plot_20250115_fine6048_rdark.png>
 
-Overfull \hbox (21.54813pt too wide) in paragraph at lines 1915--1921
+Overfull \hbox (21.54813pt too wide) in paragraph at lines 1881--1887
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rdark.pth 
  []
 
@@ -1542,14 +1542,14 @@ Overfull \hbox (21.54813pt too wide) in paragraph at lines 1915--1921
 File: imgs/loss_plot_20250115_fine6048_ddark.png Graphic file (type bmp)
 <imgs/loss_plot_20250115_fine6048_ddark.png>
 
-Overfull \hbox (23.52814pt too wide) in paragraph at lines 1923--1929
+Overfull \hbox (23.52814pt too wide) in paragraph at lines 1889--1895
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_ddark.pth 
  []
 
 File: imgs/loss_plot_20250115_fine6048_rdark.png Graphic file (type bmp)
 <imgs/loss_plot_20250115_fine6048_rdark.png>
 
-Overfull \hbox (21.54813pt too wide) in paragraph at lines 1930--1936
+Overfull \hbox (21.54813pt too wide) in paragraph at lines 1896--1902
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rdark.pth 
  []
 
@@ -1559,14 +1559,14 @@ Overfull \hbox (21.54813pt too wide) in paragraph at lines 1930--1936
 File: imgs/loss_plot_20250115_fine6048_dlight.png Graphic file (type bmp)
 <imgs/loss_plot_20250115_fine6048_dlight.png>
 
-Overfull \hbox (23.46812pt too wide) in paragraph at lines 1938--1944
+Overfull \hbox (23.46812pt too wide) in paragraph at lines 1904--1910
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_dlight.pth 
  []
 
 File: imgs/loss_plot_20250115_fine6048_rlight.png Graphic file (type bmp)
 <imgs/loss_plot_20250115_fine6048_rlight.png>
 
-Overfull \hbox (21.48813pt too wide) in paragraph at lines 1945--1951
+Overfull \hbox (21.48813pt too wide) in paragraph at lines 1911--1917
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rlight.pth 
  []
 
@@ -1576,14 +1576,14 @@ Overfull \hbox (21.48813pt too wide) in paragraph at lines 1945--1951
 File: imgs/loss_plot_20250115_fine6048_dwhite.png Graphic file (type bmp)
 <imgs/loss_plot_20250115_fine6048_dwhite.png>
 
-Overfull \hbox (29.24013pt too wide) in paragraph at lines 1953--1959
+Overfull \hbox (29.24013pt too wide) in paragraph at lines 1919--1925
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_dwhite.pth 
  []
 
 File: imgs/loss_plot_20250115_fine6048_rwhite.png Graphic file (type bmp)
 <imgs/loss_plot_20250115_fine6048_rwhite.png>
 
-Overfull \hbox (27.26013pt too wide) in paragraph at lines 1960--1966
+Overfull \hbox (27.26013pt too wide) in paragraph at lines 1926--1932
 []\TU/lmr/bx/n/12 models/fine_model_paths/6048_fineAEdeepmodel_20250115_rwhite.pth 
  []
 
@@ -1743,10 +1743,10 @@ Package rerunfilecheck Info: File `syuron.out' has not changed.
 (rerunfilecheck)             Checksum: 258D9218750D6E5103C8090D47B6B280;3653.
  ) 
 Here is how much of TeX's memory you used:
- 37819 strings out of 473889
- 940629 string characters out of 5734826
+ 37820 strings out of 473889
+ 940641 string characters out of 5734826
  1507903 words of memory out of 5000000
- 60219 multiletter control sequences out of 15000+600000
+ 60220 multiletter control sequences out of 15000+600000
  562581 words of font info for 74 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  84i,8n,93p,751b,851s stack positions out of 10000i,1000n,20000p,200000b,200000s
