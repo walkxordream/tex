@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{umetsu2023birdstrike}
 梅津魁秀.
@@ -42,7 +42,14 @@ Peter Bruce, Andrew Bruce, and Peter Gedeck.
 
 \bibitem{open_clip}
 Mlfoundations.
-\newblock Openclip: An open source implementation of openai's clip., 2023.
+\newblock Openclip: An open source implementation of openai's clip.
+\newblock \url{https://github.com/mlfoundations/open_clip}, 2023.
 \newblock Accessed: 2024-12-25.
+
+\bibitem{yamana2024resnet}
+Taisei Yamana.
+\newblock Resnetシリーズのpytorchの公式実装コードの解説.
+\newblock \url{https://qiita.com/TaiseiYamana/items/b3e97da112d912c66563}.
+\newblock 最終更新日: 2021年10月21日, Accessed: 2024-12.
 
 \end{thebibliography}
