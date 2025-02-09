@@ -35,6 +35,11 @@ Peter Bruce, Andrew Bruce, and Peter Gedeck.
 \newblock {\em データサイエンスのための統計学入門 第2版 ―予測、分類、統計モデリング、統計的機械学習とR/Pythonプログラミング}.
 \newblock オライリー・ジャパン, 東京, 2020.
 
+\bibitem{koeda2020opencv}
+小枝正直, 上田悦子, and 中村恭之.
+\newblock {\em OpenCVによる画像処理入門 改訂第2版}.
+\newblock オーム社, 東京, 2020.
+
 \bibitem{open_clip}
 Mlfoundations.
 \newblock Openclip: An open source implementation of openai's clip., 2023.

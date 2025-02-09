@@ -186,14 +186,14 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
         \[
         \text{dst}(x, y) = \max_{(i, j) \in \text{kernel}} \text{src}(x+i, y+j)
         \]
-        ここで, `kernel`は膨張に使用される構造要素である. 
+        ここで, kernelは膨張に使用される構造要素である. 
 
     \item \textbf{収縮（Erosion）}:
         収縮は, 画像中の白い領域（前景）を縮小する操作である. 収縮は, 特定の構造要素（カーネル）を使用して行われ, 前景のピクセルが周囲のピクセルに侵食される. これにより, 小さなノイズや細い線が除去される. 
         \[
         \text{dst}(x, y) = \min_{(i, j) \in \text{kernel}} \text{src}(x+i, y+j)
         \]
-        ここで, `kernel`は収縮に使用される構造要素である. 
+        ここで, kernelは収縮に使用される構造要素である. 
 \end{itemize}
 膨張と収縮を組み合わせることで, 画像のノイズ除去や形状の強調が効果的に行える. 例えば, 膨張の後に収縮を行う「クロージング」操作や, 収縮の後に膨張を行う「オープニング」操作がある. 
 
@@ -593,10 +593,10 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 
 \section{実験}
 　本章では, 従来の方法で物体検出を試みたうえでモデルアップデートの有用性について論じる. 
-なお, 使用した環境や画像, モデル, プログラミングに関しては6章で詳細に説明を行っているため, そちらを参照して欲しい. また, ファイル名で使われている8桁の数字は日付を表していて, 実行した日時によって異なる事に注意する. 
+なお, 使用した環境や画像, モデル, プログラミングに関しては6章で詳細に説明を行っているため, そちらを参照して欲しい. また, ファイル名で使われている8桁の数字は日付を表していて, 実行した日付によって異なる事に注意する. 
 
 \subsection{物体検出の試み}
-　従来の方法で物体検出を試みる. 結果は以下の通りである\\
+　従来の方法で物体検出を試みる. 結果は以下の通りである. \\
 
 使用プログラム
 \begin{itemize}
@@ -618,7 +618,13 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 \end{itemize}
 
 出力\\
-　　物体画像の判定が行われ, F2-scoreが計算される. 
+　　物体画像の判定が行われ, F2-scoreが計算される. \\
+
+出力先
+\begin{itemize}
+    \item \textbf{imgs/AE\_2023\_result}: 物体と判定された画像が保存される. 
+\end{itemize}
+
 
 \subsubsection{F2-scoreの計算}
 　システムが物体画像と判定した画像の枚数は459枚で, その中に入っていた物体画像の枚数は12枚である. testフォルダの画像を分割した画像の枚数が884枚で, その中に入っていいた物体画像の枚数が13枚である. 混合行列の要素は以下の通りである. 
@@ -913,6 +919,13 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \item \textbf{imgs/update\_train\_imgs\_default/train\_img\_6048}
 \end{itemize}
 
+使用モデル名
+\begin{itemize}
+    \item \textbf{models/old\_models6048/20241225\_new\_dark.pth}
+    \item \textbf{models/old\_models6048/20241225\_new\_light.pth}
+    \item \textbf{models/old\_models6048/20241225\_new\_white.pth}
+\end{itemize}
+
 出力\\
 　　　AEモデルのアップデートを行った. また, 以降では出力されたモデルをまと\\
 　　めて\textbf{dmodel}と呼ぶことにする. \\
@@ -932,6 +945,13 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 使用画像
 \begin{itemize}
     \item \textbf{imgs/update\_train\_imgs\_remove/train\_img\_6048}
+\end{itemize}
+
+使用モデル名
+\begin{itemize}
+    \item \textbf{models/old\_models6048/20241225\_new\_dark.pth}
+    \item \textbf{models/old\_models6048/20241225\_new\_light.pth}
+    \item \textbf{models/old\_models6048/20241225\_new\_white.pth}
 \end{itemize}
 
 出力\\
@@ -971,6 +991,13 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 
 出力\\
 　　　物体画像の判定が行われ, F2-scoreが計算される. \\
+
+出力先
+\begin{itemize}
+    \item \textbf{imgs/AE\_2024\_dresult}: dmodelを使用して物体と判定された画像が保存される. 
+    \item \textbf{imgs/AE\_2024\_rresult}: rmodelを使用して物体と判定された画像が保存される. 
+\end{itemize}
+
 
 \subsubsection{F2-scoreの計算}
 　以下に, dmodelとrmodelのF2-scoreを示す. 
@@ -1070,18 +1097,24 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \item \textbf{imgs/test\_img}
 \end{itemize}
 
-使用モデル
+使用モデル（実行するとモデルが移動するため, 移動後のパス）
 \begin{itemize}
-    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_ddark.pth}
-    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_dlight.pth}
-    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_dwhite.pth}
-    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rdark.pth}
-    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rlight.pth}
-    \item \textbf{models/fine\_model\_paths/6048\_fineAEdeepmodel\_20250115\_rwhite.pth}
+    \item \textbf{models/dmodels/6048\_fineAEdeepmodel\_20250115\_ddark.pth}
+    \item \textbf{models/dmodels/6048\_fineAEdeepmodel\_20250115\_dlight.pth}
+    \item \textbf{models/dmodels/6048\_fineAEdeepmodel\_20250115\_dwhite.pth}
+    \item \textbf{models/rmodels/6048\_fineAEdeepmodel\_20250115\_rdark.pth}
+    \item \textbf{models/rmodels/6048\_fineAEdeepmodel\_20250115\_rlight.pth}
+    \item \textbf{models/rmodels/6048\_fineAEdeepmodel\_20250115\_rwhite.pth}
 \end{itemize}
 
 出力\\
 　　　このプログラムではコード内の引数に応じて, 各処理の結果を出力する. \\
+
+出力先
+\begin{itemize}
+    \item \textbf{imgs/d\_search\_result}: dmodelを使用した検出過程の画像が保存される. 
+    \item \textbf{imgs/r\_search\_result}: rmodelを使用した検出過程の画像が保存される.  
+\end{itemize}
 
 \subsubsection{グレースケールに変換}
 
@@ -1338,7 +1371,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
     \item \textbf{imgs/test\_objects/detected\_1\_65.jpg}
 \end{itemize}
 
-使用モデル
+使用モデル（実行するとモデルが移動するため, 移動後のパス）
 \begin{itemize}
     \item \textbf{models/dmodels/n\_fineAEdeepmodel\_20250116\_dlight.pth}
     \item \textbf{models/rmodels/n\_fineAEdeepmodel\_20250116\_rlight.pth}
@@ -2203,7 +2236,7 @@ F2 = \frac{(1 + 2^2) \cdot (\text{Precision} \cdot \text{Recall})}{(2^2 \cdot \t
 \end{itemize}
 
 \subsection{データ}
-github: \url{https://github.com/dreamana/thesis}
+github: \url{https://github.com/dreamana/master-s-thesis}
 
 % 参考文献のセクション
 \nocite{*}

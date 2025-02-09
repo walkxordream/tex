@@ -3,44 +3,44 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: out/syuron.aux
 The style file: unsrt.bst
 Database file #1: references.bib
-You've used 8 entries,
+You've used 9 entries,
             1791 wiz_defined-function locations,
-            489 strings with 4857 characters,
-and the built_in function-call counts, 1521 in all, are:
-= -- 114
-> -- 85
+            494 strings with 5001 characters,
+and the built_in function-call counts, 1702 in all, are:
+= -- 128
+> -- 96
 < -- 0
-+ -- 32
-- -- 24
-* -- 83
-:= -- 254
-add.period$ -- 24
-call.type$ -- 8
++ -- 36
+- -- 27
+* -- 92
+:= -- 284
+add.period$ -- 27
+call.type$ -- 9
 change.case$ -- 5
 chr.to.int$ -- 0
-cite$ -- 8
-duplicate$ -- 70
-empty$ -- 164
-format.name$ -- 24
-if$ -- 339
+cite$ -- 9
+duplicate$ -- 80
+empty$ -- 183
+format.name$ -- 27
+if$ -- 381
 int.to.chr$ -- 0
-int.to.str$ -- 8
-missing$ -- 9
-newline$ -- 43
-num.names$ -- 8
-pop$ -- 43
+int.to.str$ -- 9
+missing$ -- 11
+newline$ -- 48
+num.names$ -- 9
+pop$ -- 49
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 21
+skip$ -- 23
 stack$ -- 0
 substring$ -- 40
-swap$ -- 9
+swap$ -- 10
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 11
-width$ -- 9
-write$ -- 85
+while$ -- 12
+width$ -- 10
+write$ -- 96
